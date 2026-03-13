@@ -95,8 +95,9 @@ function simplifyTitle(t: string): string {
 const LIKED_KEY = 'orbit-reader-liked';
 /** Same as old /orbit page: relative URL. Baked in via Cloudflare Function when deployed. */
 function thumbSrc(imageUrl: string): string {
-  // Static site — no image proxy available. Use URL directly.
-  return imageUrl || '';
+  if (!imageUrl) return '';
+  // Route through Cloudflare Pages Function proxy — handles Reddit referrer restrictions
+  return `/api/image-proxy?url=${encodeURIComponent(imageUrl)}`;
 }
 function getLiked(): Set<string> {
   try { return new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]')); } catch { return new Set(); }
