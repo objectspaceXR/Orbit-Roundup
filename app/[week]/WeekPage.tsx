@@ -6,6 +6,7 @@ interface PublishedItem {
   url: string; title: string; summary?: string; category?: string;
   source?: string; tags?: string[]; imageUrl?: string; author?: string;
   subreddit?: string; feedName?: string; digestTitle?: string; digestSummary?: string;
+  hint?: string;
 }
 interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
 
@@ -35,6 +36,7 @@ function toCanonicalCategory(cat: string): string {
 
 function getItemTags(item: PublishedItem): string[] {
   if (Array.isArray(item.tags) && item.tags.length > 0) return item.tags.map(String).filter(Boolean);
+  if (item.hint) return item.hint.split(/[,;]/).map((s) => s.trim()).filter(Boolean);
   return [];
 }
 
@@ -82,11 +84,20 @@ function sourceName(url: string, item: PublishedItem): string {
   } catch { return 'Read more'; }
 }
 
+function stripHtml(html: string): string {
+  if (!html || typeof html !== 'string') return '';
+  return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim();
+}
 function simplifyTitle(t: string): string {
-  return t.replace(/<[^>]*>/g, '').replace(/\s*[–—]\s*.+$/, '').replace(/\s*\|\s*.+$/, '').trim();
+  return stripHtml(t).replace(/\s*[–—]\s*.+$/, '').replace(/\s*\|\s*.+$/, '').trim();
 }
 
 const LIKED_KEY = 'orbit-reader-liked';
+/** Same as old /orbit page: relative URL. Baked in via Cloudflare Function when deployed. */
+function thumbSrc(imageUrl: string): string {
+  // Static site — no image proxy available. Use URL directly.
+  return imageUrl || '';
+}
 function getLiked(): Set<string> {
   try { return new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]')); } catch { return new Set(); }
 }
@@ -105,6 +116,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
   const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
   const [tagFilters, setTagFilters] = useState<Set<string>>(new Set());
   const [tagsExpanded, setTagsExpanded] = useState(false);
+  const [thumbErrors, setThumbErrors] = useState<Set<string>>(new Set());
 
   useEffect(() => { setLiked(getLiked()); }, []);
   useEffect(() => {
@@ -400,16 +412,17 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                     }
                   >
                     {grouped[cat].map(item => {
-                      const displayTitle = item.digestTitle?.trim() || simplifyTitle(item.title);
-                      const displaySummary = item.digestSummary?.trim() || item.summary || '';
+                      const displayTitle = item.digestTitle?.trim() || simplifyTitle(item.title) || stripHtml(item.title);
+                      const displaySummary = item.digestSummary?.trim() || (item.summary ? stripHtml(item.summary) : null) || '';
                       const tags = getItemTags(item).map(normalizeTagForDisplay).filter((t): t is string => !!t);
                       const displayTags = [...new Set(tags)].slice(0, 3);
                       const isLiked = liked.has(item.url);
                       const likeCount = counts[btoa(item.url).slice(0, 64)] || 0;
+                      const showThumb = item.imageUrl && !thumbErrors.has(item.url);
                       return (
                         <article key={item.url}
                           className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col"
-                          style={{ aspectRatio: '1 / 1.03' }}>
+                          style={{ aspectRatio: showThumb ? '1 / 1.2' : '1 / 1.03' }}>
                           {/* Title band */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
                             <div className={`${c.bg} px-5 py-4 min-h-[5.25rem] flex items-end`}>
@@ -419,51 +432,74 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                             </div>
                           </a>
                           {/* Body */}
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 block px-5 pt-3 pb-2">
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col min-h-0 block">
+                            {showThumb && (
+                              <div className="w-full h-28 shrink-0 bg-slate-200 overflow-hidden">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={thumbSrc(item.imageUrl!)}
+                                  alt=""
+                                  className="w-full h-full object-cover"
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer"
+                                  onError={() => setThumbErrors(prev => new Set([...prev, item.url]))}
+                                />
+                              </div>
+                            )}
+                            <div className="flex-1 min-h-0 overflow-hidden px-5 pt-3 pb-2 flex flex-col">
                             {displayTags.length > 0 && (
-                              <div className="flex flex-wrap gap-1 mb-2">
+                              <div className="flex flex-wrap gap-1 mb-2 overflow-hidden shrink-0">
                                 {displayTags.map(tag => (
                                   <span key={tag} className={`text-[9px] font-medium uppercase px-1.5 py-0.5 rounded ${c.tag}`}>{tag}</span>
                                 ))}
                               </div>
                             )}
                             {displaySummary && (
-                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-5">
+                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-5 overflow-hidden min-h-0">
                                 {displaySummary}
                               </p>
                             )}
+                            </div>
                           </a>
-                          {/* Footer */}
-                          <div className="px-5 pb-3 pt-2 border-t border-slate-100 flex flex-col gap-1.5 shrink-0">
-                            <div className="flex justify-between items-center">
-                              <button
-                                type="button"
-                                onClick={(e) => toggleLike(item.url, e)}
-                                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
-                              >
-                                <svg className="w-5 h-5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                </svg>
-                                {likeCount > 0 && <span>{likeCount}</span>}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  if (navigator.share) {
-                                    navigator.share({ title: displayTitle, url: item.url }).catch(() => navigator.clipboard.writeText(item.url).then(() => alert('Link copied')));
-                                  } else {
-                                    navigator.clipboard.writeText(item.url).then(() => alert('Link copied'));
-                                  }
-                                }}
-                                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-                                title="Share"
-                              >
-                                <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                                </svg>
-                              </button>
+                          {/* Footer — author + hearts + source link (matches old /orbit page) */}
+                          <div className="flex flex-col shrink-0 px-5 pb-3 pt-2 font-sans border-t border-slate-100">
+                            <div className="flex items-center justify-between gap-2 mb-1.5">
+                              {item.author ? (
+                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-500 hover:text-slate-700 hover:underline">
+                                  u/{item.author}
+                                </a>
+                              ) : <span />}
+                              <div className="flex items-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={(e) => toggleLike(item.url, e)}
+                                  className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
+                                  title={isLiked ? 'Unlike' : 'Like'}
+                                >
+                                  <svg className="w-3.5 h-3.5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                  </svg>
+                                  {likeCount > 0 && <span>{likeCount}</span>}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    if (navigator.share) {
+                                      navigator.share({ title: displayTitle, url: item.url }).catch(() => navigator.clipboard.writeText(item.url).then(() => alert('Link copied')));
+                                    } else {
+                                      navigator.clipboard.writeText(item.url).then(() => alert('Link copied'));
+                                    }
+                                  }}
+                                  className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                  title="Share"
+                                >
+                                  <svg className="w-3.5 h-3.5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                             <a href={item.url} target="_blank" rel="noopener noreferrer"
                               className={`inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold ${c.bg} text-white hover:opacity-90 transition-opacity shadow-sm w-full`}>
