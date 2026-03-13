@@ -283,6 +283,10 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
           <span className="block text-xl md:text-2xl lg:text-3xl">What caught my eye this week</span>
           <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
         </h2>
+        <p className="text-center text-white/70 text-sm -mt-4 mb-6 md:mb-8">
+          Issue {week.match(/W(\d+)$/)?.[1] ?? week}
+          {formattedDate && ` · ${formattedDate}`}
+        </p>
 
         {/* Category + Tag filters */}
         {items.length > 0 && (

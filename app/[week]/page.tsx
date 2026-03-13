@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: Promise<{ week: string 
   const weekMeta = getWeekMeta();
   const allWeeks = weekMeta.map(w => w.week);
   const currentIndex = allWeeks.indexOf(week);
-  const prevWeek = currentIndex < allWeeks.length - 1 ? allWeeks[currentIndex + 1] : null;
-  const nextWeek = currentIndex > 0 ? allWeeks[currentIndex - 1] : null;
+  const prevWeek = currentIndex > 0 ? allWeeks[currentIndex - 1] : null;
+  const nextWeek = currentIndex < allWeeks.length - 1 ? allWeeks[currentIndex + 1] : null;
   return <WeekPage data={data} prevWeek={prevWeek} nextWeek={nextWeek} weekMeta={weekMeta} />;
 }
