@@ -423,7 +423,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                       return (
                         <article key={item.url}
                           className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col"
-                          style={{ aspectRatio: showThumb ? '1 / 1.2' : '1 / 1.03' }}>
+                          style={{ aspectRatio: showThumb ? '1 / 1.28' : '1 / 1.08' }}>
                           {/* Title band */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
                             <div className={`${c.bg} px-5 py-4 min-h-[5.25rem] flex items-end`}>
@@ -456,7 +456,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                               </div>
                             )}
                             {displaySummary && (
-                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-5 overflow-hidden min-h-0">
+                              <p className="text-slate-600 text-xs leading-relaxed line-clamp-5 overflow-hidden min-h-0">
                                 {displaySummary}
                               </p>
                             )}
