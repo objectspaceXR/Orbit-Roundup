@@ -206,13 +206,13 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
           <div className="flex flex-col gap-3 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4">
             {/* Row 1: branding left, Share right (mobile) */}
             <div className="flex items-center justify-between md:justify-start gap-3">
-              <Link href="/" className="flex items-center gap-3 no-underline">
+              <Link href="/" className="flex items-center gap-3 no-underline overflow-visible">
                 <div className="relative flex-shrink-0 w-8 h-8 md:w-10 md:h-10" aria-hidden>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/icons/planets/saturn.png" alt="" className="w-full h-full object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(65%) sepia(50%) saturate(400%) hue-rotate(180deg)' }} />
                 </div>
-                <div>
-                  <h1 className="font-[var(--font-display)] text-xl md:text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel drop-shadow-[0_2px_6px_rgba(100,116,139,0.25)]">
+                <div className="overflow-visible">
+                  <h1 className="font-[var(--font-display)] text-xl md:text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel drop-shadow-[0_2px_6px_rgba(100,116,139,0.25)] overflow-visible py-0.5 pr-1 leading-[1.2]">
                     ORBIT ROUNDUP
                   </h1>
                   <p className="hidden md:block text-xs text-slate-400 font-medium mt-0.5">by Tom Martin-Davies</p>
@@ -235,8 +235,13 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                   </Link>
                 ) : <div className="w-9 sm:w-7" />}
                 <div className="relative">
-                  <button onClick={() => setWeekPickerOpen(!weekPickerOpen)} className="min-h-[44px] sm:min-h-0 px-4 py-2 sm:px-3 sm:py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 whitespace-nowrap transition-colors">
+                  <button onClick={() => setWeekPickerOpen(!weekPickerOpen)} className="min-h-[44px] sm:min-h-0 px-4 py-2 sm:px-3 sm:py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 whitespace-nowrap transition-colors inline-flex items-center gap-1.5">
                     {formatWeekForPicker(week)}
+                    {allWeeks.length > 0 && (
+                      <svg className="w-3 h-3 text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    )}
                   </button>
                   {weekPickerOpen && allWeeks.length > 0 && (
                     <>
@@ -274,7 +279,6 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
       </header>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
-        <Link href="/" className="block text-sm text-white/60 hover:text-white transition-colors mb-6 min-h-[44px] flex items-center">← All issues</Link>
         <h2 className="text-center text-white font-bold tracking-tight mb-6 md:mb-8 drop-shadow-md">
           <span className="block text-xl md:text-2xl lg:text-3xl">What caught my eye this week</span>
           <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
@@ -378,7 +382,18 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                   <span className="text-white/90 text-xs font-bold">{grouped[cat].length} items</span>
                 </div>
                 <div className="p-3 sm:p-4 bg-slate-200/95">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch max-w-[1200px] mx-auto">
+                  <div
+                    className={`grid gap-4 sm:gap-5 items-stretch max-w-[1200px] mx-auto ${
+                      grouped[cat].length < 3
+                        ? 'justify-center'
+                        : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+                    }`}
+                    style={
+                      grouped[cat].length < 3
+                        ? { gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 340px))' }
+                        : undefined
+                    }
+                  >
                     {grouped[cat].map(item => {
                       const displayTitle = item.digestTitle?.trim() || simplifyTitle(item.title);
                       const displaySummary = item.digestSummary?.trim() || item.summary || '';
@@ -415,16 +430,34 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                           </a>
                           {/* Footer */}
                           <div className="px-5 pb-3 pt-2 border-t border-slate-100 flex flex-col gap-1.5 shrink-0">
-                            <div className="flex justify-end">
+                            <div className="flex justify-between items-center">
                               <button
                                 type="button"
                                 onClick={(e) => toggleLike(item.url, e)}
-                                className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
+                                className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
                               >
-                                <svg className="w-3.5 h-3.5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                 </svg>
                                 {likeCount > 0 && <span>{likeCount}</span>}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  if (navigator.share) {
+                                    navigator.share({ title: displayTitle, url: item.url }).catch(() => navigator.clipboard.writeText(item.url).then(() => alert('Link copied')));
+                                  } else {
+                                    navigator.clipboard.writeText(item.url).then(() => alert('Link copied'));
+                                  }
+                                }}
+                                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                title="Share"
+                              >
+                                <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
                               </button>
                             </div>
                             <a href={item.url} target="_blank" rel="noopener noreferrer"
@@ -451,6 +484,10 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
           Orbit Roundup · weekly creative tech curation by{' '}
           <a href="https://www.linkedin.com/in/tmd-xr" target="_blank" rel="noopener noreferrer" className="hover:text-white/90 underline transition-colors">
             Tom Martin-Davies
+          </a>
+          {' · '}
+          <a href="https://objectspace.co.uk" target="_blank" rel="noopener noreferrer" className="hover:text-white/90 underline transition-colors">
+            objectspace.co.uk
           </a>
         </p>
       </footer>

@@ -6,8 +6,20 @@ const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", wei
 const exo2 = Exo_2({ subsets: ["latin"], variable: "--font-exo2", weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
-  title: "Orbit Roundup",
-  description: "A weekly digest of AR, XR, 3D and creative AI — curated by Tom Martin-Davies.",
+  metadataBase: new URL("https://orbit.objectspace.co.uk"),
+  title: "Orbit Roundup - XR, AI, 3D and creative tech news",
+  description: "Orbit Roundup - XR, AI, 3D and creative tech news. Weekly curation by Tom Martin-Davies.",
+  openGraph: {
+    title: "Orbit Roundup - XR, AI, 3D and creative tech news",
+    description: "Orbit Roundup - XR, AI, 3D and creative tech news. Weekly curation by Tom Martin-Davies.",
+    siteName: "Orbit Roundup",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Orbit Roundup - XR, AI, 3D and creative tech news",
+    description: "Orbit Roundup - XR, AI, 3D and creative tech news. Weekly curation by Tom Martin-Davies.",
+  },
 };
 
 export const viewport: Viewport = {
