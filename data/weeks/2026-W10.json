@@ -166,8 +166,20 @@
       "savedAt": "2026-03-11T17:32:15.730Z",
       "digestTitle": "ComfyUI: From Workflow to App Mode",
       "digestSummary": "ComfyUI introduced App Mode, App Builder, and ComfyHub. This system lets users turn complex workflows into distributable applications, a major advancement for creative AI."
+    },
+    {
+      "url": "https://loger-project.github.io",
+      "title": "LoGeR – 3D reconstruction from extremely long videos (DeepMind, UC Berkeley)",
+      "summary": "LoGeR – 3D reconstruction from extremely long videos (DeepMind, UC Berkeley)",
+      "category": "three-d",
+      "source": "hackernews",
+      "hint": "3d-design",
+      "tags": [
+        "3d"
+      ],
+      "savedAt": "2026-03-11T22:56:09.979Z"
     }
   ],
-  "publishedAt": "2026-03-11T20:10:03.470Z",
-  "itemCount": 10
+  "publishedAt": "2026-03-13T15:39:10.046Z",
+  "itemCount": 11
 }
