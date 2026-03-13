@@ -32,25 +32,33 @@ export default function Home() {
   const weeks = getWeeks();
   return (
     <main className="min-h-screen bg-gradient-four-corners text-slate-100 font-sans">
-      <header className="bg-white py-4 rounded-b-3xl shadow-md">
-        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
-          <div>
-            <h1 className="font-[var(--font-display)] text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel">
-              ORBIT ROUNDUP
-            </h1>
-            <p className="text-xs text-slate-400 font-medium mt-0.5">by Tom Martin-Davies</p>
+      <header className="bg-white py-4 rounded-b-3xl shadow-md shadow-slate-200/30">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3 no-underline">
+              <div className="relative flex-shrink-0 w-8 h-8 md:w-10 md:h-10" aria-hidden>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/icons/planets/saturn.png" alt="" className="w-full h-full object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(65%) sepia(50%) saturate(400%) hue-rotate(180deg)' }} />
+              </div>
+              <div>
+                <h1 className="font-[var(--font-display)] text-xl md:text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel drop-shadow-[0_2px_6px_rgba(100,116,139,0.25)]">
+                  ORBIT ROUNDUP
+                </h1>
+                <p className="hidden md:block text-xs text-slate-400 font-medium mt-0.5">by Tom Martin-Davies</p>
+              </div>
+            </Link>
+            <a href="https://objectspace.co.uk" target="_blank" rel="noopener" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">
+              objectspace.co.uk
+            </a>
           </div>
-          <a href="https://objectspace.co.uk" target="_blank" rel="noopener" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">
-            objectspace.co.uk
-          </a>
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-[1400px] mx-auto px-6 py-10 md:py-12">
         <div className="text-center mb-10">
-          <h2 className="text-white font-semibold tracking-tight">
-            <span className="block text-lg">What caught my eye</span>
-            <span className="block text-xl mt-1">in XR, AI, 3D and creative tech</span>
+          <h2 className="text-white font-bold tracking-tight drop-shadow-md">
+            <span className="block text-xl md:text-2xl lg:text-3xl">What caught my eye</span>
+            <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
           </h2>
         </div>
 

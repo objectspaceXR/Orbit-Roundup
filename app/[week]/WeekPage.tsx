@@ -9,11 +9,41 @@ interface PublishedItem {
 }
 interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
 
+function formatWeekForPicker(week: string): string {
+  const [yearStr, wStr] = week.split('-W');
+  const year = parseInt(yearStr), wNum = parseInt(wStr);
+  const jan4 = new Date(year, 0, 4);
+  const mon = new Date(jan4);
+  mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + (wNum - 1) * 7);
+  const fri = new Date(mon);
+  fri.setDate(mon.getDate() + 4);
+  return `W${wNum} ${fri.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}`;
+}
+
 const CAT_ORDER = ['xr-spatial', 'three-d', 'creative-ai', 'inspiration', 'discord-inbox'];
 const CAT_LABELS: Record<string, string> = {
   'xr-spatial': 'XR & Spatial', 'three-d': '3D & Motion',
   'creative-ai': 'Creative AI', 'inspiration': 'Projects I Liked', 'discord-inbox': 'Curated',
 };
+
+function toCanonicalCategory(cat: string): string {
+  const k = cat?.trim().toLowerCase().replace(/\s+/g, '-') || '';
+  if (CAT_ORDER.includes(k)) return k;
+  const ALIAS: Record<string, string> = { 'xr': 'xr-spatial', '3d': 'three-d', 'ai': 'creative-ai', 'curated': 'discord-inbox' };
+  return ALIAS[k] || k || 'xr-spatial';
+}
+
+function getItemTags(item: PublishedItem): string[] {
+  if (Array.isArray(item.tags) && item.tags.length > 0) return item.tags.map(String).filter(Boolean);
+  return [];
+}
+
+function normalizeTagForDisplay(tag: string): string | null {
+  if (!tag || typeof tag !== 'string') return null;
+  const k = tag.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  if (!k || k === 'creative-tech') return null;
+  return k;
+}
 const CAT_COLORS: Record<string, { bg: string; tag: string }> = {
   'xr-spatial':    { bg: 'bg-gradient-to-r from-cyan-500/80 to-blue-500/80',      tag: 'bg-cyan-200/90 text-cyan-900' },
   'three-d':       { bg: 'bg-gradient-to-r from-violet-500/80 to-purple-500/80',  tag: 'bg-violet-200/90 text-violet-900' },
@@ -64,25 +94,80 @@ function saveLiked(s: Set<string>) {
   try { localStorage.setItem(LIKED_KEY, JSON.stringify([...s])); } catch {}
 }
 
-export default function WeekPage({ data }: { data: WeekData }) {
+export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
+  data: WeekData; prevWeek: string | null; nextWeek: string | null; weekMeta: { week: string; count: number }[];
+}) {
+  const allWeeks = weekMeta.map(w => w.week);
   const { week, items, publishedAt } = data;
+  const [weekPickerOpen, setWeekPickerOpen] = useState(false);
   const [liked, setLiked] = useState<Set<string>>(new Set());
   const [counts, setCounts] = useState<Record<string, number>>({});
+  const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
+  const [tagFilters, setTagFilters] = useState<Set<string>>(new Set());
+  const [tagsExpanded, setTagsExpanded] = useState(false);
 
   useEffect(() => { setLiked(getLiked()); }, []);
   useEffect(() => {
     fetch(`/api/likes/${week}`).then(r => r.json()).then(d => setCounts(d || {})).catch(() => {});
   }, [week]);
 
+  const itemsFiltered = useMemo(() => {
+    let out = items;
+    if (tagFilters.size > 0) {
+      const lowerSet = new Set([...tagFilters].map((t) => t.toLowerCase()));
+      out = out.filter((i) => getItemTags(i).some((t) => {
+        const norm = normalizeTagForDisplay(t);
+        return norm && lowerSet.has(norm.toLowerCase());
+      }));
+    }
+    if (categoryFilters.size > 0) {
+      out = out.filter((i) => {
+        const cat = toCanonicalCategory(i.category || 'xr-spatial');
+        return categoryFilters.has(cat);
+      });
+    }
+    return out;
+  }, [items, tagFilters, categoryFilters]);
+
   const grouped = useMemo(() => {
     const map: Record<string, PublishedItem[]> = {};
-    for (const item of items) {
-      const cat = item.category || 'xr-spatial';
-      if (!map[cat]) map[cat] = [];
-      map[cat].push(item);
+    for (const item of itemsFiltered) {
+      const cat = toCanonicalCategory(item.category || 'xr-spatial');
+      const key = CAT_ORDER.includes(cat) ? cat : 'xr-spatial';
+      if (!map[key]) map[key] = [];
+      map[key].push(item);
     }
     return map;
+  }, [itemsFiltered]);
+
+  const allTags = useMemo(() => {
+    const set = new Set<string>();
+    for (const i of items) {
+      for (const t of getItemTags(i)) {
+        const norm = normalizeTagForDisplay(t);
+        if (norm) set.add(norm);
+      }
+    }
+    return [...set].sort((a, b) => a.localeCompare(b));
   }, [items]);
+
+  const toggleCategoryFilter = (key: string) => {
+    setCategoryFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const toggleTagFilter = (tag: string) => {
+    setTagFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(tag)) next.delete(tag);
+      else next.add(tag);
+      return next;
+    });
+  };
 
   const toggleLike = async (url: string, e: React.MouseEvent) => {
     e.preventDefault(); e.stopPropagation();
@@ -90,7 +175,8 @@ export default function WeekPage({ data }: { data: WeekData }) {
     const next = new Set(liked);
     isLiked ? next.delete(url) : next.add(url);
     setLiked(next); saveLiked(next);
-    setCounts(prev => ({ ...prev, [url]: Math.max(0, (prev[url] || 0) + (isLiked ? -1 : 1)) }));
+    const key = btoa(url).slice(0, 64);
+    setCounts(prev => ({ ...prev, [key]: Math.max(0, (prev[key] || 0) + (isLiked ? -1 : 1)) }));
     try {
       await fetch(`/api/likes/${week}`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -103,32 +189,184 @@ export default function WeekPage({ data }: { data: WeekData }) {
     ? new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null;
 
+  const handleShare = () => {
+    const url = typeof window !== 'undefined' ? window.location.href : '';
+    if (navigator.share) {
+      navigator.share({ title: document.title, url }).catch(() => navigator.clipboard.writeText(url).then(() => alert('Link copied')));
+    } else {
+      navigator.clipboard.writeText(url).then(() => alert('Link copied'));
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-four-corners text-slate-100 font-sans">
-      {/* Header */}
-      <header className="bg-white py-4 rounded-b-3xl shadow-md">
-        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 no-underline">
-            <div>
-              <div className="font-[var(--font-display)] text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel">
-                ORBIT ROUNDUP
+    <main className="min-h-screen overflow-x-clip bg-gradient-four-corners text-slate-100 font-sans selection:bg-violet-500/30">
+      {/* Header — matching mission-control orbit page */}
+      <header className="relative bg-white py-4 rounded-b-3xl shadow-md shadow-slate-200/30">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6">
+          <div className="flex flex-col gap-3 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4">
+            {/* Row 1: branding left, Share right (mobile) */}
+            <div className="flex items-center justify-between md:justify-start gap-3">
+              <Link href="/" className="flex items-center gap-3 no-underline">
+                <div className="relative flex-shrink-0 w-8 h-8 md:w-10 md:h-10" aria-hidden>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/icons/planets/saturn.png" alt="" className="w-full h-full object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(65%) sepia(50%) saturate(400%) hue-rotate(180deg)' }} />
+                </div>
+                <div>
+                  <h1 className="font-[var(--font-display)] text-xl md:text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,#6366f1,#8b5cf6,#3b82f6,#60a5fa,#ec4899,#f43f5e)] bg-[length:200%_auto] animate-logo-pastel drop-shadow-[0_2px_6px_rgba(100,116,139,0.25)]">
+                    ORBIT ROUNDUP
+                  </h1>
+                  <p className="hidden md:block text-xs text-slate-400 font-medium mt-0.5">by Tom Martin-Davies</p>
+                </div>
+              </Link>
+              <div className="md:hidden">
+                <button onClick={handleShare} className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition-colors" title="Share this Orbit Roundup">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                  Share
+                </button>
               </div>
-              <p className="text-xs text-slate-400 font-medium mt-0.5">by Tom Martin-Davies</p>
             </div>
-          </Link>
-          <div className="text-center">
-            <div className="text-sm font-bold text-slate-700">{week} · {weekDateRange(week)}</div>
-            {formattedDate && <div className="text-xs text-slate-400 mt-0.5">Published {formattedDate}</div>}
+
+            {/* Row 2: week nav + date (center) */}
+            <div className="flex flex-col items-center justify-self-center order-last md:order-none">
+              <div className="flex items-center gap-1">
+                {prevWeek ? (
+                  <Link href={`/${prevWeek}`} className="min-w-[44px] min-h-[44px] w-9 h-9 sm:w-7 sm:h-7 sm:min-w-0 sm:min-h-0 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors" title="Older week">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7"/></svg>
+                  </Link>
+                ) : <div className="w-9 sm:w-7" />}
+                <div className="relative">
+                  <button onClick={() => setWeekPickerOpen(!weekPickerOpen)} className="min-h-[44px] sm:min-h-0 px-4 py-2 sm:px-3 sm:py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 whitespace-nowrap transition-colors">
+                    {formatWeekForPicker(week)}
+                  </button>
+                  {weekPickerOpen && allWeeks.length > 0 && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setWeekPickerOpen(false)} />
+                      <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 z-50 bg-white rounded-xl shadow-xl border border-slate-200 min-w-[180px] py-1">
+                        <div className="px-3 py-1.5 text-xs font-bold text-slate-500 uppercase tracking-wider">Published weeks</div>
+                        {[...weekMeta].reverse().map(({ week: w, count }) => (
+                          <Link key={w} href={`/${w}`} onClick={() => setWeekPickerOpen(false)}
+                            className={`block w-full text-left px-3 py-2 text-xs hover:bg-slate-50 transition-colors no-underline ${w === week ? 'text-violet-600 font-bold' : 'text-slate-700'}`}>
+                            {formatWeekForPicker(w)} <span className="text-slate-400">({count})</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                {nextWeek ? (
+                  <Link href={`/${nextWeek}`} className="min-w-[44px] min-h-[44px] w-9 h-9 sm:w-7 sm:h-7 sm:min-w-0 sm:min-h-0 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors" title="Newer week">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/></svg>
+                  </Link>
+                ) : <div className="w-9 sm:w-7" />}
+              </div>
+              {formattedDate && <p className="text-[10px] text-slate-400 mt-1">Published {formattedDate}</p>}
+            </div>
+
+            {/* Desktop: Share right */}
+            <div className="hidden md:flex items-center justify-end gap-2">
+              <button onClick={handleShare} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition-colors" title="Share this Orbit Roundup">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                Share
+              </button>
+            </div>
           </div>
-          <Link href="/" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">← All issues</Link>
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-10">
-        <h2 className="text-center text-white font-semibold tracking-tight mb-8 drop-shadow-md">
-          <span className="block text-lg">What caught my eye this week</span>
-          <span className="block text-xl mt-1">in XR, AI, 3D and creative tech</span>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
+        <Link href="/" className="block text-sm text-white/60 hover:text-white transition-colors mb-6 min-h-[44px] flex items-center">← All issues</Link>
+        <h2 className="text-center text-white font-bold tracking-tight mb-6 md:mb-8 drop-shadow-md">
+          <span className="block text-xl md:text-2xl lg:text-3xl">What caught my eye this week</span>
+          <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
         </h2>
+
+        {/* Category + Tag filters */}
+        {items.length > 0 && (
+          <div className="flex flex-col gap-4 mb-6 md:mb-8">
+            <div className="flex flex-wrap gap-1.5 items-center justify-center">
+              <span className="text-[9px] font-bold text-white/60 uppercase tracking-wider">Category</span>
+              <button
+                onClick={() => setCategoryFilters(new Set())}
+                className={`min-h-[36px] sm:min-h-0 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all ${categoryFilters.size === 0 ? 'bg-white/20 text-white ring-2 ring-white/40' : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+              >
+                All
+              </button>
+              {CAT_ORDER.filter(cat => items.some(i => toCanonicalCategory(i.category || 'xr-spatial') === cat)).map((cat) => {
+                const count = items.filter((i) => toCanonicalCategory(i.category || 'xr-spatial') === cat).length;
+                if (count === 0) return null;
+                const isActive = categoryFilters.has(cat);
+                const c = CAT_COLORS[cat] || FALLBACK;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => toggleCategoryFilter(cat)}
+                    className={`min-h-[36px] sm:min-h-0 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all ${isActive ? `${c.bg} text-white ring-2 ring-white/50` : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+                  >
+                    {CAT_LABELS[cat]} ({count})
+                  </button>
+                );
+              })}
+            </div>
+            {allTags.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <div className="md:hidden">
+                  <button
+                    onClick={() => setTagsExpanded((e) => !e)}
+                    className="inline-flex items-center gap-1.5 min-h-[44px] px-3 py-2 rounded-full text-[10px] font-semibold text-white/90 bg-white/10 hover:bg-white/15 transition-all"
+                  >
+                    Tags {tagFilters.size > 0 && <span className="text-white">({tagFilters.size})</span>}
+                    <svg className={`w-3.5 h-3.5 transition-transform ${tagsExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  {tagsExpanded && (
+                    <div className="flex flex-wrap gap-1.5 items-center justify-center mt-2">
+                      <button
+                        onClick={() => setTagFilters(new Set())}
+                        className={`min-h-[36px] px-2 py-1.5 rounded-full text-[10px] font-medium transition-all ${tagFilters.size === 0 ? 'bg-white/20 text-white ring-2 ring-white/40' : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+                      >
+                        All
+                      </button>
+                      {allTags.map((tag) => {
+                        const count = items.filter((i) => getItemTags(i).some((t) => normalizeTagForDisplay(t)?.toLowerCase() === tag.toLowerCase())).length;
+                        const isActive = tagFilters.has(tag);
+                        return (
+                          <button
+                            key={tag}
+                            onClick={() => toggleTagFilter(tag)}
+                            className={`min-h-[36px] px-2 py-1.5 rounded-full text-[10px] font-medium transition-all ${isActive ? 'bg-slate-500/80 text-white ring-2 ring-white/40' : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+                          >
+                            {tag} ({count})
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+                <div className="hidden md:flex flex-wrap gap-1.5 items-center justify-center">
+                  <span className="text-[9px] font-bold text-white/60 uppercase tracking-wider">Tags</span>
+                  <button
+                    onClick={() => setTagFilters(new Set())}
+                    className={`px-2 py-1 rounded-full text-[10px] font-medium transition-all ${tagFilters.size === 0 ? 'bg-white/20 text-white ring-2 ring-white/40' : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+                  >
+                    All
+                  </button>
+                  {allTags.map((tag) => {
+                    const count = items.filter((i) => getItemTags(i).some((t) => normalizeTagForDisplay(t)?.toLowerCase() === tag.toLowerCase())).length;
+                    const isActive = tagFilters.has(tag);
+                    return (
+                      <button
+                        key={tag}
+                        onClick={() => toggleTagFilter(tag)}
+                        className={`px-2 py-1 rounded-full text-[10px] font-medium transition-all ${isActive ? 'bg-slate-500/80 text-white ring-2 ring-white/40' : 'bg-white/10 text-white/80 hover:bg-white/15'}`}
+                      >
+                        {tag} ({count})
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="space-y-4">
           {CAT_ORDER.filter(cat => grouped[cat]?.length).map(cat => {
@@ -139,18 +377,18 @@ export default function WeekPage({ data }: { data: WeekData }) {
                   <h2 className="text-white font-extrabold tracking-tight text-xl">{CAT_LABELS[cat]}</h2>
                   <span className="text-white/90 text-xs font-bold">{grouped[cat].length} items</span>
                 </div>
-                <div className="p-3 bg-slate-200/95">
-                  <div className="grid gap-5 items-start justify-items-center"
-                    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(min(260px, 100%), 340px))' }}>
+                <div className="p-3 sm:p-4 bg-slate-200/95">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch max-w-[1200px] mx-auto">
                     {grouped[cat].map(item => {
                       const displayTitle = item.digestTitle?.trim() || simplifyTitle(item.title);
                       const displaySummary = item.digestSummary?.trim() || item.summary || '';
-                      const tags = (item.tags || []).slice(0, 3);
+                      const tags = getItemTags(item).map(normalizeTagForDisplay).filter((t): t is string => !!t);
+                      const displayTags = [...new Set(tags)].slice(0, 3);
                       const isLiked = liked.has(item.url);
-                      const likeCount = counts[item.url] || 0;
+                      const likeCount = counts[btoa(item.url).slice(0, 64)] || 0;
                       return (
                         <article key={item.url}
-                          className="w-full max-w-[340px] rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col"
+                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col"
                           style={{ aspectRatio: '1 / 1.03' }}>
                           {/* Title band */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
@@ -162,9 +400,9 @@ export default function WeekPage({ data }: { data: WeekData }) {
                           </a>
                           {/* Body */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 block px-5 pt-3 pb-2">
-                            {tags.length > 0 && (
+                            {displayTags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-2">
-                                {tags.map(tag => (
+                                {displayTags.map(tag => (
                                   <span key={tag} className={`text-[9px] font-medium uppercase px-1.5 py-0.5 rounded ${c.tag}`}>{tag}</span>
                                 ))}
                               </div>
@@ -209,9 +447,9 @@ export default function WeekPage({ data }: { data: WeekData }) {
       </div>
 
       <footer className="pb-8 text-center">
-        <p className="text-white/50 text-xs">
-          Orbit Roundup · curated by{' '}
-          <a href="https://objectspace.co.uk" target="_blank" rel="noopener" className="underline hover:text-white/80 transition-colors">
+        <p className="text-white text-xs">
+          Orbit Roundup · weekly creative tech curation by{' '}
+          <a href="https://www.linkedin.com/in/tmd-xr" target="_blank" rel="noopener noreferrer" className="hover:text-white/90 underline transition-colors">
             Tom Martin-Davies
           </a>
         </p>
