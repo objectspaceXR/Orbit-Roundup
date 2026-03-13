@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  /* Retrowave palette */
+  --rw-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4c1d95 60%, #581c87 100%);
+  --rw-widget: rgba(255, 255, 255, 0.06);
+  --rw-widget-pastel: rgba(196, 181, 253, 0.15);
+  --rw-accent-violet: #a78bfa;
+  --rw-accent-blue: #60a5fa;
+  --rw-accent-pink: #f472b6;
+  --rw-pastel-violet: #e9d5ff;
+  --rw-pastel-blue: #dbeafe;
+  --rw-pastel-pink: #fce7f3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-exo2), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-display: var(--font-orbitron), var(--font-exo2), ui-sans-serif, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Retrowave scrollbars - subtle on dark */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 139, 250, 0.4) rgba(255, 255, 255, 0.05);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.4);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.6);
+}
+
+/* Logo: pastel gradient (violet→blue→pink→rose→amber) – position animates for colour shift */
+@keyframes logo-pastel {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-logo-pastel {
+  animation: logo-pastel 4.5s ease-in-out infinite;
+}
+
+/* 2-way page gradient: top-left indigo to bottom-right violet only */
+.bg-gradient-four-corners {
+  background: linear-gradient(to bottom right, rgb(49 46 129) 0%, rgb(109 40 217) 100%);
+}
+
+/* Feed cards: default (unread/read) – used/saved keep their own colours and are never affected */
+.feed-card-default {
+  background-color: #ffffff !important; /* pure white – unread items */
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+/* Hover on all default cards */
+.feed-card-default:hover {
+  background-color: rgb(254 226 226) !important; /* rose-200 – hover for unread */
+}
+/* Read: default cards – full grey (desktop) */
+.feed-card-default.feed-card-visited {
+  opacity: 0.45; /* read: more obvious greyed state */
+  background-color: rgb(241 245 249) !important; /* slate-100 */
+}
+/* On touch devices: unviewed = white, viewed = grey (no border, just opacity/bg) */
+@media (hover: none) {
+  .feed-card-default {
+    background-color: #ffffff !important;
+  }
+  .feed-card-default.feed-card-visited {
+    opacity: 0.7;
+    background-color: rgb(241 245 249) !important; /* slate-100 */
+  }
+}
+.feed-card-default.feed-card-visited:hover {
+  opacity: 0.85; /* hover restores some visibility on read items */
+}
+/* Read + engaged (saved/used/liked/bookmarked): less transparent, stands out; icons stay bright */
+.feed-card.feed-card-visited.feed-card-engaged {
+  opacity: 0.75 !important; /* less transparent than default read */
+  background-color: rgb(241 245 249) !important; /* slate-100 default */
+}
+.feed-card.feed-card-visited.feed-card-engaged.feed-card-engaged-saved {
+  background-color: rgb(237 233 254) !important; /* violet-100 – orbit (priority) */
+}
+.feed-card.feed-card-visited.feed-card-engaged.feed-card-engaged-bookmarked {
+  background-color: rgb(255 237 213) !important; /* orange-100 – bookmarks */
+}
+.feed-card.feed-card-visited.feed-card-engaged.feed-card-engaged-used {
+  background-color: rgb(236 253 245) !important; /* emerald-50 – used in post */
+}
+.feed-card.feed-card-visited.feed-card-engaged:hover {
+  opacity: 0.9 !important;
+}
+/* Icons dim when card is read – except when engaged (icons stay bright). On touch: keep visible */
+.feed-card-default.feed-card-visited .feed-card-actions {
+  opacity: 0.5;
+}
+@media (hover: none) {
+  .feed-card-default.feed-card-visited .feed-card-actions {
+    opacity: 1;
+  }
+}
+.feed-card-default.feed-card-visited:hover .feed-card-actions {
+  opacity: 0.75;
+}
+.feed-card.feed-card-visited.feed-card-engaged .feed-card-actions {
+  opacity: 1 !important; /* icons stay full opacity when liked/saved/bookmarked/post */
+}
+
+/* Inspiration: apply opacity to content only, so ring stays bright when engaged+read */
+.feed-card-inspiration.feed-card-visited,
+.feed-card-inspiration.feed-card-visited.feed-card-engaged {
+  opacity: 1 !important; /* card stays full opacity – ring stays bright */
+}
+.feed-card-inspiration.feed-card-visited .feed-card-content {
+  opacity: 0.45; /* content greyed when read */
+}
+.feed-card-inspiration.feed-card-visited.feed-card-engaged .feed-card-content {
+  opacity: 0.75; /* less grey when engaged */
+}
+/* On touch: same as desktop – unviewed white, viewed grey (no border), engaged = orbit purple / bookmark orange */
+@media (hover: none) {
+  .feed-card-inspiration:not(.feed-card-visited) .feed-card-content {
+    opacity: 1;
+  }
+  .feed-card-inspiration.feed-card-visited .feed-card-content {
+    opacity: 0.5;
+  }
+  .feed-card-inspiration.feed-card-visited.feed-card-engaged .feed-card-content {
+    opacity: 0.75;
+  }
+  .feed-card-inspiration:not(.feed-card-visited) {
+    background-color: #ffffff !important;
+  }
+  .feed-card-inspiration.feed-card-visited {
+    background-color: rgb(241 245 249) !important; /* slate-100 – no border */
+  }
+  .feed-card-inspiration.feed-card-visited.feed-card-engaged-saved {
+    background-color: rgb(237 233 254) !important; /* violet – orbit priority */
+  }
+  .feed-card-inspiration.feed-card-visited.feed-card-engaged-bookmarked {
+    background-color: rgb(255 237 213) !important; /* orange – bookmarked */
+  }
+}
+.feed-card-inspiration.feed-card-visited:hover .feed-card-content {
+  opacity: 0.85;
+}
+.feed-card-inspiration.feed-card-visited.feed-card-engaged:hover .feed-card-content {
+  opacity: 0.9;
+}
+
+/* Inspiration card icons: darker bg/shadow for visibility, white icons */
+.feed-card-inspiration .feed-card-actions,
+.feed-card-inspiration .insp-card-actions {
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7)) drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+}
+.feed-card-inspiration .insp-icon-btn {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.feed-card-inspiration .insp-icon-btn:hover {
+  background: rgba(0,0,0,0.55) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+}
+/* Inspiration: hover shows action colour */
+.feed-card-inspiration .insp-like:hover { color: rgb(110 231 183) !important; }
+.feed-card-inspiration .insp-orbit:hover { color: rgb(196 181 253) !important; }
+.feed-card-inspiration .insp-orbit:hover .orbit-earth-icon.insp:not(.orbit-earth-icon-saved) { filter: brightness(0) saturate(100%) invert(0.85) sepia(0.3) saturate(600%) hue-rotate(228deg); }
+.feed-card-inspiration .insp-bookmark:hover { color: rgb(253 186 116) !important; }
+.feed-card-inspiration .insp-post:hover { color: rgb(249 168 212) !important; }
+.feed-card-inspiration .insp-dislike:hover { color: rgb(252 165 165) !important; }
+/* Orbit earth icon on inspiration: white default, violet when saved */
+.orbit-earth-icon.insp {
+  filter: brightness(0) saturate(100%) invert(1);
+}
+.orbit-earth-icon.insp.orbit-earth-icon-saved {
+  filter: brightness(0) saturate(100%) invert(0.7) sepia(0.4) saturate(800%) hue-rotate(228deg);
+}
+
+/* Orbit/earth icon (main feed): grey or violet to match other icons */
+.orbit-earth-icon {
+  filter: brightness(0) saturate(100%) invert(0.45);
+}
+.orbit-earth-icon-saved {
+  filter: brightness(0) saturate(100%) invert(0.35) sepia(0.55) saturate(1200%) hue-rotate(228deg);
+}
+
+/* Inspiration grid: prevent tile overlap, visible scrollbar */
+.inspiration-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+.inspiration-scroll > * {
+  contain: layout;
+}
+.inspiration-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.inspiration-scroll::-webkit-scrollbar-track {
+  background: rgb(226 232 240);
+  border-radius: 4px;
+}
+.inspiration-scroll::-webkit-scrollbar-thumb {
+  background: rgb(148 163 184);
+  border-radius: 4px;
+}
+.inspiration-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139);
+}
+
+/* Shared widget container - light white bg, flex layout */
