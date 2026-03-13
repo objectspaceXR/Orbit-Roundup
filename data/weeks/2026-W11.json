@@ -123,25 +123,6 @@
       "imageUrl": "https://beforesandafters.com/wp-content/uploads/2026/03/f1_vfxnotes.jpg"
     },
     {
-      "url": "https://www.reddit.com/r/StableDiffusion/comments/1rq3m13/comfyui_launches_app_mode_and_comfyhub/",
-      "title": "ComfyUI launches App Mode and ComfyHub",
-      "summary": "ComfyUI has launched 'App Mode' and 'Workflow Hub,' major new features that enhance usability and workflow management for creative AI users. This is a groundbreaking tool release.",
-      "category": "creative-ai",
-      "source": "reddit",
-      "hint": "creative-ai, xr-tools",
-      "tags": [
-        "creative-ai",
-        "xr-tools",
-        "creative-tech"
-      ],
-      "imageUrl": "https://external-preview.redd.it/aG9ydmg2c2Y3OW9nMeEGubVxR41Cj4XZyZfiOs28t4ICwwcwIqhWXPk_sV04.png?width=140&height=78&format=jpg&auto=webp&s=1978ce1699da36e1ac1929be7f2f1256c4bebfac",
-      "author": "crystal_alpine",
-      "subreddit": "StableDiffusion",
-      "savedAt": "2026-03-10T22:05:16.432Z",
-      "digestTitle": "ComfyUI launches App Mode and ComfyHub",
-      "digestSummary": "ComfyUI released App Mode and Workflow Hub. These are major features that enhance usability and workflow management for creative AI users. A groundbreaking tool."
-    },
-    {
       "url": "https://www.cgchannel.com/2026/03/adobe-previews-substance-3d-designer-16-0/",
       "title": "Adobe previews Substance 3D Designer 16.0",
       "summary": "Adobe previews Substance 3D Designer 16.0, introducing a new 3D SDF-based workflow for material authoring, a significant update for 3D artists.",
@@ -266,6 +247,6 @@
       "imageUrl": "https://external-preview.redd.it/eWczOXphd2p0bG9nMcQ1-NLYOdnlL8hQtTPI3YRzt_akdnu_R9gGscGLRdm5.png?format=pjpg&auto=webp&s=203a08ad2d0d6a42872c9dd3f2eba76bb09439e4"
     }
   ],
-  "publishedAt": "2026-03-13T23:30:00.577Z",
-  "itemCount": 15
+  "publishedAt": "2026-03-13T23:30:20.584Z",
+  "itemCount": 14
 }
