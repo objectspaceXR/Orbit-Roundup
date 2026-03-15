@@ -10,14 +10,13 @@ interface PublishedItem {
 }
 interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
 
-/** Week runs Mon–Sun (ISO 8601). Picker shows Monday. */
+/** Week picker: W11 16 Mar 26 — week number + publish due date (Monday of week after). */
 function formatWeekForPicker(week: string): string {
-  const [yearStr, wStr] = week.split('-W');
-  const year = parseInt(yearStr), wNum = parseInt(wStr);
-  const jan4 = new Date(year, 0, 4);
-  const mon = new Date(jan4);
-  mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + (wNum - 1) * 7);
-  return `W${wNum} ${mon.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}`;
+  const pubDate = getPublishDateForWeek(week);
+  if (!pubDate) return week;
+  const [, wStr] = week.split('-W');
+  const wNum = parseInt(wStr);
+  return `W${wNum} ${pubDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}`;
 }
 
 /** Sections — inspiration/discord-inbox feed into XR/3D/AI, no separate sections */
@@ -211,10 +210,9 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
     } catch {}
   };
 
-  // Publish date = Monday of week after content (we generate on Monday)
-  const publishDate = getPublishDateForWeek(week);
-  const formattedDate = publishDate
-    ? publishDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  // Published = actual publish/update date from data
+  const formattedDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null;
 
   const handleShare = () => {
@@ -308,7 +306,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
         <h2 className="text-center text-white font-bold tracking-tight mb-6 md:mb-8 drop-shadow-md">
-          <span className="block text-xl md:text-2xl lg:text-3xl">What caught my eye this week</span>
+          <span className="block text-xl md:text-2xl lg:text-3xl">What&apos;s in my orbit this week</span>
           <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
         </h2>
         <p className="text-center text-white/70 text-sm -mt-4 mb-6 md:mb-8">
