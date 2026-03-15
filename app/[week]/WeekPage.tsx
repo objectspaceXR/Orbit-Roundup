@@ -10,21 +10,21 @@ interface PublishedItem {
 }
 interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
 
+/** Week runs Mon–Sun (ISO 8601). Picker shows Monday. */
 function formatWeekForPicker(week: string): string {
   const [yearStr, wStr] = week.split('-W');
   const year = parseInt(yearStr), wNum = parseInt(wStr);
   const jan4 = new Date(year, 0, 4);
   const mon = new Date(jan4);
   mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + (wNum - 1) * 7);
-  const fri = new Date(mon);
-  fri.setDate(mon.getDate() + 4);
-  return `W${wNum} ${fri.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}`;
+  return `W${wNum} ${mon.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}`;
 }
 
-const CAT_ORDER = ['xr-spatial', 'three-d', 'creative-ai', 'inspiration', 'discord-inbox'];
+/** Sections — inspiration/discord-inbox feed into XR/3D/AI, no separate sections */
+const CAT_ORDER = ['xr-spatial', 'three-d', 'creative-ai'];
 const CAT_LABELS: Record<string, string> = {
-  'xr-spatial': 'XR & Spatial', 'three-d': '3D & Motion',
-  'creative-ai': 'Creative AI', 'inspiration': 'Projects I Liked', 'discord-inbox': 'Curated',
+  'xr-spatial': 'XR & Spatial', 'three-d': '2D, 3D & Design',
+  'creative-ai': 'Creative AI', 'inspiration': '2D, 3D & Design', 'discord-inbox': '2D, 3D & Design',
 };
 
 function toCanonicalCategory(cat: string): string {
@@ -32,6 +32,13 @@ function toCanonicalCategory(cat: string): string {
   if (CAT_ORDER.includes(k)) return k;
   const ALIAS: Record<string, string> = { 'xr': 'xr-spatial', '3d': 'three-d', 'ai': 'creative-ai', 'curated': 'discord-inbox' };
   return ALIAS[k] || k || 'xr-spatial';
+}
+
+/** Map category for display — inspiration/discord-inbox feed into three-d */
+function displayCategory(cat: string): string {
+  const c = toCanonicalCategory(cat || 'xr-spatial');
+  if (c === 'inspiration' || c === 'discord-inbox') return 'three-d';
+  return CAT_ORDER.includes(c) ? c : 'three-d';
 }
 
 function getItemTags(item: PublishedItem): string[] {
@@ -64,6 +71,16 @@ function weekDateRange(week: string): string {
   const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
   const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
   return `${fmt(mon)} – ${fmt(sun)} ${year}`;
+}
+
+/** Publish date = Monday of the week after the content week (we publish on Monday). */
+function getPublishDateForWeek(week: string): Date | null {
+  const [yearStr, wStr] = week.split('-W');
+  const year = parseInt(yearStr), w = parseInt(wStr);
+  const jan4 = new Date(year, 0, 4);
+  const mon = new Date(jan4);
+  mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + w * 7); // +1 week
+  return mon;
 }
 
 function sourceName(url: string, item: PublishedItem): string {
@@ -134,10 +151,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
       }));
     }
     if (categoryFilters.size > 0) {
-      out = out.filter((i) => {
-        const cat = toCanonicalCategory(i.category || 'xr-spatial');
-        return categoryFilters.has(cat);
-      });
+      out = out.filter((i) => categoryFilters.has(displayCategory(i.category || 'xr-spatial')));
     }
     return out;
   }, [items, tagFilters, categoryFilters]);
@@ -145,8 +159,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
   const grouped = useMemo(() => {
     const map: Record<string, PublishedItem[]> = {};
     for (const item of itemsFiltered) {
-      const cat = toCanonicalCategory(item.category || 'xr-spatial');
-      const key = CAT_ORDER.includes(cat) ? cat : 'xr-spatial';
+      const key = displayCategory(item.category || 'xr-spatial');
       if (!map[key]) map[key] = [];
       map[key].push(item);
     }
@@ -198,8 +211,10 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
     } catch {}
   };
 
-  const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  // Publish date = Monday of week after content (we generate on Monday)
+  const publishDate = getPublishDateForWeek(week);
+  const formattedDate = publishDate
+    ? publishDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null;
 
   const handleShare = () => {
@@ -313,8 +328,8 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
               >
                 All
               </button>
-              {CAT_ORDER.filter(cat => items.some(i => toCanonicalCategory(i.category || 'xr-spatial') === cat)).map((cat) => {
-                const count = items.filter((i) => toCanonicalCategory(i.category || 'xr-spatial') === cat).length;
+              {CAT_ORDER.filter(cat => items.some(i => displayCategory(i.category || 'xr-spatial') === cat)).map((cat) => {
+                const count = items.filter((i) => displayCategory(i.category || 'xr-spatial') === cat).length;
                 if (count === 0) return null;
                 const isActive = categoryFilters.has(cat);
                 const c = CAT_COLORS[cat] || FALLBACK;
@@ -422,7 +437,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                       const showThumb = item.imageUrl && !thumbErrors.has(item.url);
                       return (
                         <article key={item.url}
-                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col"
+                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col min-h-[400px] sm:min-h-0"
                           style={{ aspectRatio: showThumb ? '1 / 1.28' : '1 / 1.08' }}>
                           {/* Title band */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
@@ -462,45 +477,39 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                             )}
                             </div>
                           </a>
-                          {/* Footer — author + hearts + source link (matches old /orbit page) */}
+                          {/* Footer — heart left, share right */}
                           <div className="flex flex-col shrink-0 px-5 pb-3 pt-2 font-sans border-t border-slate-100">
-                            <div className="flex items-center justify-between gap-2 mb-1.5">
-                              {item.author ? (
-                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-500 hover:text-slate-700 hover:underline">
-                                  u/{item.author}
-                                </a>
-                              ) : <span />}
-                              <div className="flex items-center gap-1">
-                                <button
-                                  type="button"
-                                  onClick={(e) => toggleLike(item.url, e)}
-                                  className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
-                                  title={isLiked ? 'Unlike' : 'Like'}
-                                >
-                                  <svg className="w-3.5 h-3.5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                  </svg>
-                                  {likeCount > 0 && <span>{likeCount}</span>}
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    if (navigator.share) {
-                                      navigator.share({ title: displayTitle, url: item.url }).catch(() => navigator.clipboard.writeText(item.url).then(() => alert('Link copied')));
-                                    } else {
-                                      navigator.clipboard.writeText(item.url).then(() => alert('Link copied'));
-                                    }
-                                  }}
-                                  className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-                                  title="Share"
-                                >
-                                  <svg className="w-3.5 h-3.5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                                  </svg>
-                                </button>
-                              </div>
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <button
+                                type="button"
+                                onClick={(e) => toggleLike(item.url, e)}
+                                className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${isLiked ? 'text-rose-500 bg-rose-50' : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50/50'}`}
+                                title={isLiked ? 'Unlike' : 'Like'}
+                              >
+                                <svg className="w-5 h-5" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                </svg>
+                                {likeCount > 0 && <span>{likeCount}</span>}
+                              </button>
+                              <div className="flex-1" />
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  if (navigator.share) {
+                                    navigator.share({ title: displayTitle, url: item.url }).catch(() => navigator.clipboard.writeText(item.url).then(() => alert('Link copied')));
+                                  } else {
+                                    navigator.clipboard.writeText(item.url).then(() => alert('Link copied'));
+                                  }
+                                }}
+                                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                title="Share"
+                              >
+                                <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                              </button>
                             </div>
                             <a href={item.url} target="_blank" rel="noopener noreferrer"
                               className={`inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold ${c.bg} text-white hover:opacity-90 transition-opacity shadow-sm w-full`}>
