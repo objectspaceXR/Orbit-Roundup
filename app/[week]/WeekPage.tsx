@@ -435,7 +435,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                       const showThumb = item.imageUrl && !thumbErrors.has(item.url);
                       return (
                         <article key={item.url}
-                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col min-h-[400px] sm:min-h-0"
+                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col min-h-[440px] sm:min-h-0"
                           style={{ aspectRatio: showThumb ? '1 / 1.28' : '1 / 1.08' }}>
                           {/* Title band — top-aligned, reduced padding */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
