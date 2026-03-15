@@ -435,8 +435,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                       const showThumb = item.imageUrl && !thumbErrors.has(item.url);
                       return (
                         <article key={item.url}
-                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col max-sm:min-h-0 max-sm:!aspect-auto sm:min-h-0"
-                          style={{ aspectRatio: showThumb ? '1 / 1.2' : '1 / 1.02' }}>
+                          className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col">
                           {/* Title band — top-aligned, reduced padding */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
                             <div className={`${c.bg} px-5 py-3 min-h-[4rem] sm:min-h-[3.5rem] flex items-start`}>
@@ -445,8 +444,8 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                               </h3>
                             </div>
                           </a>
-                          {/* Body — on mobile: size to content so divider sits close to text */}
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-initial sm:flex-1 flex flex-col min-h-0 block">
+                          {/* Body — grows to fit content, cards in row match height via items-stretch */}
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col min-h-0 block">
                             {showThumb && (
                               <div className="w-full h-28 shrink-0 bg-slate-200 overflow-hidden">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -460,7 +459,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                                 />
                               </div>
                             )}
-                            <div className="flex-initial sm:flex-1 min-h-0 overflow-hidden px-5 pt-3 pb-2 flex flex-col">
+                            <div className="flex-1 min-h-0 px-5 pt-3 pb-2 flex flex-col">
                             {displayTags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-2 overflow-hidden shrink-0">
                                 {displayTags.map(tag => (
@@ -469,7 +468,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                               </div>
                             )}
                             {displaySummary && (
-                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-4 overflow-hidden min-h-0">
+                              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed min-h-0">
                                 {displaySummary}
                               </p>
                             )}
