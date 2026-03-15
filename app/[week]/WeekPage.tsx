@@ -306,8 +306,8 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
         <h2 className="text-center text-white font-bold tracking-tight mb-6 md:mb-8 drop-shadow-md">
-          <span className="block text-xl md:text-2xl lg:text-3xl">What&apos;s in my orbit this week</span>
-          <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">in XR, AI, 3D and creative tech</span>
+          <span className="block text-xl md:text-2xl lg:text-3xl">What&apos;s been in my orbit this week, in</span>
+          <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">XR, AI, 3D and creative tech</span>
         </h2>
         <p className="text-center text-white/70 text-sm -mt-4 mb-6 md:mb-8">
           Issue {allWeeks.indexOf(week) + 1}
