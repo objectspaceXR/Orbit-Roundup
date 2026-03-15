@@ -437,9 +437,9 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                         <article key={item.url}
                           className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col min-h-[400px] sm:min-h-0"
                           style={{ aspectRatio: showThumb ? '1 / 1.28' : '1 / 1.08' }}>
-                          {/* Title band */}
+                          {/* Title band — top-aligned, reduced padding */}
                           <a href={item.url} target="_blank" rel="noopener noreferrer" className="block shrink-0">
-                            <div className={`${c.bg} px-5 py-4 min-h-[5.25rem] flex items-end`}>
+                            <div className={`${c.bg} px-5 py-3 min-h-[4rem] flex items-start`}>
                               <h3 className="font-[var(--font-display)] font-extrabold leading-snug text-white text-base sm:text-lg line-clamp-2">
                                 {displayTitle}
                               </h3>
