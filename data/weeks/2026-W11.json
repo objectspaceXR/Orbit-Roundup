@@ -245,8 +245,59 @@
       "digestTitle": "AR DJ app for Spectacles connects YouTube",
       "digestSummary": "u/rex_xzec is building an AR app for Spectacles that links to YouTube playlists for mobile DJing. Plans include Bluetooth to connect with physical DJ gear. That's a clever use of AR.",
       "imageUrl": "https://external-preview.redd.it/eWczOXphd2p0bG9nMcQ1-NLYOdnlL8hQtTPI3YRzt_akdnu_R9gGscGLRdm5.png?format=pjpg&auto=webp&s=203a08ad2d0d6a42872c9dd3f2eba76bb09439e4"
+    },
+    {
+      "url": "https://www.8thwall.com/blog/post/208587408737/8th-wall-open-source",
+      "title": "Goodbye 8thwall.com. Hello 8thwall.org. | 8th Wall",
+      "summary": "We shut down the platform and opened the engine - here’s what that means.",
+      "category": "xr-spatial",
+      "source": "discord-inbox",
+      "hint": "xr",
+      "tags": [
+        "webxr",
+        "open-source",
+        "ar-tools"
+      ],
+      "savedAt": "2026-03-15T10:17:03.214Z",
+      "imageUrl": "https://7182223.fs1.hubspotusercontent-na1.net/hub/7182223/hubfs/8th%20Wall%20is%20now%20open%20source%20%281%29.png?length=1500",
+      "digestTitle": "8th Wall engine goes open-source",
+      "digestSummary": "Goodbye 8thwall.com. Hello 8thwall.org - 8th Wall shut down its hosted WebAR platform but open-sourced its engine. The core architecture with AR features is now free for creators."
+    },
+    {
+      "url": "https://www.linkedin.com/posts/realfition_realfictionabrhq-directionalpixeltechnology-activity-7437799653108256768-2Om2?utm_medium=ios_app&rcm=ACoAAAYuTEwBCXkvSWCQ_02cN9ZmK0Ilgiripds&utm_source=social_share_send&utm_campaign=copy_link",
+      "title": "#realfiction_hq #directionalpixeltechnology #dpt #innovation #collaboration #aerospace #digitaltransformation #futureofwork | Realfiction - Leaders in Mixed Reality",
+      "summary": "What if a display could become more than a screen - but a true window into another location?\n\nRealfiction’s Directional Pixel Technology™ (DPT) enables displays that function as a window to another place or person, creating the sensation of speaking face-to-face in the same room - even when miles apart.\n\nBeyond immersive communication, DPT unlocks a new generation of 3D collaborative space, transforming how teams, engineers, instructors and decision-makers interact with complex information.\n\nFor",
+      "category": "xr-spatial",
+      "source": "discord-inbox",
+      "hint": "xr",
+      "tags": [
+        "mixed-reality",
+        "3d-displays",
+        "collaboration"
+      ],
+      "savedAt": "2026-03-15T10:17:27.420Z",
+      "imageUrl": "https://static.licdn.com/aero-v1/sc/h/c45fy346jw096z9pbphyyhdz7",
+      "digestTitle": "Realfiction DPT - displays as windows",
+      "digestSummary": "Realfiction's Directional Pixel Technology (DPT) makes displays function as windows into other locations or people. This creates immersive communication and 3D collaborative spaces, changing how teams interact with information."
+    },
+    {
+      "url": "https://www.itsnicethat.com/articles/procreate-dreams-2-animation-sponsored-content-110326",
+      "title": "How Procreate Dreams 2 is making animated storytelling more expressive than ever",
+      "summary": "Building on its award-winning debut, Procreate Dreams 2 introduces highly requested tools like selections, transform, and expanded frame-by-frame animation.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "2d-animation",
+        "procreate",
+        "creative-tools"
+      ],
+      "savedAt": "2026-03-15T12:52:33.965Z",
+      "imageUrl": "https://admin.itsnicethat.com/images/zxJXiLF0gA98Fm2S73rs6VTNU2c=/276068/width-1440%7Cformat-jpeg/Procreate_Dreams_Promo_12.png",
+      "digestTitle": "Procreate Dreams 2 - more expressive animation",
+      "digestSummary": "Procreate Dreams 2 introduces highly requested tools like selections, transform, and expanded frame-by-frame animation. This aims to make animated storytelling more expressive."
     }
   ],
-  "publishedAt": "2026-03-13T23:30:20.584Z",
-  "itemCount": 14
+  "publishedAt": "2026-03-15T13:34:29.453Z",
+  "itemCount": 17
 }
