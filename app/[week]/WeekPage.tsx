@@ -72,7 +72,7 @@ function weekDateRange(week: string): string {
   return `${fmt(mon)} – ${fmt(sun)} ${year}`;
 }
 
-/** Publish date = Monday of the week after the content week (we publish on Monday). */
+/** Issue date = Monday of the week when released (e.g. W11 content → released 16 Mar). */
 function getPublishDateForWeek(week: string): Date | null {
   const [yearStr, wStr] = week.split('-W');
   const year = parseInt(yearStr), w = parseInt(wStr);
@@ -210,10 +210,19 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
     } catch {}
   };
 
-  // Published = actual publish/update date from data
-  const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  // Issue date = Monday of release week (e.g. W11 content released 16 Mar → issue date 16 Mar)
+  const releaseMonday = getPublishDateForWeek(week);
+  const issueDate = releaseMonday
+    ? releaseMonday.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
+  // Published = actual publish date; Republished if not on the expected Monday
+  const pubDate = publishedAt ? new Date(publishedAt) : null;
+  const publishedDateStr = pubDate
+    ? pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null;
+  const isRepublish = publishedAt && releaseMonday
+    ? pubDate!.toDateString() !== releaseMonday.toDateString()
+    : false;
 
   const handleShare = () => {
     const url = typeof window !== 'undefined' ? window.location.href : '';
@@ -290,7 +299,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                   </Link>
                 ) : <div className="w-9 sm:w-7" />}
               </div>
-              {formattedDate && <p className="text-[10px] text-slate-400 mt-1">Published {formattedDate}</p>}
+              {publishedDateStr && <p className="text-[10px] text-slate-400 mt-1">{isRepublish ? 'Republished' : 'Published'} {publishedDateStr}</p>}
             </div>
 
             {/* Desktop: Share right */}
@@ -306,12 +315,12 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
         <h2 className="text-center text-white font-bold tracking-tight mb-6 md:mb-8 drop-shadow-md">
-          <span className="block text-xl md:text-2xl lg:text-3xl">What&apos;s been in my orbit this week, in</span>
+          <span className="block text-xl md:text-2xl lg:text-3xl">What&apos;s circling my orbit this week in:</span>
           <span className="block text-2xl md:text-3xl lg:text-4xl mt-1">XR, AI, 3D and creative tech</span>
         </h2>
         <p className="text-center text-white/70 text-sm -mt-4 mb-6 md:mb-8">
           Issue {allWeeks.indexOf(week) + 1}
-          {formattedDate && ` · ${formattedDate}`}
+          {issueDate && ` · ${issueDate}`}
           {' · '}{week}
         </p>
 
