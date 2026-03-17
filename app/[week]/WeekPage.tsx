@@ -52,14 +52,15 @@ function normalizeTagForDisplay(tag: string): string | null {
   if (!k || k === 'creative-tech') return null;
   return k;
 }
+/** Matches mission-control XPLR colour system: XR orangey | 3D pink-purply | AI light blue | Discord dark purple */
 const CAT_COLORS: Record<string, { bg: string; tag: string }> = {
-  'xr-spatial':    { bg: 'bg-gradient-to-r from-cyan-500/80 to-blue-500/80',      tag: 'bg-cyan-200/90 text-cyan-900' },
-  'three-d':       { bg: 'bg-gradient-to-r from-violet-500/80 to-purple-500/80',  tag: 'bg-violet-200/90 text-violet-900' },
-  'creative-ai':   { bg: 'bg-gradient-to-r from-fuchsia-500/80 to-pink-500/80',   tag: 'bg-fuchsia-200/90 text-fuchsia-900' },
-  'inspiration':   { bg: 'bg-gradient-to-r from-rose-500/80 to-pink-400/80',      tag: 'bg-rose-200/90 text-rose-900' },
-  'discord-inbox': { bg: 'bg-gradient-to-r from-indigo-500/80 to-violet-500/80',  tag: 'bg-indigo-200/90 text-indigo-900' },
+  'xr-spatial':    { bg: 'bg-gradient-to-r from-orange-500/80 to-amber-500/80 backdrop-blur-sm',      tag: 'bg-orange-200/90 text-orange-900' },
+  'three-d':       { bg: 'bg-gradient-to-r from-pink-500/80 to-purple-500/80 backdrop-blur-sm',      tag: 'bg-pink-200/90 text-pink-900' },
+  'creative-ai':   { bg: 'bg-gradient-to-r from-sky-400/80 to-cyan-400/80 backdrop-blur-sm',         tag: 'bg-sky-200/90 text-sky-900' },
+  'inspiration':   { bg: 'bg-gradient-to-r from-rose-500/80 to-pink-400/80 backdrop-blur-sm',        tag: 'bg-rose-200/90 text-rose-900' },
+  'discord-inbox': { bg: 'bg-gradient-to-r from-purple-800/90 to-violet-900/90 backdrop-blur-sm',   tag: 'bg-purple-200/90 text-purple-900' },
 };
-const FALLBACK = { bg: 'bg-gradient-to-r from-slate-500/80 to-slate-600/80', tag: 'bg-slate-200/90 text-slate-800' };
+const FALLBACK = { bg: 'bg-slate-600/80 backdrop-blur-sm', tag: 'bg-slate-200/90 text-slate-800' };
 
 function weekDateRange(week: string): string {
   const [yearStr, wStr] = week.split('-W');
