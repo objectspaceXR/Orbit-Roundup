@@ -1,0 +1,500 @@
+{
+  "week": "2026-W12",
+  "items": [
+    {
+      "url": "https://www.reddit.com/r/creativecoding/comments/1rugfvi/audioreactive_mris/",
+      "title": "Audioreactive MRIs",
+      "summary": "Audioreactive MRIs",
+      "category": "creative-ai",
+      "source": "reddit",
+      "hint": "inspiration",
+      "tags": [
+        "coding",
+        "art"
+      ],
+      "imageUrl": "https://external-preview.redd.it/C9dvvCU5XOyy3fq6qv0JWAFOzCKCGGYe-DPFboO26uc.png?width=140&height=73&auto=webp&s=dd188aa1c16c87155b17f3ca72272876d79eb73a",
+      "author": "uisato",
+      "subreddit": "creativecoding",
+      "savedAt": "2026-03-16T09:15:49.016Z",
+      "digestTitle": "Audioreactive MRIs",
+      "digestSummary": "u/uisato's Audioreactive MRIs likely showcases a creative coding project. It probably features a visual effect responding to audio."
+    },
+    {
+      "url": "https://www.reddit.com/r/creativecoding/comments/1rubupu/evergreen_landscapes/",
+      "title": "EverGreen Landscapes",
+      "summary": "EverGreen Landscapes is a creative coding piece. It offers visual inspiration from generative art.",
+      "category": "creative-ai",
+      "source": "reddit",
+      "hint": "ai",
+      "tags": [
+        "coding",
+        "art"
+      ],
+      "author": "Qotonana",
+      "subreddit": "creativecoding",
+      "savedAt": "2026-03-16T12:41:00.127Z",
+      "imageUrl": "https://preview.redd.it/evergreen-landscapes-v0-ufgcoqkm37pg1.jpg?width=640&crop=smart&auto=webp&s=bc0dbda121128af3d553e503faf0bdbf18f6b117",
+      "digestTitle": "EverGreen Landscapes",
+      "digestSummary": "u/Qotonana's EverGreen Landscapes is a creative coding piece. It offers visual inspiration from generative art, showcasing digital art."
+    },
+    {
+      "url": "https://justainews.com/companies/openai-released-chatgpt-5-4-what-changed-for-users/",
+      "title": "OpenAI Released ChatGPT 5.4: What changed for users",
+      "summary": "The older model will still be available for paid users in the Legacy Models section for a limited time. OpenAI says it will remain there for three months and will be retired on <strong>June 5, 2026</strong>....",
+      "category": "creative-ai",
+      "source": "brave-x",
+      "hint": "inspiration, openai",
+      "tags": [
+        "openai",
+        "ai",
+        "tools"
+      ],
+      "savedAt": "2026-03-16T12:41:47.009Z",
+      "imageUrl": "https://justainews.com/wp-content/uploads/2026/03/gpt-5.4.jpg",
+      "digestTitle": "OpenAI Releases ChatGPT 5.4",
+      "digestSummary": "OpenAI released ChatGPT 5.4, more capable and efficient for daily tasks. It shows a response plan before generating longer answers, helping guide the AI. GPT-5.2 retires on June 5, 2026."
+    },
+    {
+      "url": "https://80.lv/articles/unity-extends-official-support-for-steam-steamos-linux/",
+      "title": "Unity Extends Official Support for Steam, SteamOS, & Linux",
+      "summary": "Unity Extends Official Support for Steam, SteamOS, & Linux. Unity will add a native solution for bringing games to Steam and enhance the engine's Linux runtime.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d, unity",
+      "tags": [
+        "unity",
+        "tools",
+        "trends"
+      ],
+      "imageUrl": "https://cdn.80.lv/api/upload/post/39341/images/69b7ac2ee138f/cover_800x800.jpg",
+      "savedAt": "2026-03-16T12:43:23.316Z",
+      "digestTitle": "Unity Adds Steam & Linux Support",
+      "digestSummary": "Unity now officially supports Steam, SteamOS, and Linux. This means a native solution for bringing games to Steam and enhanced Linux runtime, making game development easier."
+    },
+    {
+      "url": "https://80.lv/articles/artist-shares-this-amazing-parallax-effect-created-with-godot/",
+      "title": "Artist Shares This Amazing Parallax Effect Created with Godot",
+      "summary": "Artist Shares This Amazing Parallax Effect created with Godot. This new work by Binbun showcases a visually appealing effect developed within the Godot game engine.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "tools",
+        "3d",
+        "art"
+      ],
+      "imageUrl": "https://cdn.80.lv/api/upload/post/39340/images/69b7985f92ff8/cover_800x800.jpg",
+      "savedAt": "2026-03-16T12:43:39.513Z",
+      "digestTitle": "Godot Parallax Effect by Binbun",
+      "digestSummary": "Binbun, known for Godot shaders, created a fascinating parallax effect. This visually appealing work uses textures to map parallax layers and create depth. The setup is available on itch.io."
+    },
+    {
+      "url": "https://www.creativebloq.com/art/animation/why-kpop-demon-hunterss-oscar-win-is-a-big-deal",
+      "title": "Why KPop Demon Hunters' Oscar win is a big deal",
+      "summary": "Why KPop Demon Hunters' Oscar win is a big deal. The article explains four reasons why this year’s Best Animated Feature award has significant implications for the animation industry.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "2d",
+        "trends"
+      ],
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/ncz9FnqBiVK539HF8BBNRh-1280-80.jpg",
+      "savedAt": "2026-03-16T12:43:48.755Z",
+      "digestTitle": "KPop Demon Hunters Oscar Win",
+      "digestSummary": "KPop Demon Hunters won Best Animated Feature at the Oscar. The award has significant implications for the animation industry."
+    },
+    {
+      "url": "https://www.designweek.co.uk/ai-wins-at-clicks-humans-win-at-meaning-brands-need-both/",
+      "title": "AI Wins at Clicks. Humans Win at Meaning. Brands Need Both.",
+      "summary": "Human creativity is not in danger from AI. But the AI versus human framing keeps marketing leaders from asking the more useful question. AI-generated content is real, it works in specific contexts and dismissing it on principle is as shortsighted as embracing it wholesale. It is important to understand what AI actually does well, what []What to read next: &ldquo;Design connects everything&rdquo; &",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "ai",
+        "design",
+        "trends"
+      ],
+      "imageUrl": "https://d3faj0w6aqatyx.cloudfront.net/uploads/2026/03/Kate-Watt-source-.jpg",
+      "savedAt": "2026-03-16T12:47:53.246Z",
+      "digestTitle": "AI in Branding: Clicks vs. Meaning",
+      "digestSummary": "AI is good for clicks, humans for meaning, and brands need both. The article argues against a simple AI vs. human framing, urging an understanding of AI's strengths in specific contexts for marketing."
+    },
+    {
+      "url": "https://the-decoder.com/perplexitys-personal-computer-promises-a-tireless-ai-agent-for-200-a-month/",
+      "title": "Perplexitys \"Personal Computer\" promises a tireless AI agent for $200 a month",
+      "summary": "Perplexity AI's \"Personal Computer\" is a tireless AI assistant that works 24/7. It handles emails, presentations, and app control for $200 a month.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "tools",
+      "tags": [
+        "ai",
+        "tools",
+        "research"
+      ],
+      "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/02/perplexity_computer.png",
+      "savedAt": "2026-03-16T12:52:03.152Z",
+      "digestTitle": "Perplexity's 'Personal Computer' AI Agent",
+      "digestSummary": "Perplexity AI's 'Personal Computer' offers a tireless AI assistant for $200 a month. It works 24/7, handling emails, presentations, and app control from a dedicated Mac Mini, controllable remotely."
+    },
+    {
+      "url": "https://www.creativebloq.com/3d/video-game-design/dlss-5-is-nvidias-boldest-graphics-leap-yet-and-its-most-controversial",
+      "title": "DLSS 5 is Nvidia’s boldest graphics leap yet, and its most controversial",
+      "summary": "DLSS 5 is Nvidia’s boldest graphics leap yet, and its most controversial. The article questions whether it represents the future of game graphics or the end of artistic control.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "3d",
+        "vfx"
+      ],
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/P9Cm629H4GWFz9kx4e7gsW-1280-80.jpg",
+      "savedAt": "2026-03-17T13:00:14.253Z",
+      "digestTitle": "Nvidia DLSS 5: Graphics Leap or Control End?",
+      "digestSummary": "Nvidia's DLSS 5 is its boldest graphics leap, but also its most controversial. The article questions whether this new technology represents the future of game graphics or if it marks the end of artistic control."
+    },
+    {
+      "url": "https://www.reddit.com/r/blender/comments/1rvaqcq/human_loop/",
+      "title": "Human Loop",
+      "summary": "Human Loop is a Blender animation piece. The artist shares their work, providing links to their Instagram and YouTube.",
+      "category": "three-d",
+      "source": "reddit",
+      "hint": "blender, art",
+      "tags": [
+        "blender",
+        "3d",
+        "2d"
+      ],
+      "imageUrl": "https://external-preview.redd.it/OHpyMnB1dXR3ZXBnMfazu5JX178ryte0jE-ybsFZty2400Tzc1QM7bhFgxD_.png?width=140&height=140&format=jpg&auto=webp&s=e0f2d9c2fcd6fa33137b5ad80108fe2fd10912ec",
+      "author": "morelebaks",
+      "subreddit": "blender",
+      "savedAt": "2026-03-17T13:43:23.507Z",
+      "digestTitle": "Human Loop Blender Animation",
+      "digestSummary": "Human Loop is a Blender animation piece by u/morelebaks. The artist shares their work, providing links to their Instagram and YouTube for more details."
+    },
+    {
+      "url": "https://www.designboom.com/design/walk-through-world-david-hockney-immersive-opera-stage-designs/",
+      "title": "walk through the fantastical world of david hockneys immersive opera stage designs",
+      "summary": "walk through the fantastical world of david hockneys immersive opera stage designs. All these sets are built from the same spirit of colors and perspectives found in the artist's paintings, allowing actors to perform within his artworks.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "design",
+        "art",
+        "3d"
+      ],
+      "imageUrl": "https://www.designboom.com/wp-content/uploads/2026/03/fantastical-world-david-hockney-immersive-opera-designs-designboom-700-500x400-22b08q85r118.jpg",
+      "savedAt": "2026-03-17T13:45:24.466Z",
+      "digestTitle": "David Hockney's Immersive Opera Stage Designs",
+      "digestSummary": "David Hockney's immersive opera stage designs offer a fantastical world. These sets use the same colors and perspectives as his paintings, allowing actors to perform within his art."
+    },
+    {
+      "url": "https://www.uploadvr.com/spacious-places-hands-on-musical-meditation/",
+      "title": "Spacious Places Hands-On: Musical Meditation",
+      "summary": "Spacious Places is a VR health and wellness app that allows users to relax, breathe, and play musical instruments in natural environments.",
+      "category": "xr-spatial",
+      "source": "rss",
+      "hint": "xr",
+      "tags": [
+        "xr"
+      ],
+      "imageUrl": "https://www.uploadvr.com/content/images/2026/03/spacious-places.jpg",
+      "savedAt": "2026-03-17T14:42:34.234Z",
+      "digestTitle": "Spacious Places VR Meditation App",
+      "digestSummary": "Spacious Places is a VR health and wellness app for musical meditation. It allows users to relax, breathe, and play virtual musical instruments in calming natural environments."
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/nespoon-lace-murals-paintings/",
+      "title": "White Lace Proliferates Across Urban Spaces in Patterned Murals by NeSpoon",
+      "summary": "White Lace Proliferates Across Urban Spaces in patterned murals by NeSpoon. Scaled-up needlework murals give new meaning to \"craft corner,\" showcasing intricate urban art installations.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "art",
+        "design",
+        "2d"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/nespoon-10.jpg",
+      "savedAt": "2026-03-17T14:45:33.763Z",
+      "digestTitle": "NeSpoon's Lace Murals in Urban Spaces",
+      "digestSummary": "NeSpoon's patterned murals proliferate across urban spaces with white lace. Scaled-up needlework installations give new meaning to 'craft corner,' showcasing intricate urban art."
+    },
+    {
+      "url": "https://www.itsnicethat.com/features/will-anderson-ainslie-henderson-small-prophets-animation-160326",
+      "title": "Marvel at the animated alchemy behind Mackenzie Crook’s Small Prophets",
+      "summary": "Marvel at the animated alchemy behind Mackenzie Crook’s Small Prophets. Animators Will Anderson and Ainslie Henderson share how the uncanny homunculi were brought to life using stop motion, live action puppets, and CG.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, vfx",
+      "tags": [
+        "2d",
+        "vfx",
+        "3d"
+      ],
+      "imageUrl": "https://admin.itsnicethat.com/images/fxCjPiBO9SBFuc-0TrLPiqt6N7Q=/276143/width-1440%7Cformat-jpeg/small_prophets_will_anderson_ainslie_henderson_animation_itsnicethat_show_.png",
+      "savedAt": "2026-03-17T14:47:22.797Z",
+      "digestTitle": "Small Prophets Animated Alchemy Breakdown",
+      "digestSummary": "Mackenzie Crook’s Small Prophets animation involved animators Will Anderson and Ainslie Henderson. They brought the uncanny homunculi to life using stop motion, live action puppets, and CG, blending imagination with craft."
+    },
+    {
+      "url": "https://the-decoder.com/openais-biggest-problem-may-not-be-building-ai-but-getting-companies-to-actually-use-it-beyond-chatgpt/",
+      "title": "OpenAIs biggest problem may not be building AI but getting companies to actually use it beyond ChatGPT",
+      "summary": "OpenAIs biggest problem may not be building AI but getting companies to actually use it beyond ChatGPT. OpenAI is pushing to integrate its AI into large companies through sales, partnerships, and a new deployment arm.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "ai, openai",
+      "tags": [
+        "openai",
+        "ai",
+        "trends"
+      ],
+      "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/03/openai_logo_wall.png",
+      "savedAt": "2026-03-17T18:05:09.085Z",
+      "digestTitle": "OpenAI's Enterprise AI Adoption Challenge",
+      "digestSummary": "OpenAI faces a problem getting companies to use its AI beyond ChatGPT. It pushes to integrate its AI into large companies through sales, partnerships, and a new deployment arm, but demand for its enterprise AI agent platform, Fron"
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/ekow-nimako-lego-afrofuturism-sculptures-lego/",
+      "title": "Myth, Masks, and LEGO: Ekow Nimakos Elaborate Afrofuturistic Sculptures",
+      "summary": "Myth, Masks, and LEGO: Ekow Nimakos Elaborate Afrofuturistic Sculptures transform thousands of black LEGO bricks into fantastical Afrofuturistic forms. This showcases unique material experimentation in art.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art",
+      "tags": [
+        "art",
+        "3d"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/nimako-3.jpg",
+      "savedAt": "2026-03-18T12:02:42.219Z",
+      "digestTitle": "Ekow Nimako's Afrofuturistic LEGO Sculptures",
+      "digestSummary": "Ekow Nimako's elaborate Afrofuturistic sculptures transform thousands of black LEGO bricks. This work, inspired by myth and masks, showcases unique material experimentation in art, creating fantastical forms."
+    },
+    {
+      "url": "https://www.designboom.com/technology/space-inspired-mini-apple-workstation-classic-lego-computers-watt-iv-m2x2/",
+      "title": "space-inspired mini apple workstation pays homage to classic LEGO computers",
+      "summary": "space-inspired mini apple workstation pays homage to classic LEGO computers. This device, partly designed from nostalgia, includes studs that function as a media control knob and a wireless charger for Apple Watch or AirPods.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "design, apple",
+      "tags": [
+        "design",
+        "apple",
+        "3d"
+      ],
+      "imageUrl": "https://www.designboom.com/wp-content/uploads/2026/03/space-inspired-mini-apple-workstation-LEGO-computers-designboom-700-500x400-22b08q85r651.jpg",
+      "savedAt": "2026-03-18T12:03:55.041Z",
+      "digestTitle": "Space-Inspired Mini Apple Workstation",
+      "digestSummary": "A space-inspired mini Apple workstation pays homage to classic LEGO computers. This device includes studs that function as a media control knob and a wireless charger for Apple Watch or AirPods."
+    },
+    {
+      "url": "https://www.reddit.com/r/WebXR/comments/1rwlt0u/open_metaverse_browser_initiative_just_launched/",
+      "title": "Open Metaverse Browser Initiative just launched: Open-source native metaverse browser built on OpenXR, glTF, and new NSO protocols",
+      "summary": "Open Metaverse Browser Initiative just launched, an open-source project to build a native metaverse browser. It is built on OpenXR, glTF, and new NSO protocols, directly relevant to WebXR builders.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "xr",
+      "tags": [
+        "xr",
+        "tools"
+      ],
+      "imageUrl": "https://preview.redd.it/ec4fuvkfmopg1.jpeg?width=140&height=60&auto=webp&s=4f90a186459c8e5c64db7577e2e3a287da72216b",
+      "author": "TheNassau",
+      "subreddit": "WebXR",
+      "savedAt": "2026-03-18T13:45:57.936Z",
+      "digestTitle": "Open Metaverse Browser Initiative Launched",
+      "digestSummary": "Open Metaverse Browser Initiative launched as an open-source project to build a native metaverse browser. It is built on OpenXR, glTF, and new NSO protocols, directly relevant to WebXR builders."
+    },
+    {
+      "url": "https://www.uploadvr.com/meta-horizon-worlds-dropping-vr-support/",
+      "title": "Horizon Worlds Is Dropping VR Support, Going Flatscreen-Only",
+      "summary": "Horizon Worlds Is Dropping VR Support, going flatscreen-only. Meta's platform will only be available as a flatscreen experience for the web and smartphones from June, indicating a strategic shift.",
+      "category": "xr-spatial",
+      "source": "rss",
+      "hint": "meta",
+      "tags": [
+        "meta",
+        "xr",
+        "trends"
+      ],
+      "imageUrl": "https://www.uploadvr.com/content/images/2026/03/Meta-Horizon-Worlds.png",
+      "savedAt": "2026-03-18T13:47:18.086Z",
+      "digestTitle": "Horizon Worlds Drops VR Support",
+      "digestSummary": "Horizon Worlds is dropping VR support, going flatscreen-only. Meta's platform will only be available as a flatscreen experience for the web and smartphones from June, indicating a strategic shift away from VR."
+    },
+    {
+      "url": "https://www.nxcode.io/resources/news/gpt-5-4-vs-gpt-5-2-comparison-upgrade-guide-2026",
+      "title": "GPT-5.4 vs GPT-5.2: What Changed & Should You Upgrade? (2026) | NxCode",
+      "summary": "GPT-5.4 vs GPT-5.2: What Changed? This article compares GPT models, advising on upgrades. For tight deadlines, GPT-5.2 remains stable until June 5, 2026.",
+      "category": "creative-ai",
+      "source": "brave-x",
+      "hint": "ai",
+      "tags": [
+        "openai",
+        "ai",
+        "tools"
+      ],
+      "savedAt": "2026-03-18T13:49:32.196Z",
+      "digestTitle": "GPT-5.4 vs GPT-5.2: Upgrade Guide",
+      "digestSummary": "GPT-5.4 is a significant upgrade from GPT-5.2, offering native Computer Use and expanding context to 1M tokens. GPT-5.2 retires June 5, 2026, making an upgrade essential, especially for production code."
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1rwq0yr/ltx23_4x_keyframes_8gb_vram/",
+      "title": "LTX-2.3 4x Keyframes (8GB VRAM)",
+      "summary": "LTX-2.3 4x Keyframes (8GB VRAM) is a ComfyUI workflow. This offers a solution for video generation using LTX 2.3 with limited VRAM.",
+      "category": "creative-ai",
+      "source": "reddit",
+      "hint": "ai, comfyui",
+      "tags": [
+        "comfyui",
+        "ai",
+        "tools"
+      ],
+      "imageUrl": "https://external-preview.redd.it/d3pwZ2ZjYXFncHBnMT3zTyJknF5ZhMHo57Z5qVtPsYdNAbrHWGELg4KPPDUu.png?width=140&height=140&format=jpg&auto=webp&s=2e1d79745698dcdb330a87a6b162156d3c676649",
+      "author": "big-boss_97",
+      "subreddit": "comfyui",
+      "savedAt": "2026-03-18T13:49:40.070Z",
+      "digestTitle": "LTX-2.3 4x Keyframes (8GB VRAM) ComfyUI",
+      "digestSummary": "LTX-2.3 4x Keyframes (8GB VRAM) is a ComfyUI workflow. This offers a solution for video generation using LTX 2.3 with limited VRAM, a useful creative AI workflow."
+    },
+    {
+      "url": "https://www.fxguide.com/quicktakes/nvidias-new-real-time-neural-rendering-with-dlss-5/",
+      "title": "NVIDIAs new real-time neural rendering with DLSS 5",
+      "summary": "NVIDIAs new real-time neural rendering with DLSS 5 is redefining how real-time final pixels are made. This technology is not just rendering faster frames but also changing the underlying process of visual creation.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "vfx",
+      "tags": [
+        "vfx",
+        "3d"
+      ],
+      "imageUrl": "https://www.fxguide.com/wp-content/uploads/2026/03/fxg-featured-DLSS5.jpg",
+      "savedAt": "2026-03-18T17:51:59.164Z",
+      "digestTitle": "NVIDIA's New DLSS 5 Neural Rendering",
+      "digestSummary": "NVIDIA's new real-time neural rendering with DLSS 5 redefines how final pixels are made. This technology combines conventional rendering with learned inference, changing the underlying process of visual creation."
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/pejac-graph-paper-graphite-drawings/",
+      "title": "Pejac Transforms Basic Graph Paper into Detailed, Trompe-Lœil Tableaux",
+      "summary": "Pejac Transforms Basic Graph Paper into Detailed, Trompe-Lœil Tableaux. Pejac challenges perceptions of space and the 'blank slate' by creating intricate drawings on graph paper.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art",
+      "tags": [
+        "art",
+        "design"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/pejac-10.jpg",
+      "savedAt": "2026-03-19T10:05:01.980Z",
+      "digestTitle": "Pejac's Trompe-L'œil Graph Paper Art",
+      "digestSummary": "Pejac transforms basic graph paper into detailed, trompe-l'œil tableaux. Pejac challenges perceptions of space and the 'blank slate' by creating intricate graphite drawings on graph paper."
+    },
+    {
+      "url": "https://www.itsnicethat.com/articles/nicola-strina-blink-industries-nippets-animation-illustration-project-180326",
+      "title": "Nippets is the hand-drawn, hidden-object game from Blinkink designed to make you slow down and relax",
+      "summary": "Nippets is the hand-drawn, hidden-object game from Blinkink designed to make you slow down and relax. This independently developed video game, produced by Blink Industries, is described as an interactive picture book.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, art",
+      "tags": [
+        "2d",
+        "art"
+      ],
+      "imageUrl": "https://admin.itsnicethat.com/images/gEtWMArezsi_8z-n-SLu2pnNV_M=/275371/width-1440%7Cformat-jpeg/blinkink-illo-graphic-design-itsnicethat4.png",
+      "savedAt": "2026-03-19T10:06:26.602Z",
+      "digestTitle": "Nippets Hand-Drawn Hidden-Object Game",
+      "digestSummary": "Nippets is a hand-drawn, hidden-object game from Blinkink, designed to make you slow down and relax. This independently developed video game, produced by Blink Industries, functions as an interactive picture book."
+    },
+    {
+      "url": "https://www.reddit.com/r/augmentedreality/comments/1ryehps/smart_glasses_changing_lives_for_dementia_patients/",
+      "title": "Smart Glasses Changing Lives for Dementia Patients",
+      "summary": "Smart Glasses Changing Lives for Dementia Patients through a new AI platform called CrossSense. This platform won a £1m prize for using smart glasses with an AI assistant, Wispy, to guide wearers through daily life and enhance independence.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "xr-glasses",
+      "tags": [
+        "xr-glasses",
+        "ai"
+      ],
+      "imageUrl": "https://external-preview.redd.it/cTViYTBpOWx0MnFnMfb7MescdJiEtSfnfGdyghcuxeG-l3MO8SYhtSx-w3-7.png?width=140&height=112&format=jpg&auto=webp&s=4295ae3b0c27027b92bf6b2ff25a1e6c3724c268",
+      "author": "AR_MR_XR",
+      "subreddit": "augmentedreality",
+      "savedAt": "2026-03-20T11:24:28.763Z",
+      "digestTitle": "Smart Glasses Help Dementia Patients",
+      "digestSummary": "Smart Glasses are changing lives for dementia patients through a new AI platform, CrossSense. This platform won a £1m prize for using smart glasses with an AI assistant, Wispy, to guide wearers through daily life and enhance indep"
+    },
+    {
+      "url": "https://www.reddit.com/r/blender/comments/1rylkw1/3d_pixelthe_old_building_where_i_lived_in_my/",
+      "title": "3D Pixel,The old building where I lived in my childhood",
+      "summary": "3D Pixel,The old building where I lived in my childhood, is an animated 3D art piece created in Blender. This work embraces a realistic visual language with refined model details, managed asset density, and handcrafted pixel-based textures.",
+      "category": "three-d",
+      "source": "reddit",
+      "hint": "blender, 2d",
+      "tags": [
+        "blender",
+        "3d",
+        "art"
+      ],
+      "imageUrl": "https://external-preview.redd.it/aW16OXJ6M3hkNHFnMUyH5qJpBA_uNFnwVhM_tKqBYJWjzTl91W3hNHzgjHmd.png?width=140&height=105&format=jpg&auto=webp&s=4a065d534858d7e86a33e9200bab201cf4dfb99f",
+      "author": "Hot_Profession_4274",
+      "subreddit": "blender",
+      "savedAt": "2026-03-20T12:58:40.125Z",
+      "digestTitle": "3D Pixel Art of Childhood Building",
+      "digestSummary": "3D Pixel, The old building where I lived in my childhood, is an animated 3D art piece created in Blender. This work embraces a realistic visual language with refined model details and handcrafted pixel-based textures."
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/03/19/google-colab-now-has-an-open-source-mcp-model-context-protocol-server-use-colab-runtimes-with-gpus-from-any-local-ai-agent/",
+      "title": "Google Colab Now Has an Open-Source MCP (Model Context Protocol) Server: Use Colab Runtimes with GPUs from Any Local AI Agent",
+      "summary": "Google Colab Now Has an Open-Source MCP (Model Context Protocol) Server. This enables AI agents to interact directly with the Google Colab environment, providing programmatic access to create, modify, and utilize Colab runtimes with GPUs.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "ai, google",
+      "tags": [
+        "google",
+        "tools",
+        "ai"
+      ],
+      "savedAt": "2026-03-20T13:04:35.589Z",
+      "imageUrl": "https://www.marktechpost.com/wp-content/uploads/2026/03/blog-banner23-59-1024x731.png",
+      "digestTitle": "Google Colab Open-Source MCP Server",
+      "digestSummary": "Google Colab now has an open-source MCP (Model Context Protocol) Server. This enables AI agents to interact directly with the Google Colab environment, providing programmatic access to create, modify, and utilize Colab runtimes wi"
+    },
+    {
+      "url": "https://opencode.ai/",
+      "title": "OpenCode – Open source AI coding agent",
+      "summary": "OpenCode - Open source AI coding agent refers to a new open-source tool. This agent is designed for AI-driven code generation and automation tasks.",
+      "category": "creative-ai",
+      "source": "hackernews",
+      "hint": "coding",
+      "tags": [
+        "tools",
+        "ai"
+      ],
+      "savedAt": "2026-03-21T14:18:48.604Z",
+      "imageUrl": "https://opencode.ai/social-share.png",
+      "digestTitle": "OpenCode - Open Source AI Coding Agent",
+      "digestSummary": "OpenCode is a new open-source AI coding agent. It helps write code in the terminal, IDE, or desktop, offering features like LSP support, multi-session capabilities, and integration with various LLMs and editors."
+    },
+    {
+      "url": "https://www.itsnicethat.com/features/laika-20-years-of-stop-motion-animation-partnership-200326",
+      "title": "Laika’s 20 years of stop-motion carry lessons aplenty in craft and storytelling",
+      "summary": "Laika’s 20 years of stop-motion carry lessons aplenty in craft and storytelling. The groundbreaking studio celebrates its 20th anniversary with its latest feature, Wildwood, and a new book reflecting on two decades of moviemaking.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d",
+      "tags": [
+        "2d",
+        "vfx",
+        "art"
+      ],
+      "savedAt": "2026-03-22T20:03:33.455Z",
+      "imageUrl": "https://admin.itsnicethat.com/images/0ULeWNQEmNvliNA1iUnbWuE6mEo=/276416/width-1440/2025_04_LAIKA20Book_Chapter1_11x18_wBleed_300ppi_CMYK_.jpg",
+      "digestTitle": "Laika's 20 Years of Stop-Motion",
+      "digestSummary": "Laika's 20 years of stop-motion animation offer lessons in craft and storytelling. The studio celebrates its anniversary with a new feature, Wildwood, and a book reflecting on two decades of moviemaking, showcasing authentic craft"
+    }
+  ],
+  "publishedAt": "2026-03-22T23:36:06.562Z",
+  "itemCount": 29
+}
