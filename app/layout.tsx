@@ -9,11 +9,19 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://orbit.objectspace.co.uk"),
   title: "Orbit Roundup - XR, AI, 3D and creative tech news",
   description: "Orbit Roundup - XR, AI, 3D and creative tech news. Weekly curation by Tom Martin-Davies.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon", type: "image/png", sizes: "32x32" },
+    ],
+    apple: "/icon",
+  },
   openGraph: {
     title: "Orbit Roundup - XR, AI, 3D and creative tech news",
     description: "Orbit Roundup - XR, AI, 3D and creative tech news. Weekly curation by Tom Martin-Davies.",
     siteName: "Orbit Roundup",
     type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
