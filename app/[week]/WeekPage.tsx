@@ -1,10 +1,12 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { getVideoEmbedUrl, isNativeVideoUrl } from '@/lib/video-embed';
+import { externalImageSrcForImg } from '@/lib/external-image-src';
 
 interface PublishedItem {
   url: string; title: string; summary?: string; category?: string;
-  source?: string; tags?: string[]; imageUrl?: string; author?: string;
+  source?: string; tags?: string[]; imageUrl?: string; videoUrl?: string; author?: string;
   subreddit?: string; feedName?: string; digestTitle?: string; digestSummary?: string;
   hint?: string;
 }
@@ -110,12 +112,7 @@ function simplifyTitle(t: string): string {
 }
 
 const LIKED_KEY = 'orbit-reader-liked';
-/** Same as old /orbit page: relative URL. Baked in via Cloudflare Function when deployed. */
-function thumbSrc(imageUrl: string): string {
-  if (!imageUrl) return '';
-  // Route through Cloudflare Pages Function proxy — handles Reddit referrer restrictions
-  return `/api/image-proxy?url=${encodeURIComponent(imageUrl)}`;
-}
+
 function getLiked(): Set<string> {
   try { return new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]')); } catch { return new Set(); }
 }
@@ -135,6 +132,7 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
   const [tagFilters, setTagFilters] = useState<Set<string>>(new Set());
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const [thumbErrors, setThumbErrors] = useState<Set<string>>(new Set());
+  const [videoLoadErrors, setVideoLoadErrors] = useState<Set<string>>(new Set());
 
   useEffect(() => { setLiked(getLiked()); }, []);
   useEffect(() => {
@@ -442,7 +440,15 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                       const displayTags = [...new Set(tags)].slice(0, 3);
                       const isLiked = liked.has(item.url);
                       const likeCount = counts[btoa(item.url).slice(0, 64)] || 0;
-                      const showThumb = item.imageUrl && !thumbErrors.has(item.url);
+                      const effImage = (item.imageUrl || '').replace(/&amp;/g, '&').trim();
+                      const videoPlayUrl = (item.videoUrl || item.url || '').trim();
+                      const embed = videoPlayUrl ? getVideoEmbedUrl(videoPlayUrl) : null;
+                      const showNativeVideo =
+                        !!videoPlayUrl &&
+                        !embed &&
+                        isNativeVideoUrl(videoPlayUrl) &&
+                        !videoLoadErrors.has(item.url);
+                      const showThumb = !!effImage && !thumbErrors.has(item.url) && !embed && !showNativeVideo;
                       return (
                         <article key={item.url}
                           className="w-full min-w-0 rounded-2xl bg-white/95 shadow-md border border-slate-200/60 overflow-hidden hover:border-violet-300/50 hover:shadow-xl hover:scale-[1.02] hover:z-10 transition-all duration-200 flex flex-col">
@@ -454,22 +460,86 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                               </h3>
                             </div>
                           </a>
-                          {/* Body — grows to fit content, cards in row match height via items-stretch */}
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col min-h-0 block">
+                          {/* Media + body — same priority as Draft: YouTube/Vimeo embed, native video, then thumbnail */}
+                          <div className="flex flex-col flex-1 min-h-0">
+                            {embed && (
+                              <div className="w-full h-44 sm:h-48 shrink-0 bg-black relative overflow-hidden">
+                                <iframe
+                                  src={embed.embed}
+                                  title={displayTitle}
+                                  className="absolute inset-0 w-full h-full border-0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                />
+                              </div>
+                            )}
+                            {showNativeVideo &&
+                              (/v\.redd\.it/i.test(videoPlayUrl) && effImage ? (
+                                <a
+                                  href={item.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block w-full h-28 shrink-0 bg-slate-800 relative overflow-hidden"
+                                >
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img
+                                    src={`/api/image-proxy?url=${encodeURIComponent(effImage)}`}
+                                    alt=""
+                                    className="w-full h-full object-cover opacity-90"
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer"
+                                    onError={() => setThumbErrors(prev => new Set([...prev, item.url]))}
+                                  />
+                                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <span className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm">
+                                      <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                      </svg>
+                                    </span>
+                                  </div>
+                                </a>
+                              ) : (
+                                <a
+                                  href={item.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block w-full h-28 shrink-0 bg-slate-900 overflow-hidden"
+                                >
+                                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                                  <video
+                                    src={
+                                      /streamable\.com/i.test(videoPlayUrl)
+                                        ? `/api/image-proxy?url=${encodeURIComponent(videoPlayUrl)}`
+                                        : videoPlayUrl
+                                    }
+                                    className="w-full h-full object-cover"
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="metadata"
+                                    onError={() => setVideoLoadErrors(prev => new Set([...prev, item.url]))}
+                                  />
+                                </a>
+                              ))}
                             {showThumb && (
-                              <div className="w-full h-28 shrink-0 bg-slate-200 overflow-hidden">
+                              <a
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-full h-28 shrink-0 bg-slate-200 overflow-hidden"
+                              >
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={thumbSrc(item.imageUrl!)}
+                                  src={externalImageSrcForImg(effImage)}
                                   alt=""
                                   className="w-full h-full object-cover"
                                   loading="lazy"
                                   referrerPolicy="no-referrer"
                                   onError={() => setThumbErrors(prev => new Set([...prev, item.url]))}
                                 />
-                              </div>
+                              </a>
                             )}
-                            <div className="flex-1 min-h-0 px-5 pt-3 pb-2 flex flex-col">
+                            <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col min-h-0 px-5 pt-3 pb-2 block">
                             {displayTags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-2 overflow-hidden shrink-0">
                                 {displayTags.map(tag => (
@@ -482,8 +552,8 @@ export default function WeekPage({ data, prevWeek, nextWeek, weekMeta }: {
                                 {displaySummary}
                               </p>
                             )}
-                            </div>
-                          </a>
+                            </a>
+                          </div>
                           {/* Footer — heart left, share right */}
                           <div className="flex flex-col shrink-0 px-5 pb-3 pt-2 font-sans border-t border-slate-100">
                             <div className="flex items-center gap-2 mb-1.5">
