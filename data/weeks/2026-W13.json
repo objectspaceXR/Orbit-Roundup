@@ -1,0 +1,359 @@
+{
+  "week": "2026-W13",
+  "items": [
+    {
+      "url": "https://www.stashmedia.tv/anna-ginsburgs-animated-short-hag-wins-special-jury-award-seriesfest-pitch-a-thon-at-sxsw/",
+      "title": "Anna Ginsburg’s Animated Short HAG Wins Special Jury Award  SeriesFest Pitch-A-Thon at SXSW",
+      "summary": "Anna Ginsburg’s Animated Short HAG Wins Special Jury Award. The BFI-funded animated short 'HAG' premiered at SXSW 2026 and won two major honors, celebrating its resonance with audiences and future potential.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, art",
+      "tags": [
+        "2d",
+        "art",
+        "vfx"
+      ],
+      "imageUrl": "http://www.stashmedia.tv/wp-content/uploads/Becky-Perryman-Miranda-Latimer-PAssion-Pictures-STASH-MAGAZINE.jpg",
+      "savedAt": "2026-03-23T22:32:50.702Z",
+      "digestTitle": "Anna Ginsburg’s HAG wins at SXSW 2026",
+      "digestSummary": "BFI-funded animated short HAG premiered at SXSW and secured two major awards. It is a poetic exploration of language and the fragile connections between culture and nature."
+    },
+    {
+      "url": "https://www.reddit.com/r/creativecoding/comments/1s0rscj/still_life_p5js/",
+      "title": "Still Life [p5.js]",
+      "summary": "Still Life [p5.js] is a creative coding art piece created with p5.js, showcasing a visual artwork.",
+      "category": "three-d",
+      "source": "reddit",
+      "hint": "coding, art",
+      "tags": [
+        "coding",
+        "art"
+      ],
+      "imageUrl": "https://external-preview.redd.it/eHY1aHVnbnZ0bXFnMQxDePKek-7zbYH59Ipu1HwzcJ9em92PpWzRLNVOVzFY.png?width=140&height=140&crop=1:1,smart&format=jpg&auto=webp&s=ba5772a4cd2b5fa439bfdda0d70bf6cf11184d0e",
+      "author": "fleurdleigh",
+      "subreddit": "creativecoding",
+      "savedAt": "2026-03-23T22:35:10.396Z",
+      "videoUrl": "https://v.redd.it/kzce75nvtmqg1/CMAF_1080.mp4?source=fallback",
+      "digestTitle": "Still Life in p5.js",
+      "digestSummary": "Visual artwork created through creative coding with the p5.js library. Simple but effective use of code to generate digital art."
+    },
+    {
+      "url": "https://the-decoder.com/luma-ais-uni-1-could-be-the-first-real-challenger-to-googles-nano-banana-image-dominance/",
+      "title": "Luma AIs Uni-1 could be the first real challenger to Googles Nano Banana image dominance",
+      "summary": "Luma AIs Uni-1 could be the first real challenger to Google's Nano Banana image dominance. The model combines image understanding and generation in a single architecture, reasoning through prompts as it creates, taking on OpenAI and Google.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "ai, ai-art",
+      "tags": [
+        "ai",
+        "ai-art",
+        "google",
+        "openai"
+      ],
+      "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/03/ape_horse_tiger_benchmark.jpg",
+      "savedAt": "2026-03-23T22:39:22.703Z",
+      "digestTitle": "Luma Uni-1 challenges Google Nano Banana",
+      "digestSummary": "New Uni-1 model from Luma Labs handles both image understanding and generation in one architecture. It is holding its own against Google's flagship and is cheaper to run through the upcoming API."
+    },
+    {
+      "url": "https://tech-insider.org/google-gemini-750-million-users-march-2026-updates/",
+      "title": "Google Gemini 750M Users: March 2026 Updates & AI War",
+      "summary": "Google Gemini 750M Users: March 2026 Updates & AI War. Prediction suggests Gemini will surpass this user count by Q3 2026, driven by Android integration, Workspace expansion, and global AI Mode rollout. Growth is expected in international markets.",
+      "category": "creative-ai",
+      "source": "brave-x",
+      "hint": "google, ai",
+      "tags": [
+        "google",
+        "ai",
+        "trends"
+      ],
+      "savedAt": "2026-03-23T23:07:29.946Z",
+      "imageUrl": "https://tech-insider.org/wp-content/uploads/2026/03/google-gemini-750-million-users-march-2026-updates-1.jpg",
+      "digestTitle": "Google Gemini hits 750M users",
+      "digestSummary": "Gemini is expected to reach 750 million users by Q3 2026. Growth is being driven by deeper Android integration and the global rollout of AI Mode across Workspace."
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1s21jx0/i_created_a_simple_flux2_klein_raster_to_vector/",
+      "title": "I created a simple Flux.2 Klein Raster to Vector - Image to Image (With Prompt Saver) Workflow",
+      "summary": "I created a simple Flux.2 Klein Raster to Vector - Image to Image (With Prompt Saver) Workflow. This beginner-friendly ComfyUI workflow, based on the Flux.2 Klein model, generates raster images and then converts them to vector SVG outputs on the fly.",
+      "category": "creative-ai",
+      "source": "reddit",
+      "hint": "comfyui, ai",
+      "tags": [
+        "comfyui",
+        "ai-art",
+        "tools"
+      ],
+      "imageUrl": "https://preview.redd.it/pzzbvnitlwqg1.jpg?width=140&height=140&crop=1:1,smart&auto=webp&s=323e837cd44fae205badfc65d260f04879ffe677",
+      "author": "Sarcastic-Tofu",
+      "subreddit": "comfyui",
+      "savedAt": "2026-03-24T13:25:21.260Z",
+      "digestTitle": "Raster to Vector SVG ComfyUI Workflow",
+      "digestSummary": "Beginner-friendly workflow using the Flux.2 Klein model. It generates raster images and converts them to vector SVG outputs on the fly, including a prompt saver node."
+    },
+    {
+      "url": "https://www.forbes.com/sites/jodiecook/2026/03/23/how-solo-founders-are-vibe-coding-digital-products-that-make-instant-revenue/",
+      "title": "How Solo Founders Are Vibe Coding Digital Products That Make Instant Revenue",
+      "summary": "How Solo Founders Are Vibe Coding Digital Products. This article discusses how AI handles technical implementation while founders make creative decisions. This is a monumental shift for solo founders building products.",
+      "category": "creative-ai",
+      "source": "brave-x",
+      "hint": "ai, coding",
+      "tags": [
+        "coding",
+        "ai",
+        "trends"
+      ],
+      "savedAt": "2026-03-24T21:00:49.003Z",
+      "digestTitle": "Solo founders scaling via vibe coding",
+      "digestSummary": "Founders are using AI to handle technical implementation while they focus on creative decisions. This shift is allowing solo makers to ship revenue-generating products faster than ever.",
+      "imageUrl": "https://imageio.forbes.com/specials-images/imageserve/69c10e50af3b1d4c5a3423e8/How-solo-founders-are-vibe-coding-digital-products-that-make-instant-revenue/0x0.jpg?width=960&dpr=1"
+    },
+    {
+      "url": "https://beforesandafters.com/2026/03/24/powering-a-vfx-oscar-winner/",
+      "title": "Powering a VFX Oscar winner",
+      "summary": "Powering a VFX Oscar winner, this article goes behind two key Wētā FX tech developments. It covers fire and character deformation on Avatar: Fire and Ash, detailing the technical innovations.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "vfx, 3d",
+      "tags": [
+        "vfx",
+        "3d",
+        "research"
+      ],
+      "imageUrl": "https://i0.wp.com/beforesandafters.com/wp-content/uploads/2026/03/AvatarFireAndAsh_shots_3046_0170_892.1065.jpg?resize=1170%2C617&#038;ssl=1",
+      "savedAt": "2026-03-24T21:29:51.477Z",
+      "digestTitle": "Inside Wētā FX’s Oscar-winning Avatar tech",
+      "digestSummary": "Behind the scenes of the VFX for Avatar: Fire and Ash. Wētā FX developed Kora for physics-based chemical combustion simulations and pushed multi-threading to handle over 1 billion render hours."
+    },
+    {
+      "url": "https://www.reddit.com/r/augmentedreality/comments/1s30dfl/ar_genai_imagetoar_3d_model/",
+      "title": "AR GenAI: Image-to-AR 3D Model",
+      "summary": "AR GenAI: Image-to-AR 3D Model by AR Code transforms how immersive AR experiences are created. It is now widely adopted by customers globally, making AR creation simpler from a single photo.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "xr, ai",
+      "tags": [
+        "xr",
+        "ai",
+        "3d"
+      ],
+      "imageUrl": "https://external-preview.redd.it/dXhpam5qaWw3NHJnMfN6r_TIljZ4SHFljbZGI3SZylqbPrFYflSlim-Rc1ys.png?width=140&height=140&crop=1:1,smart&format=jpg&auto=webp&s=836f592c149f7e732a38b99f1697638880443173",
+      "author": "AR-Code",
+      "subreddit": "augmentedreality",
+      "savedAt": "2026-03-25T11:34:08.922Z",
+      "videoUrl": "https://v.redd.it/imwahhnl74rg1/CMAF_1080.mp4?source=fallback",
+      "digestTitle": "AR GenAI: Image to AR 3D Model",
+      "digestSummary": "Generate immersive AR experiences and 3D models from a single photo using AR Code's new generative AI tool. This approach is gaining traction for making spatial creation much simpler."
+    },
+    {
+      "url": "https://www.webpronews.com/snapchats-2-trillion-snaps-signal-a-platform-that-refuses-to-fade-and-wall-street-should-pay-attention/",
+      "title": "Snapchat's 2 Trillion Snaps Signal a Platform That Refuses to Fade — And Wall Street Should Pay Attention",
+      "summary": "Snapchat's 2 Trillion Snaps Signal a Platform That Refuses to Fade. Snap has a history of overpromising on monetization and underdelivering. Its augmented reality investments, while impressive, haven’t produced a breakout revenue stream, and Spectacles hardware remains niche.",
+      "category": "xr-spatial",
+      "source": "brave-x",
+      "hint": "snap, xr",
+      "tags": [
+        "snap",
+        "xr",
+        "trends"
+      ],
+      "savedAt": "2026-03-25T11:52:12.765Z",
+      "digestTitle": "Snapchat hits 2 trillion snaps",
+      "digestSummary": "Snap continues to grow its user base despite struggles with monetization. The report notes that while AR investments are impressive, hardware like Spectacles remains a niche part of the business.",
+      "imageUrl": "https://www.webpronews.com/wp-content/uploads/2026/03/article-12920-1774356673.jpeg"
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/austin-bell-hong-kong-basketball-courts-photographs/",
+      "title": "Austin Bell Chronicles Every Single One of Hong Kongs 2,549 Basketball Courts",
+      "summary": "Austin Bell Chronicles Every Single One of Hong Kongs 2,549 Basketball Courts. 'SHOOTING HOOPS' conveys a unique portrait of the region through photographs, offering a visual project.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "art",
+        "design"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/bell-1.jpg",
+      "savedAt": "2026-03-25T17:20:19.389Z",
+      "digestTitle": "Capturing Hong Kong's 2,549 basketball courts",
+      "digestSummary": "Photographer Austin Bell documented every single basketball court in Hong Kong. The project SHOOTING HOOPS provides a unique visual portrait of the region’s urban geometry."
+    },
+    {
+      "url": "https://www.designboom.com/design/handmade-miniature-model-new-york-layout-city-streets-buildings-joe-macken/",
+      "title": "an amateur artist built one of the most ambitious models of new york city ever",
+      "summary": "an amateur artist built one of the most ambitious models of new york city ever. The model by artist Joe Macken is on display at the Museum of the City of New York.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "art",
+        "design"
+      ],
+      "imageUrl": "https://www.designboom.com/wp-content/uploads/2026/03/handmade-miniature-model-new-york-streets-buildings-designboom-700-500x400-22b08q85r126.jpg",
+      "savedAt": "2026-03-26T14:23:17.576Z",
+      "digestTitle": "Ambitious handmade miniature New York City",
+      "digestSummary": "Artist Joe Macken built an incredibly detailed miniature model of New York City. The piece is currently on display at the Museum of the City of New York."
+    },
+    {
+      "url": "https://www.itsnicethat.com/articles/conor-kehelly-animation-discover-250326",
+      "title": "Conor Kehelly puts a silly face on just about everything in these lively animations",
+      "summary": "Conor Kehelly puts a silly face on just about everything in these lively animations. This animator’s work is a dizzying mix of 2D and 3D, creating an almost 4D sensation.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, 3d",
+      "tags": [
+        "2d",
+        "3d",
+        "design"
+      ],
+      "imageUrl": "https://media.itsnicethat.com/original_images/conor-kehelly-animation-itsnicethat-godhand.gif",
+      "savedAt": "2026-03-26T14:24:31.510Z",
+      "digestTitle": "Conor Kehelly's dizzying mixed-media animation",
+      "digestSummary": "Animator Conor Kehelly blends 2D and 3D to create lively, expressive work. His style often involves putting silly faces on everyday objects for a unique visual sensation."
+    },
+    {
+      "url": "https://the-decoder.com/disney-pulls-out-of-openai-partnership-after-sora-app-and-api-gets-killed-just-months-after-launch/",
+      "title": "Disney pulls out of OpenAI partnership after Sora app and API gets killed just months after launch",
+      "summary": "Disney pulls out of OpenAI partnership after Sora app and API gets killed just months after launch. OpenAI is shutting down its Sora app and API, leading Disney to withdraw from their billion-dollar deal signed last December.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "openai, ai",
+      "tags": [
+        "openai",
+        "ai",
+        "trends",
+        "sora"
+      ],
+      "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/03/sora_dead.jpeg",
+      "savedAt": "2026-03-26T15:50:00.107Z",
+      "digestTitle": "Disney exits OpenAI deal as Sora app closes",
+      "digestSummary": "OpenAI is shutting down the Sora app and API to refocus compute resources. Consequently, Disney has withdrawn from their billion-dollar partnership and character licensing agreement."
+    },
+    {
+      "url": "https://80.lv/articles/try-this-surface-wrapping-blender-tool-for-free/",
+      "title": "Try This Surface Wrapping Blender Tool For Free",
+      "summary": "Try This Surface Wrapping Blender Tool For Free. Jörg Grubmüller has released WrapKit, a new surface-wrapping tool for Blender available for free download.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "blender, 3d",
+      "tags": [
+        "blender",
+        "3d",
+        "tools"
+      ],
+      "imageUrl": "https://cdn.80.lv/api/upload/post/39508/images/69c6620c777ae/cover_800x800.jpg",
+      "savedAt": "2026-03-27T21:50:10.941Z",
+      "digestTitle": "Free surface wrapping tool for Blender",
+      "digestSummary": "Jörg Grubmüller released WrapKit, a Geometry Nodes tool for wrapping objects onto surfaces. It uses a procedural walker algorithm to avoid the distortion common with traditional Shrinkwrap methods."
+    },
+    {
+      "url": "https://www.stashmedia.tv/memory-connection-bol-device-explore-solitude-in-every-light-in-between-short-film/",
+      "title": "Memory  Connection: BOL  Device Explore Solitude in Every Light In Between Short Film",
+      "summary": "Memory Connection: BOL Device Explore Solitude in Every Light In Between Short Film. Directors Pol Solà and Guille Comin, along with the Device animation crew, explore memory and connection in this universal short film.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, art",
+      "tags": [
+        "2d",
+        "art",
+        "design"
+      ],
+      "imageUrl": "http://www.stashmedia.tv/wp-content/uploads/Every-Light-In-Between-by-Device-and-BOL-STASH-MAGAZINE7-1920x820.jpg",
+      "savedAt": "2026-03-27T22:02:49.287Z",
+      "digestTitle": "BOL and Device explore memory in new short",
+      "digestSummary": "Directors Pol Solà and Guille Comin teamed up with Device for a universal short film. It’s a beautifully animated exploration of solitude, memory, and light."
+    },
+    {
+      "url": "https://www.reddit.com/r/creativecoding/comments/1s47n8r/dark_cubes_reflections/",
+      "title": "Dark Cubes Reflections",
+      "summary": "Dark Cubes Reflections. This creative coding project features interactive cube-based reflections, including a live demo and source code on CodePen.",
+      "category": "three-d",
+      "source": "reddit",
+      "hint": "coding, art",
+      "tags": [
+        "coding",
+        "art"
+      ],
+      "imageUrl": "https://external-preview.redd.it/d2d0amNvZHk2ZXJnMfbKswqhYMULA_P67LGdu4LxCxJAal18XcPG0z4-z4Rz.png?width=140&height=103&format=jpg&auto=webp&s=206bdb8abb26e6886c808d15b5878341812cb279",
+      "author": "CollectionBulky1564",
+      "subreddit": "creativecoding",
+      "savedAt": "2026-03-27T22:03:29.160Z",
+      "videoUrl": "https://v.redd.it/jzgpjddy6erg1/CMAF_1080.mp4?source=fallback",
+      "digestTitle": "Interactive Dark Cubes Reflections",
+      "digestSummary": "Creative coding project using interactive cube-based reflections. Includes a live demo and source code available on CodePen for inspection."
+    },
+    {
+      "url": "https://beforesandafters.com/2026/03/28/current-obsession-this-how-to-animate-water-video-from-laika/",
+      "title": "Current obsession: this how to animate water video from LAIKA",
+      "summary": "Current obsession: this how to animate water video from LAIKA. Part of LAIKA's Craft in Motion series, this breakdown explores the studio's advanced techniques for animating both practical and digital water in feature film production.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "2d, vfx",
+      "tags": [
+        "vfx",
+        "3d",
+        "2d"
+      ],
+      "savedAt": "2026-03-28T21:42:37.218Z",
+      "imageUrl": "https://beforesandafters.com/wp-content/uploads/2026/03/Craft-in-Motion_-Animating-Water-_-LAIKA-Studios-0-32-screenshot.jpg",
+      "digestTitle": "LAIKA’s breakdown on animating water",
+      "digestSummary": "Part of the Craft in Motion series, this video covers LAIKA's techniques for water. It looks at the interplay between practical stop-motion elements and digital VFX in their pipeline."
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1s5x7m4/comfysketch_pro_a_node_inside_comfyui_big_update/",
+      "title": "ComfySketch Pro, a node inside ComfyUI - Big update : Remove AI tool, spot heal, 3D Pipeline and viewport sync w/ Blender and MAYA",
+      "summary": "ComfySketch Pro, a node inside ComfyUI - Big update. This significant update introduces a full 3D pipeline to ComfyUI, featuring viewport synchronization with Blender and Maya alongside new spot heal and object removal AI tools.",
+      "category": "creative-ai",
+      "source": "reddit",
+      "hint": "comfyui, 3d",
+      "tags": [
+        "comfyui",
+        "3d",
+        "blender"
+      ],
+      "imageUrl": "https://external-preview.redd.it/aTQ4bXlodm9ucnJnMfWNxMgYwpHxuinx048xhDqtpcDeeO3pxE5NoZA_vX9j.png?width=140&height=78&format=jpg&auto=webp&s=c75c0d5ea1b01cf37b306bd49c5e31555bb7a87e",
+      "author": "Vivid-Loss9868",
+      "subreddit": "comfyui",
+      "savedAt": "2026-03-29T08:24:42.735Z",
+      "videoUrl": "https://v.redd.it/8b6fp4uonrrg1/CMAF_1080.mp4?source=fallback",
+      "digestTitle": "ComfySketch Pro adds 3D pipeline and sync",
+      "digestSummary": "Major update for the ComfyUI drawing node. Now supports 3D model imports (GLB, OBJ, FBX), viewport sync with Blender and Maya, and new spot healing AI tools."
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/products/gemini-app/switch-to-gemini-app/",
+      "title": "Gemini Memory and Chat Import",
+      "summary": "Gemini Memory and Chat Import. Google has introduced tools allowing users to import their entire chat history and preferences from rival chatbots into the Gemini app to centralize their AI context.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "google, ai",
+      "tags": [
+        "google",
+        "ai",
+        "tools"
+      ],
+      "imageUrl": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/PlayStore_Promo_Switch-To-Gemini_Horizontal.width-1300.png",
+      "savedAt": "2026-03-29T08:29:18.899Z",
+      "digestTitle": "Gemini adds chat and memory import tools",
+      "digestSummary": "Google is making it easier to switch from other AI apps by allowing users to import their entire chat history and memory. A clear move to centralize user AI context in their ecosystem."
+    },
+    {
+      "url": "https://developers.snap.com/lens-studio/features/genai-suite/ai-clips",
+      "title": "AI Clips | Snap for Developers",
+      "summary": "AI Clips | Snap for Developers. This new plugin allows creators to generate 5-second AI videos within lenses, transforming user photos into dynamic clips based on embedded prompts and concepts.",
+      "category": "xr-spatial",
+      "source": "discord-inbox",
+      "hint": "snap, lens-studio",
+      "tags": [
+        "snap",
+        "lens-studio",
+        "ai"
+      ],
+      "savedAt": "2026-03-29T22:24:32.069Z",
+      "imageUrl": "https://developers.snap.com/img/lens-studio/5-ai-clips/ai-clips-gif1.webp",
+      "digestTitle": "AI Clips launches in Lens Studio",
+      "digestSummary": "Snap's new plugin lets creators generate 5-second AI videos directly within lenses. It transforms a single user photo into a dynamic clip using embedded prompts and predefined concepts."
+    }
+  ],
+  "publishedAt": "2026-03-30T08:26:08.178Z",
+  "itemCount": 20
+}
