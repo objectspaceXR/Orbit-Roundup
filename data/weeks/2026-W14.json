@@ -1,0 +1,368 @@
+{
+  "week": "2026-W14",
+  "items": [
+    {
+      "url": "https://fortune.com/2026/03/26/anthropic-says-testing-mythos-powerful-new-ai-model-after-data-leak-reveals-its-existence-step-change-in-capabilities/",
+      "title": "Anthropic confirms Claude Mythos is real",
+      "summary": "Anthropic confirms Claude Mythos is real. Following a significant data leak, Anthropic confirmed its next-tier model which represents a step change in reasoning and coding performance compared to current frontier models.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "anthropic, ai",
+      "tags": [
+        "anthropic",
+        "ai",
+        "research"
+      ],
+      "imageUrl": "https://fortune.com/img-assets/wp-content/uploads/2026/03/GettyImages-2261589651.jpg?resize=1200,600",
+      "author": "The Neuron <theneuron@newsletter.theneurondaily.com>",
+      "savedAt": "2026-03-30T21:25:38.713Z",
+      "digestTitle": "Anthropic confirms Claude Mythos is real",
+      "digestSummary": "Following a data leak, Anthropic confirmed its next-tier Mythos model. It represents a step change in reasoning and coding performance compared to current frontier models."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vehYE1DfkZg",
+      "title": "Guide to running local AI models",
+      "summary": "Guide to running local AI models. This practical walkthrough demonstrates how to execute open-source AI models on local hardware like Mac Studios to avoid the rising costs and restrictions of frontier APIs.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "ai, tools",
+      "tags": [
+        "ai",
+        "tools",
+        "coding"
+      ],
+      "imageUrl": "https://img.youtube.com/vi/vehYE1DfkZg/mqdefault.jpg",
+      "author": "The Neuron <theneuron@newsletter.theneurondaily.com>",
+      "savedAt": "2026-03-30T21:27:28.227Z",
+      "digestTitle": "Guide to running local AI models",
+      "digestSummary": "A practical walkthrough for executing open-source AI models on local hardware like Mac Studios. Good for avoiding rising API costs and maintaining control over your workflows."
+    },
+    {
+      "url": "https://techcrunch.com/2026/03/29/soras-shutdown-could-be-a-reality-check-moment-for-ai-video/",
+      "title": "Sora’s shutdown could be a reality check moment for AI video",
+      "summary": "Sora’s shutdown could be a reality check moment for AI video. This analysis explores whether OpenAI's decision to discontinue Sora indicates a strategic pivot or a broader industry pullback on generative video technology.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "ai, openai",
+      "tags": [
+        "openai",
+        "ai",
+        "trends",
+        "sora"
+      ],
+      "savedAt": "2026-03-30T21:27:40.930Z",
+      "imageUrl": "https://techcrunch.com/wp-content/uploads/2026/03/GettyImages-2239565319.jpg?resize=1200,798",
+      "digestTitle": "Sora shutdown is a reality check for AI video",
+      "digestSummary": "Analysis of OpenAI's decision to discontinue Sora. It raises questions about whether this is a strategic pivot or a broader industry pullback on generative video technology."
+    },
+    {
+      "url": "https://www.cgchannel.com/2026/03/get-neat-lightweight-3d-sculpting-and-painting-tool-tamga/",
+      "title": "Get neat lightweight 3D sculpting and painting app Tamga",
+      "summary": "Get neat lightweight 3D sculpting and painting app Tamga. Tamga is a minimalist 3D sculpting and painting tool that runs across browser, desktop, and iPad, offering a cross-platform, professional-grade creative utility for free personal use.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "3d, tools",
+      "tags": [
+        "3d",
+        "tools",
+        "vfx"
+      ],
+      "savedAt": "2026-03-31T18:08:19.072Z",
+      "digestTitle": "Tamga: lightweight 3D sculpting and painting",
+      "digestSummary": "VFX TD Ahmet Levent Taşel released a minimalist sculpting tool for browser, desktop, and iPad. It focuses on simplicity and clay-like workflows rather than complex button memorization.",
+      "imageUrl": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/93/05/b1/9305b13d-ee64-4e91-6196-07fa7c0e3735/IMG_0008.PNG/313x235bb.webp"
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/kathleen-ryan-beads-rotting-food-sculptures/",
+      "title": "Semiprecious Stones Coat Kathleen Ryans Oversized Sculptures of Rotting Food",
+      "summary": "Semiprecious Stones Coat Kathleen Ryans Oversized Sculptures of Rotting Food. Kathleen Ryan creates large-scale sculptures using beads and semiprecious stones to meticulously recreate the textures and colors of decaying fruit.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "art",
+        "design",
+        "inspiration"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/ryan-8.jpg",
+      "savedAt": "2026-03-31T18:09:05.968Z",
+      "digestTitle": "Oversized food sculptures from precious stones",
+      "digestSummary": "Kathleen Ryan uses beads and semiprecious stones to meticulously recreate the textures of decaying fruit. The larger-than-life pieces preserve the colors of mold and rot in impressive detail."
+    },
+    {
+      "url": "https://links.tldrnewsletter.com/7EHqIp",
+      "title": "xAI doubles down on video as OpenAI exits",
+      "summary": "xAI doubles down on video as OpenAI exits. While OpenAI shuts down Sora to prioritize enterprise tools, xAI is leveraging its SpaceX funding and X distribution to embed generative video natively into its social platform.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "ai, openai",
+      "tags": [
+        "ai",
+        "trends",
+        "sora",
+        "openai"
+      ],
+      "author": "TLDR Design <dan@tldrnewsletter.com>",
+      "savedAt": "2026-03-31T20:25:28.630Z",
+      "digestTitle": "xAI doubles down on generative video",
+      "digestSummary": "As OpenAI pulls back from Sora, xAI is embedding generative video natively into the X platform. They are leveraging SpaceX funding and existing distribution to scale.",
+      "imageUrl": "https://cdn.neowin.com/news/images/uploaded/2023/11/1699023438_y5d3gazx_400x400_story.jpg"
+    },
+    {
+      "url": "https://www.creativebloq.com/art/digital-art/adobes-turntable-turns-2d-images-into-3d-views-inside-illustrator-saving-hours-of-work",
+      "title": "Adobe's Turntable turns 2D images into 3D views inside Illustrator, saving hours of work",
+      "summary": "Adobe's Turntable turns 2D images into 3D views inside Illustrator, saving hours of work. This new AI-powered tool allows designers to generate 3D rotations from flat 2D vector art directly within the Illustrator interface.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "ai, 3d",
+      "tags": [
+        "design",
+        "ai",
+        "3d"
+      ],
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/YBtDM2ds2rgUu8EGFcSSQj-1280-80.jpg",
+      "savedAt": "2026-03-31T20:26:15.712Z",
+      "digestTitle": "Adobe Turntable brings 3D rotations to vectors",
+      "digestSummary": "New AI-powered tool in Illustrator that lets you generate 3D rotations from flat 2D vector art. Looks like a solid time-saver for designers moving between dimensions."
+    },
+    {
+      "url": "https://www.linkedin.com/posts/mohammedanuz_substancepainter-3dart-ai-ugcPost-7444945479479521281-OHLf?utm_source=social_share_send&utm_medium=ios_app&rcm=ACoAAAYuTEwBCXkvSWCQ_02cN9ZmK0Ilgiripds&utm_campaign=copy_link",
+      "title": "#substancepainter #3dart #ai #generativeai #textureartist #mcp #comfyui #maya #gameart #techart | Mohammed Anuz | 10 comments",
+      "summary": "#substancepainter #3dart #ai #generativeai. Mohammed Anuz demonstrates giving Claude direct autonomous control over Substance Painter via MCP, enabling the AI to build layer stacks, bake maps, and export textures from a single conversation.",
+      "category": "three-d",
+      "source": "discord-inbox",
+      "hint": "ai, 3d",
+      "tags": [
+        "vfx",
+        "3d",
+        "ai",
+        "substance"
+      ],
+      "savedAt": "2026-04-01T08:38:04.688Z",
+      "digestTitle": "Claude takes autonomous control of Substance",
+      "digestSummary": "Mohammed Anuz demonstrated giving Claude direct control over Substance Painter via MCP. The AI can build layer stacks, bake maps, and export textures from a conversation.",
+      "imageUrl": "https://media.licdn.com/dms/image/v2/D5605AQEoSs3IyQEfZA/videocover-low/B56Z1HC9daKkBY-/0/1775013456436?e=1776031200&v=beta&t=xugupnWdRkaX_uPfgrJnAKvKi83jwziD0rvGsonrSQM"
+    },
+    {
+      "url": "https://www.reddit.com/r/Spectacles/comments/1s91sdh/spatial_ai_kit_for_spectacles/",
+      "title": "Spatial AI Kit for Spectacles",
+      "summary": "Spatial AI Kit for Spectacles. An open-source developer kit that simplifies placing AI-generated 3D objects on physical surfaces using Snap Spectacles, integrating Snap3D, voice recognition, and Remote Service Gateway.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "snap, xr-glasses",
+      "tags": [
+        "snap",
+        "xr",
+        "coding"
+      ],
+      "videoUrl": "https://v.redd.it/t8har68bdgsg1/CMAF_1080.mp4?source=fallback",
+      "author": "International_Cup231",
+      "subreddit": "Spectacles",
+      "savedAt": "2026-04-01T10:31:03.001Z",
+      "imageUrl": "https://external-preview.redd.it/OWJuMTl6cjZmZ3NnMawj2suos1zJM-xf0Bd-3NfkZlnJGxpiBiajzCClN4Bu.png?format=pjpg&auto=webp&s=cfb726e616f049e47d05aa495cfb93de70e952aa",
+      "digestTitle": "Spatial AI Kit for Snap Spectacles",
+      "digestSummary": "An open-source developer kit that simplifies placing AI-generated 3D objects on physical surfaces. Integrates Snap3D, voice recognition, and Remote Service Gateway."
+    },
+    {
+      "url": "https://www.reddit.com/r/Spectacles/comments/1s8w324/our_mixed_reality_table_tennis_game_smash_ar/",
+      "title": "Our Mixed Reality Table Tennis Game – Smash AR 🏓",
+      "summary": "Our Mixed Reality Table Tennis Game - Smash AR. A developer showcase of a new AR-first table tennis experience built for Snap Spectacles, focusing on physics-based play and spatial interaction.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "xr, xr-glasses",
+      "tags": [
+        "xr",
+        "snap",
+        "design"
+      ],
+      "videoUrl": "https://v.redd.it/z445028jdfsg1/CMAF_1080.mp4?source=fallback",
+      "author": "vyuxr",
+      "subreddit": "Spectacles",
+      "savedAt": "2026-04-01T10:32:42.250Z",
+      "imageUrl": "https://lens-preview-storage.storage.googleapis.com/previewmedia/preview_thumbnail/a43d49b1-13c0-4b0b-bf1b-c79b0161a6cf.webp",
+      "digestTitle": "Smash AR: Mixed reality table tennis",
+      "digestSummary": "A developer showcase of an AR-first table tennis experience built for Snap Spectacles. It focuses on physics-based play and spatial interaction on the device."
+    },
+    {
+      "url": "https://www.techradar.com/computing/virtual-reality-augmented-reality/rec-room-is-the-latest-vr-metaverse-closure-but-i-have-hopes-itll-return-in-ar",
+      "title": "Rec Room is the latest VR metaverse closure — but I have hopes it'll return in AR | TechRadar",
+      "summary": "Rec Room is the latest VR metaverse closure. Following the announcement of the popular social platform's shutdown, speculation focuses on Snap's potential acquisition of assets to fuel future augmented reality initiatives.",
+      "category": "xr-spatial",
+      "source": "brave-x",
+      "hint": "snap, xr",
+      "tags": [
+        "xr",
+        "trends",
+        "snap"
+      ],
+      "savedAt": "2026-04-01T10:33:25.440Z",
+      "imageUrl": "https://cdn.mos.cms.futurecdn.net/D4Hx2qcdyDvJFuAvTYxnWN-1440-80.jpg",
+      "digestTitle": "Rec Room VR closure and the shift to AR",
+      "digestSummary": "Following Rec Room's shutdown, speculation is growing that assets could fuel future AR initiatives. This marks another significant closure in the pure VR social space."
+    },
+    {
+      "url": "https://www.thisiscolossal.com/2026/03/barry-webb-slime-mold-photos/",
+      "title": "Barry Webb Documents a Marvelous, Macro Array of Colorful Slime Molds",
+      "summary": "Barry Webb Documents a Marvelous, Macro Array of Colorful Slime Molds. This macro photography series captures the intricate structures and vibrant colors of amoeba-like organisms, offering visual inspiration through natural geometric patterns.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "art, design",
+      "tags": [
+        "art",
+        "inspiration",
+        "design"
+      ],
+      "imageUrl": "https://www.thisiscolossal.com/wp-content/uploads/2026/03/webb-8.jpg",
+      "savedAt": "2026-04-01T21:11:52.897Z",
+      "digestTitle": "Macro photography of colorful slime molds",
+      "digestSummary": "Barry Webb captures the intricate structures and vibrant colors of amoeba-like organisms. Great for visual inspiration and observing natural geometric patterns."
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/03/31/google-ai-releases-veo-3-1-lite-giving-developers-low-cost-high-speed-video-generation-via-the-gemini-api/",
+      "title": "Google AI Releases Veo 3.1 Lite: Giving Developers Low Cost High Speed Video Generation via The Gemini API",
+      "summary": "Google AI Releases Veo 3.1 Lite. Google has launched a new model tier via the Gemini API designed for production-scale video generation, offering developers a low-cost, high-speed alternative for scalable AI-driven content production.",
+      "category": "creative-ai",
+      "source": "rss",
+      "hint": "google, ai-art",
+      "tags": [
+        "google",
+        "ai",
+        "vfx"
+      ],
+      "savedAt": "2026-04-01T21:13:35.837Z",
+      "imageUrl": "https://www.marktechpost.com/wp-content/uploads/2026/03/blog-24-1024x731.png",
+      "digestTitle": "Google releases Veo 3.1 Lite video API",
+      "digestSummary": "New model tier via the Gemini API designed for production-scale video generation. It offers developers a low-cost, high-speed alternative for AI-driven content production."
+    },
+    {
+      "url": "https://www.reddit.com/r/augmentedreality/comments/1sa8pv4/youtube_finally_offers_native_support_for_apple/",
+      "title": "YouTube finally offers native support for Apple Vision Pro, allowing for \"spatial viewing,\" unlocking 360-degree, and VR180 immersive viewing.",
+      "summary": "YouTube finally offers native support for Apple Vision Pro. The official app update enables spatial viewing on Apple's headset, unlocking 360-degree and VR180 immersive video content for the first time.",
+      "category": "xr-spatial",
+      "source": "reddit",
+      "hint": "apple, xr",
+      "tags": [
+        "apple",
+        "xr",
+        "trends"
+      ],
+      "imageUrl": "https://external-preview.redd.it/cmVsN3AzbnNxcHNnMW72E3IRD6NgkIt80FZeJowPmENW3TBVjElprsHWlDNY.png?format=pjpg&auto=webp&s=ebfa5e05ae93a085cba6e31590ee528afe450ed3",
+      "videoUrl": "https://v.redd.it/cgvfkymsqpsg1/CMAF_720.mp4?source=fallback",
+      "author": "TheGoldenLeaper",
+      "subreddit": "augmentedreality",
+      "savedAt": "2026-04-02T12:08:13.771Z",
+      "digestTitle": "YouTube launches native Vision Pro app",
+      "digestSummary": "The official app update finally enables spatial viewing on Apple's headset. This unlocks 360-degree and VR180 immersive video content for Vision Pro users."
+    },
+    {
+      "url": "https://figprompt.com",
+      "title": "FigPrompt",
+      "summary": "FigPrompt. A new utility that enables designers to generate custom Figma plugins using natural language descriptions, automating the packaging and delivery of specialized design tools.",
+      "category": "three-d",
+      "source": "newsletter-inbox",
+      "hint": "tools, coding",
+      "tags": [
+        "design",
+        "ai",
+        "tools"
+      ],
+      "imageUrl": "https://figprompt.com/FigPrompt-image.jpg",
+      "author": "TLDR Design <dan@tldrnewsletter.com>",
+      "savedAt": "2026-04-02T22:11:05.152Z",
+      "digestTitle": "FigPrompt: Generate Figma plugins from text",
+      "digestSummary": "New utility that builds custom Figma plugins using natural language descriptions. Automatically packages and delivers ready-to-install tools in about two minutes."
+    },
+    {
+      "url": "https://openai.com/index/accelerating-the-next-phase-ai/",
+      "title": "OpenAI’s record-breaking funding, superapp",
+      "summary": "OpenAI’s record-breaking funding, superapp. OpenAI has secured $122 billion at an $852 billion valuation and revealed plans to consolidate ChatGPT, Codex, and its autonomous agents into a single unified AI superapp.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "openai, ai",
+      "tags": [
+        "openai",
+        "ai",
+        "trends"
+      ],
+      "author": "The Rundown AI <news@daily.therundown.ai>",
+      "savedAt": "2026-04-02T22:13:56.742Z",
+      "digestTitle": "OpenAI raises $122B for AI superapp",
+      "digestSummary": "OpenAI secured record funding at an $852B valuation. They revealed plans to consolidate ChatGPT, Codex, and autonomous agents into a single unified AI superapp.",
+      "imageUrl": "https://cdn.sologo.ai/2025/0102/20250102113948245.png"
+    },
+    {
+      "url": "https://arinsider.co/2026/04/02/is-google-search-live-the-ultimate-fusion-of-ar-ai/",
+      "title": "Is Google Search Live the Ultimate Fusion of AR  AI?",
+      "summary": "Is Google Search Live the Ultimate Fusion of AR AI? An analysis of Google's latest visual search technology that combines real-time voice and visual inputs, potentially serving as the primary interface for next-generation smart glasses.",
+      "category": "xr-spatial",
+      "source": "rss",
+      "hint": "google, ai",
+      "tags": [
+        "google",
+        "xr",
+        "ai"
+      ],
+      "imageUrl": "https://arinsider.co/wp-content/uploads/2026/04/SearchLive.jpg",
+      "savedAt": "2026-04-03T12:19:13.821Z",
+      "digestTitle": "Google Search Live fuses AR and AI",
+      "digestSummary": "Analysis of Google's visual search technology that combines real-time voice and visual inputs. This multimodal approach could be the primary interface for smart glasses."
+    },
+    {
+      "url": "https://www.blendernation.com/2026/04/02/share-blender-node-trees-as-hash-json-or-xml-with-the-node-runner-add-on/",
+      "title": "Share Blender node trees as Hash, JSON, or XML With the Node Runner Add-on",
+      "summary": "Share Blender node trees as Hash, JSON, or XML. The Node Runner add-on enables designers to export and share selected node trees as plain text, supporting shaders, geometry nodes, and compositor workflows for easier collaboration and version control.",
+      "category": "three-d",
+      "source": "rss",
+      "hint": "blender, tools",
+      "tags": [
+        "blender",
+        "tools",
+        "3d"
+      ],
+      "imageUrl": "https://www.blendernation.com/wp-content/uploads/2026/03/node_runner_hero.png",
+      "savedAt": "2026-04-03T12:24:21.927Z",
+      "digestTitle": "Node Runner: Export Blender nodes as text",
+      "digestSummary": "Add-on for exporting selected node trees as plain text, supporting shaders and geometry nodes. Makes collaboration and version control much easier for technical artists."
+    },
+    {
+      "url": "https://www.reddit.com/r/MotionDesign/comments/1sagq3e/joystix_sliders_real_life_edition/",
+      "title": "Joystix &amp; Sliders, real life edition",
+      "summary": "Joystix & Sliders, real life edition. A motion design piece that translates digital interface controls into a physical, real-world context through stylized animation.",
+      "category": "three-d",
+      "source": "reddit",
+      "hint": "2d, design",
+      "tags": [
+        "2d",
+        "design",
+        "vfx"
+      ],
+      "imageUrl": "https://external-preview.redd.it/YWk2YThqcWQyeHFnMTSk17N1fivRatFAk8zRPCh0mQD4vI96ei4rr0cyPYgi.png?auto=webp&s=500e3512010997c530159891249e44cfc634d08b",
+      "videoUrl": "https://v.redd.it/r757hbod2xqg1",
+      "author": "RecommendationNo108",
+      "subreddit": "MotionDesign",
+      "savedAt": "2026-04-03T15:01:14.376Z",
+      "digestTitle": "Joystix & Sliders in real life",
+      "digestSummary": "A clever motion design piece that translates digital interface controls into a physical context. Great stylized animation showing interface concepts as physical objects."
+    },
+    {
+      "url": "https://www.theneuron.ai/explainer-articles/how-to-actually-use-ai-in-2026-the-complete-guide/",
+      "title": "The 2026 AI Proficiency Stack Guide",
+      "summary": "The 2026 AI Proficiency Stack Guide. A comprehensive framework for advancing from basic chatting to autonomous agent deployment, offering practical strategies for managing projects and reusable skills to maximize individual productivity.",
+      "category": "creative-ai",
+      "source": "newsletter-inbox",
+      "hint": "ai, tools",
+      "tags": [
+        "ai",
+        "trends",
+        "tools"
+      ],
+      "imageUrl": "https://cdn.theneuron.ai/Gemini_Generated_Image_8j8zaz8j8zaz8j8z.png",
+      "author": "The Neuron <theneuron@newsletter.theneurondaily.com>",
+      "savedAt": "2026-04-03T17:33:49.641Z",
+      "digestTitle": "The 2026 AI Proficiency Stack Guide",
+      "digestSummary": "A framework for moving from basic prompting to autonomous agent deployment. Practical strategies for managing projects and maximizing individual productivity with AI."
+    }
+  ],
+  "publishedAt": "2026-04-07T12:25:07.285Z",
+  "itemCount": 20
+}
