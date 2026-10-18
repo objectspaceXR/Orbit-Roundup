@@ -57,8 +57,8 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
   const clip = item.videoUrl && !embed && isNativeVideoUrl(item.videoUrl) && !/v\.redd\.it/i.test(item.videoUrl) && !clipFailed.has(item.url) ? item.videoUrl : null;
   // While a YouTube or Vimeo player runs, it sits above the story instead of under it, so nothing covers its controls
   const tall = !(playing && embed);
-  // Round glass buttons, halfway down: inside the screen's edges on phones, beside the card on wider screens
-  const arrow = 'absolute top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white bg-white/15 border border-white/25 backdrop-blur-md shadow-lg shadow-black/40 hover:bg-white/25 active:scale-95 transition disabled:opacity-0 disabled:pointer-events-none';
+  // Glass buttons halfway down. On phones they are slim tabs against the screen's edges, clear of the words.
+  const arrow = 'absolute top-1/2 -translate-y-1/2 z-30 w-7 h-14 md:w-12 md:h-12 md:rounded-full flex items-center justify-center text-white bg-white/15 border border-white/25 backdrop-blur-md shadow-lg shadow-black/40 hover:bg-white/25 active:scale-95 transition disabled:opacity-0 disabled:pointer-events-none';
 
   const down = (e: React.PointerEvent) => {
     if ((e.target as Element).closest('a,button,iframe,[role=menu]')) return;
@@ -85,10 +85,10 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
       <button type="button" onClick={onClose} aria-label="Close stories" className="absolute top-4 right-4 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20">
         <Icon name="close" />
       </button>
-      <button type="button" onClick={prev} disabled={at === 0} aria-label="Previous story" className={`${arrow} left-2 md:left-[max(1rem,calc(50%-370px))]`}>
+      <button type="button" onClick={prev} disabled={at === 0} aria-label="Previous story" className={`${arrow} left-0 rounded-r-2xl border-l-0 md:border-l md:left-[max(1rem,calc(50%-370px))]`}>
         <Icon name="arrowLeft" />
       </button>
-      <button type="button" onClick={next} aria-label={at < stories.length - 1 ? 'Next story' : 'Close stories'} className={`${arrow} right-2 md:right-[max(1rem,calc(50%-370px))]`}>
+      <button type="button" onClick={next} aria-label={at < stories.length - 1 ? 'Next story' : 'Close stories'} className={`${arrow} right-0 rounded-l-2xl border-r-0 md:border-r md:right-[max(1rem,calc(50%-370px))]`}>
         <Icon name="arrowRight" />
       </button>
 
@@ -143,7 +143,7 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
         {tall && <div className="shrink-0 h-[30%] sm:h-[32%] pointer-events-none" aria-hidden />}
         <div className="relative z-10 flex-1 min-h-0 flex flex-col pb-[max(1rem,env(safe-area-inset-bottom))]">
           <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar flex flex-col">
-            <div className={`mt-auto px-6 sm:px-8 ${tall ? 'pt-12 bg-[linear-gradient(to_bottom,transparent,color-mix(in_srgb,var(--color-ink-raised)_85%,transparent)_3rem,var(--color-ink-raised)_6rem)]' : 'pt-2'}`}>
+            <div className={`mt-auto px-9 sm:px-8 ${tall ? 'pt-14 bg-[linear-gradient(to_bottom,transparent,color-mix(in_srgb,var(--color-ink-raised)_75%,transparent)_2rem,color-mix(in_srgb,var(--color-ink-raised)_94%,transparent)_3.25rem,var(--color-ink-raised)_5rem)]' : 'pt-2'}`}>
               <span className="font-hud text-[11.5px] uppercase tracking-[0.14em] text-paper-faint [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">{sourceOf(item)}</span>
               <h2 className="mt-2 text-[28px] sm:text-[34px] font-bold leading-[1.1] text-balance text-paper [text-shadow:0_2px_16px_rgba(0,0,0,0.55)]">{titleOf(item)}</h2>
               {summaryOf(item) && <p className="mt-4 text-[18px] sm:text-[19px] leading-[1.55] text-paper-muted text-pretty">{summaryOf(item)}</p>}
