@@ -1,9 +1,29 @@
 import { existsSync, readdirSync, readFileSync } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import type { ArchiveItem, PublishedItem, WeekData, WeekMeta } from './roundup';
 
 /** Build-time reads of the published weeks (server only). */
 const DIR = join(process.cwd(), 'data/weeks');
+/**
+ * Local testing only: XPLR's own published snapshots (set ORBIT_LOCAL_WEEKS_DIR in .env.local, e.g.
+ * ../XPLR_Dash/data/orbit/published). A week there wins over the same week in data/weeks, so what XPLR just
+ * published shows here straight away, before it has been pulled from GitHub. Never set on Cloudflare.
+ */
+const LOCAL = process.env.ORBIT_LOCAL_WEEKS_DIR ? resolve(process.cwd(), process.env.ORBIT_LOCAL_WEEKS_DIR) : null;
+
+/** The file a week is read from: the local XPLR snapshot when there is one, else data/weeks. */
+export function weekFile(week: string): string {
+  const local = LOCAL && join(LOCAL, `${week}.json`);
+  return local && existsSync(local) ? local : join(DIR, `${week}.json`);
+}
+
+function weekNames(dir: string | null): string[] {
+  try {
+    return dir ? readdirSync(dir).filter((f) => /^\d{4}-W\d{2}\.json$/.test(f)).map((f) => f.replace('.json', '')) : [];
+  } catch {
+    return [];
+  }
+}
 const CHECK = join(process.cwd(), 'data/media-check.json');
 
 /** Results of `npm run check-media`: dead links are dropped, unsuitable pictures fall back to the poster. */
@@ -28,12 +48,11 @@ function clean(items: PublishedItem[]): PublishedItem[] {
 
 export function listWeeks(): WeekMeta[] {
   try {
-    return readdirSync(DIR)
-      .filter((f) => f.endsWith('.json'))
-      .map((f) => {
-        const d = readWeek(f.replace('.json', ''));
+    return [...new Set([...weekNames(DIR), ...weekNames(LOCAL)])]
+      .map((week) => {
+        const d = readWeek(week);
         const cover = d?.items.find((i) => i.imageUrl)?.imageUrl;
-        return { week: f.replace('.json', ''), count: d?.items.length ?? 0, ...(cover ? { cover } : {}) };
+        return { week, count: d?.items.length ?? 0, ...(cover ? { cover } : {}) };
       })
       .sort((a, b) => a.week.localeCompare(b.week));
   } catch {
@@ -43,7 +62,7 @@ export function listWeeks(): WeekMeta[] {
 
 export function readWeek(week: string): WeekData | null {
   try {
-    const d = JSON.parse(readFileSync(join(DIR, `${week}.json`), 'utf-8'));
+    const d = JSON.parse(readFileSync(weekFile(week), 'utf-8'));
     return { week: d.week || week, items: clean(Array.isArray(d.items) ? d.items : []), publishedAt: d.publishedAt };
   } catch {
     return null;

@@ -1,6 +1,10 @@
 /**
  * Shared helpers for the v2 story feed: the published item shape, beats, labels and display text.
  * (The classic page at /[week] keeps its own copies until v2 replaces it.)
+ *
+ * This is the Roundup format. XPLR Dash copies it (with lib/trends.ts's filtering) into
+ * src/lib/orbit/roundup-format.ts so its Roundup draft shows stories the way Orbit will. Change it here first,
+ * then copy it across.
  */
 
 export interface PublishedItem {

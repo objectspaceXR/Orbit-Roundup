@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import type { Beat } from './roundup';
-import { readWeek } from './weeks';
+import { readWeek, weekFile } from './weeks';
 
 /** Something that happened this week, told once, with the stories behind it. */
 export interface Trend {
@@ -23,7 +23,7 @@ type RawTrend = { title?: string; why?: string; focus?: string; urls?: string[];
 export function trendsFor(week: string): Trend[] {
   let raw: RawTrend[] = [];
   try {
-    const inWeek = JSON.parse(readFileSync(join(process.cwd(), 'data/weeks', `${week}.json`), 'utf-8')).trends;
+    const inWeek = JSON.parse(readFileSync(weekFile(week), 'utf-8')).trends;
     const file = join(process.cwd(), 'data/trends', `${week}.json`);
     raw = Array.isArray(inWeek) ? inWeek : existsSync(file) ? JSON.parse(readFileSync(file, 'utf-8')).trends ?? [] : [];
   } catch {
