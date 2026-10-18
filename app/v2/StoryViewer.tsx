@@ -4,9 +4,37 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { BEAT_INFO, beatOf, sourceOf, summaryOf, tagsOf, titleOf, videoEmbed, type PublishedItem } from '@/lib/roundup';
 import { externalImageSrcForImg } from '@/lib/external-image-src';
 import { clipSources } from '@/lib/video-embed';
-import { Actions, Cover, Icon, KEYS, useStoredSet } from './ui';
+import { Actions, Cover, Icon, KEYS, coverSrc, useStoredSet } from './ui';
 
 export type Story = { item: PublishedItem; week: string };
+
+/** Pictures and clips fetched ahead of their story this visit, so they show the moment you move on to it. */
+const warmed = new Set<string>();
+const warmClips: HTMLVideoElement[] = [];
+function warm(item: PublishedItem, withClip: boolean) {
+  const src = coverSrc(item);
+  if (src && !warmed.has(src)) {
+    warmed.add(src);
+    const img = new Image();
+    img.referrerPolicy = 'no-referrer';
+    img.src = src;
+  }
+  const clip = withClip && !videoEmbed(item) ? clipSources(item.videoUrl)[0] : undefined;
+  if (!clip || warmClips.some((v) => v.dataset.src === clip)) return;
+  const v = document.createElement('video');
+  v.muted = true;
+  v.preload = 'auto';
+  v.dataset.src = clip;
+  v.src = /streamable\.com/i.test(clip) ? `/api/image-proxy?url=${encodeURIComponent(clip)}` : clip;
+  v.load();
+  // Only a few at a time, so a phone does not download the whole week
+  warmClips.push(v);
+  while (warmClips.length > 3) {
+    const old = warmClips.shift()!;
+    old.removeAttribute('src');
+    old.load();
+  }
+}
 
 /**
  * Full-screen stories as a quick digest: the picture (or the story's own video, playing muted) fills the top two
@@ -30,6 +58,12 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
     if (story) seen.toggle(story.item.url, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [at]);
+
+  // The next two stories (and the one before) are fetched ahead: their pictures, and the next ones' videos
+  useEffect(() => {
+    for (const s of [stories[at + 1], stories[at + 2]]) if (s) warm(s.item, true);
+    if (stories[at - 1]) warm(stories[at - 1].item, false);
+  }, [at, stories]);
 
   useEffect(() => {
     const key = (e: KeyboardEvent) => {

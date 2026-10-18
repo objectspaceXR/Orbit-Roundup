@@ -101,10 +101,15 @@ export function Poster({ name, seed, small = false, plain = false }: { name: str
   );
 }
 
+/** The src an item's picture loads from (YouTube stills at their larger size); empty when it has none. */
+export function coverSrc(item: PublishedItem): string {
+  return item.imageUrl ? externalImageSrcForImg(item.imageUrl.replace(/(img\.youtube\.com|i\.ytimg\.com)\/vi\/([^/]+)\/(mq|sd)?default\.jpg/i, '$1/vi/$2/hqdefault.jpg')) : '';
+}
+
 /** An item's picture filling its box; with none, or one that fails, the poster. */
 export function Cover({ item, small = false, eager = false, plain = false }: { item: PublishedItem; small?: boolean; eager?: boolean; plain?: boolean }) {
   const [failed, setFailed] = useState(false);
-  const src = item.imageUrl ? externalImageSrcForImg(item.imageUrl.replace(/(img\.youtube\.com|i\.ytimg\.com)\/vi\/([^/]+)\/(mq|sd)?default\.jpg/i, '$1/vi/$2/hqdefault.jpg')) : '';
+  const src = coverSrc(item);
   if (!src || failed) return <Poster name={sourceOf(item)} seed={item.url} small={small} plain={plain} />;
   return (
     // eslint-disable-next-line @next/next/no-img-element
