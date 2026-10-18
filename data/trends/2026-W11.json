@@ -1,0 +1,39 @@
+{
+  "week": "2026-W11",
+  "trends": [
+    {
+      "title": "Snap bets on Spectacles",
+      "why": "Snap spun Spectacles out with 100 new hires, 8th Wall went open source, and the AR glasses field filled with leaks.",
+      "focus": "xr",
+      "urls": [
+        "https://glassalmanac.com/snap-reveals-specs-unit-and-nearly-100-hires-in-2026-why-investors-should-care/",
+        "https://www.reddit.com/r/Spectacles/comments/1rroujq/dj_on_the_move/",
+        "https://www.8thwall.com/blog/post/208587408737/8th-wall-open-source",
+        "https://glassalmanac.com/7-ar-glasses-in-2026-that-reveal-price-leaks-and-one-surprising-feature/",
+        "https://glassalmanac.com/meta-reveals-facial-recognition-plans-for-smart-glasses-in-2026-why-it-matters-now/"
+      ]
+    },
+    {
+      "title": "Texture tools get a refresh",
+      "why": "SKAP, Substance 3D Designer 16 and InstaMAT 2026 all landed in the same fortnight.",
+      "focus": "design",
+      "urls": [
+        "https://80.lv/articles/texturingxyz-s-skap-now-available/",
+        "https://www.cgchannel.com/2026/03/adobe-previews-substance-3d-designer-16-0/",
+        "https://www.cgchannel.com/2026/03/abstract-releases-instamat-2026-with-new-curves-brushes/",
+        "https://www.reddit.com/r/blender/comments/1rock0f/ive_made_a_procedural_fantasy_hut_generator_with/"
+      ]
+    },
+    {
+      "title": "AI moves from prompts to pipelines",
+      "why": "ComfyUI added an app mode, DeepMind rebuilt 3D from long videos, and studios wrote down how they use generative AI.",
+      "focus": "ai",
+      "urls": [
+        "https://blog.comfy.org/p/from-workflow-to-app-introducing",
+        "https://loger-project.github.io",
+        "https://motionographer.com/news/black-math-reveals-art-first-playbook-for-generative-ai-era/",
+        "https://the-decoder.com/anthropics-claude-opus-4-6-saw-through-an-ai-test-cracked-the-encryption-and-grabbed-the-answers-itself/"
+      ]
+    }
+  ]
+}

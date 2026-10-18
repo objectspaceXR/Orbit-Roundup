@@ -1,0 +1,48 @@
+{
+  "week": "2026-W13",
+  "trends": [
+    {
+      "title": "Sora's exit opens the image race",
+      "why": "Disney walked away as the Sora app closed; Luma and Google answered with stronger image models and Gemini passed 750M users.",
+      "focus": "ai",
+      "urls": [
+        "https://the-decoder.com/disney-pulls-out-of-openai-partnership-after-sora-app-and-api-gets-killed-just-months-after-launch/",
+        "https://the-decoder.com/luma-ais-uni-1-could-be-the-first-real-challenger-to-googles-nano-banana-image-dominance/",
+        "https://tech-insider.org/google-gemini-750-million-users-march-2026-updates/",
+        "https://blog.google/innovation-and-ai/products/gemini-app/switch-to-gemini-app/"
+      ]
+    },
+    {
+      "title": "Handmade craft wins the week",
+      "why": "A hand-animated short took SXSW, a miniature New York was built by hand, and LAIKA showed how it animates water frame by frame.",
+      "focus": "design",
+      "urls": [
+        "https://www.stashmedia.tv/anna-ginsburgs-animated-short-hag-wins-special-jury-award-seriesfest-pitch-a-thon-at-sxsw/",
+        "https://www.designboom.com/design/handmade-miniature-model-new-york-layout-city-streets-buildings-joe-macken/",
+        "https://beforesandafters.com/2026/03/28/current-obsession-this-how-to-animate-water-video-from-laika/",
+        "https://www.itsnicethat.com/articles/conor-kehelly-animation-discover-250326",
+        "https://www.stashmedia.tv/memory-connection-bol-device-explore-solitude-in-every-light-in-between-short-film/"
+      ]
+    },
+    {
+      "title": "ComfyUI grows into a pipeline",
+      "why": "Vector output, a 3D pipeline in ComfySketch and new Blender helpers: node graphs are turning into production tools.",
+      "focus": "ai",
+      "urls": [
+        "https://www.reddit.com/r/comfyui/comments/1s21jx0/i_created_a_simple_flux2_klein_raster_to_vector/",
+        "https://www.reddit.com/r/comfyui/comments/1s5x7m4/comfysketch_pro_a_node_inside_comfyui_big_update/",
+        "https://80.lv/articles/try-this-surface-wrapping-blender-tool-for-free/"
+      ]
+    },
+    {
+      "title": "Snap's AR keeps scaling",
+      "why": "Two trillion snaps, AI Clips in Lens Studio and image-to-3D for AR: Snap keeps making AR creation cheaper.",
+      "focus": "xr",
+      "urls": [
+        "https://www.webpronews.com/snapchats-2-trillion-snaps-signal-a-platform-that-refuses-to-fade-and-wall-street-should-pay-attention/",
+        "https://developers.snap.com/lens-studio/features/genai-suite/ai-clips",
+        "https://www.reddit.com/r/augmentedreality/comments/1s30dfl/ar_genai_imagetoar_3d_model/"
+      ]
+    }
+  ]
+}

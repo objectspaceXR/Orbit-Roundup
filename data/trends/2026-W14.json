@@ -1,0 +1,49 @@
+{
+  "week": "2026-W14",
+  "trends": [
+    {
+      "title": "AI video gets a reality check",
+      "why": "Sora shut down while xAI and Google pushed cheaper video models. The money is moving from consumer apps to APIs other tools build on.",
+      "focus": "ai",
+      "urls": [
+        "https://techcrunch.com/2026/03/29/soras-shutdown-could-be-a-reality-check-moment-for-ai-video/",
+        "https://links.tldrnewsletter.com/7EHqIp",
+        "https://www.marktechpost.com/2026/03/31/google-ai-releases-veo-3-1-lite-giving-developers-low-cost-high-speed-video-generation-via-the-gemini-api/"
+      ]
+    },
+    {
+      "title": "Agents start driving creative tools",
+      "why": "Claude ran Substance on its own, FigPrompt writes Figma plugins from a sentence, and Node Runner turns Blender node trees into text a model can read.",
+      "focus": "design",
+      "urls": [
+        "https://www.linkedin.com/posts/mohammedanuz_substancepainter-3dart-ai-ugcPost-7444945479479521281-OHLf?utm_source=social_share_send&utm_medium=ios_app&rcm=ACoAAAYuTEwBCXkvSWCQ_02cN9ZmK0Ilgiripds&utm_campaign=copy_link",
+        "https://figprompt.com",
+        "https://www.blendernation.com/2026/04/02/share-blender-node-trees-as-hash-json-or-xml-with-the-node-runner-add-on/",
+        "https://fortune.com/2026/03/26/anthropic-says-testing-mythos-powerful-new-ai-model-after-data-leak-reveals-its-existence-step-change-in-capabilities/"
+      ]
+    },
+    {
+      "title": "Social VR shrinks, AR glasses grow",
+      "why": "Rec Room closed its VR doors the same week Snap shipped a Spatial AI kit for Spectacles and Google folded AR into Search Live.",
+      "focus": "xr",
+      "urls": [
+        "https://www.techradar.com/computing/virtual-reality-augmented-reality/rec-room-is-the-latest-vr-metaverse-closure-but-i-have-hopes-itll-return-in-ar",
+        "https://www.reddit.com/r/Spectacles/comments/1s91sdh/spatial_ai_kit_for_spectacles/",
+        "https://www.reddit.com/r/Spectacles/comments/1s8w324/our_mixed_reality_table_tennis_game_smash_ar/",
+        "https://arinsider.co/2026/04/02/is-google-search-live-the-ultimate-fusion-of-ar-ai/",
+        "https://www.reddit.com/r/augmentedreality/comments/1sa8pv4/youtube_finally_offers_native_support_for_apple/"
+      ]
+    },
+    {
+      "title": "The big labs go bigger",
+      "why": "OpenAI raised $122B for its superapp and Anthropic confirmed Mythos, while the practical answer for many is a good local model.",
+      "focus": "ai",
+      "urls": [
+        "https://openai.com/index/accelerating-the-next-phase-ai/",
+        "https://fortune.com/2026/03/26/anthropic-says-testing-mythos-powerful-new-ai-model-after-data-leak-reveals-its-existence-step-change-in-capabilities/",
+        "https://www.youtube.com/watch?v=vehYE1DfkZg",
+        "https://www.theneuron.ai/explainer-articles/how-to-actually-use-ai-in-2026-the-complete-guide/"
+      ]
+    }
+  ]
+}

@@ -239,3 +239,56 @@ body {
 }
 
 /* Shared widget container - light white bg, flex layout */
+
+/* ── /v2 design tokens (shared with XPLR Dash v2) ──────────────────
+   Warm near-black, warm-white type, one signal colour. Beat colours are
+   only ever small markers. Fonts come from app/v2/layout.tsx. */
+@theme {
+  --color-ink: #0e0e11;
+  --color-ink-raised: #17171c;
+  --color-ink-card: #202026;
+  --color-ink-hover: #2e2e36;
+  --color-line: #383842;
+  --color-line-strong: #555560;
+  --color-paper: #faf6ee;
+  --color-paper-muted: #d2ccc0;
+  --color-paper-faint: #aca69a;
+  --color-signal: #d4ff3a;
+  --color-beat-xr: #ff8a4c;
+  --color-beat-design: #f07bc4;
+  --color-beat-ai: #62b3ff;
+}
+@theme inline {
+  --font-ui: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-hud: var(--font-geist-mono), ui-monospace, monospace;
+  --font-poster: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+}
+.xplr-v2 .tone-blue { --t: 98, 179, 255; }
+.xplr-v2 .tone-pink { --t: 240, 123, 196; }
+.xplr-v2 .tone-orange { --t: 255, 138, 76; }
+.xplr-v2 .tone-lime { --t: 212, 255, 58; }
+.xplr-v2 .tone-teal { --t: 132, 216, 204; }
+.xplr-v2 .tone-card {
+  border: 1px solid rgba(var(--t, 172, 166, 154), 0.2);
+  background: linear-gradient(160deg, rgba(var(--t, 172, 166, 154), 0.12) 0%, rgba(var(--t, 172, 166, 154), 0.04) 55%, rgba(255, 255, 255, 0.015) 100%);
+  transition: border-color 0.2s;
+}
+.xplr-v2 .tone-card:hover { border-color: rgba(var(--t, 172, 166, 154), 0.42); }
+.xplr-v2 .tone-chip { color: rgba(var(--t, 172, 166, 154), 0.95); border: 1px solid rgba(var(--t, 172, 166, 154), 0.32); }
+.xplr-v2 .tone-dot { background: rgb(var(--t, 172, 166, 154)); }
+.xplr-v2 ::selection { background: var(--color-signal); color: var(--color-ink); }
+.xplr-v2 .no-scrollbar { scrollbar-width: none; }
+.xplr-v2 .no-scrollbar::-webkit-scrollbar { display: none; }
+/* Top bar tabs: bold upper-case words, the open one underlined in signal */
+.xplr-v2 .v2-tab {
+  position: relative; display: inline-flex; align-items: center; height: 100%; padding: 0 12px;
+  font: 800 12px/1 var(--font-ui); letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap;
+  color: var(--color-paper-faint); transition: color 0.15s;
+}
+.xplr-v2 .v2-tab:hover { color: var(--color-paper); }
+.xplr-v2 .v2-tab[aria-current="page"] {
+  color: var(--color-paper);
+  background: linear-gradient(0deg, color-mix(in srgb, var(--color-signal) 10%, transparent), transparent 70%);
+}
+.xplr-v2 .v2-tab[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--color-signal); }
+@keyframes v2-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }

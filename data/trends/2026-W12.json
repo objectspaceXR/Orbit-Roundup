@@ -1,0 +1,49 @@
+{
+  "week": "2026-W12",
+  "trends": [
+    {
+      "title": "GPT-5.4 lands, agents get personal",
+      "why": "OpenAI shipped GPT-5.4 as Perplexity pitched a personal computer agent and open-source coding agents kept pace.",
+      "focus": "ai",
+      "urls": [
+        "https://justainews.com/companies/openai-released-chatgpt-5-4-what-changed-for-users/",
+        "https://www.nxcode.io/resources/news/gpt-5-4-vs-gpt-5-2-comparison-upgrade-guide-2026",
+        "https://the-decoder.com/perplexitys-personal-computer-promises-a-tireless-ai-agent-for-200-a-month/",
+        "https://opencode.ai/",
+        "https://www.marktechpost.com/2026/03/19/google-colab-now-has-an-open-source-mcp-model-context-protocol-server-use-colab-runtimes-with-gpus-from-any-local-ai-agent/",
+        "https://the-decoder.com/openais-biggest-problem-may-not-be-building-ai-but-getting-companies-to-actually-use-it-beyond-chatgpt/"
+      ]
+    },
+    {
+      "title": "DLSS 5 splits the room",
+      "why": "Nvidia's neural rendering is a leap in fidelity, or the moment the GPU starts deciding what your game looks like.",
+      "focus": "design",
+      "urls": [
+        "https://www.fxguide.com/quicktakes/nvidias-new-real-time-neural-rendering-with-dlss-5/",
+        "https://www.creativebloq.com/3d/video-game-design/dlss-5-is-nvidias-boldest-graphics-leap-yet-and-its-most-controversial"
+      ]
+    },
+    {
+      "title": "Meta steps back from VR worlds",
+      "why": "Horizon Worlds dropped VR support while others pushed an open metaverse browser and quieter, useful headset apps.",
+      "focus": "xr",
+      "urls": [
+        "https://www.uploadvr.com/meta-horizon-worlds-dropping-vr-support/",
+        "https://www.reddit.com/r/WebXR/comments/1rwlt0u/open_metaverse_browser_initiative_just_launched/",
+        "https://www.uploadvr.com/spacious-places-hands-on-musical-meditation/",
+        "https://www.reddit.com/r/augmentedreality/comments/1ryehps/smart_glasses_changing_lives_for_dementia_patients/"
+      ]
+    },
+    {
+      "title": "Stop-motion and handmade at the Oscars",
+      "why": "KPop Demon Hunters won, LAIKA marked 20 years, and studios shared how hand-made animation still gets made.",
+      "focus": "design",
+      "urls": [
+        "https://www.creativebloq.com/art/animation/why-kpop-demon-hunterss-oscar-win-is-a-big-deal",
+        "https://www.itsnicethat.com/features/laika-20-years-of-stop-motion-animation-partnership-200326",
+        "https://www.itsnicethat.com/features/will-anderson-ainslie-henderson-small-prophets-animation-160326",
+        "https://www.designboom.com/design/walk-through-world-david-hockney-immersive-opera-stage-designs/"
+      ]
+    }
+  ]
+}
