@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BEAT_INFO, beatOf, sourceOf, summaryOf, tagsOf, titleOf, videoEmbed, type PublishedItem } from '@/lib/roundup';
 import { externalImageSrcForImg } from '@/lib/external-image-src';
-import { isNativeVideoUrl } from '@/lib/video-embed';
+import { clipSources } from '@/lib/video-embed';
 import { Actions, Cover, Icon, KEYS, useStoredSet } from './ui';
 
 export type Story = { item: PublishedItem; week: string };
@@ -16,7 +16,8 @@ export type Story = { item: PublishedItem; week: string };
  */
 export default function StoryViewer({ stories, at, onGo, onClose, likes }: { stories: Story[]; at: number; onGo: (i: number) => void; onClose: () => void; likes: { counts: Record<string, number>; bump: (id: string, by: number) => void } }) {
   const [playing, setPlaying] = useState(false);
-  const [clipFailed, setClipFailed] = useState<Set<string>>(new Set());
+  /** Per story, how many of its video files have failed to play (the next one is tried, then the picture). */
+  const [clipMiss, setClipMiss] = useState<Record<string, number>>({});
   const seen = useStoredSet(KEYS.seen);
   const story = stories[at];
   const touch = useRef<{ x: number; y: number; t: number } | null>(null);
@@ -53,8 +54,9 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
   const { item, week } = story;
   const embed = videoEmbed(item);
   const beat = BEAT_INFO[beatOf(item)];
-  // A video file of its own plays as the cover, muted and looping (Reddit's v.redd.it streams do not play in a <video>)
-  const clip = item.videoUrl && !embed && isNativeVideoUrl(item.videoUrl) && !/v\.redd\.it/i.test(item.videoUrl) && !clipFailed.has(item.url) ? item.videoUrl : null;
+  // A video of its own (a file, or a Reddit clip) plays as the cover, muted and looping; the picture if none plays
+  const misses = clipMiss[item.url] ?? 0;
+  const clip = embed ? null : (clipSources(item.videoUrl)[misses] ?? null);
   // While a YouTube or Vimeo player runs, it sits above the story instead of under it, so nothing covers its controls
   const tall = !(playing && embed);
   // Glass buttons halfway down. On phones they are slim tabs against the screen's edges, clear of the words.
@@ -101,14 +103,14 @@ export default function StoryViewer({ stories, at, onGo, onClose, likes }: { sto
             <>
               {clip ? (
                 <video
-                  key={item.url}
+                  key={clip}
                   src={/streamable\.com/i.test(clip) ? `/api/image-proxy?url=${encodeURIComponent(clip)}` : clip}
                   poster={item.imageUrl ? externalImageSrcForImg(item.imageUrl) : undefined}
                   autoPlay
                   muted
                   loop
                   playsInline
-                  onError={() => setClipFailed((prev) => new Set(prev).add(item.url))}
+                  onError={() => setClipMiss((prev) => ({ ...prev, [item.url]: misses + 1 }))}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
               ) : (
