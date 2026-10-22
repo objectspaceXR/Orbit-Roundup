@@ -35,6 +35,30 @@ export function isProject(item: PublishedItem): boolean {
   return beatOf(item) === 'three-d' && !!item.imageUrl && !/newsletter/.test(item.source || '');
 }
 
+/** The week as stories to watch: everything, then XR news, inspiration (projects) and the rest of the creative tech news. */
+export const REELS = [
+  { id: 'all', label: 'Everything' },
+  { id: 'xr', label: 'XR' },
+  { id: 'inspiration', label: 'Inspiration' },
+  { id: 'creative', label: 'Creative tech' },
+] as const;
+export type Reel = (typeof REELS)[number]['id'];
+
+export function reelsOf(items: PublishedItem[]): Record<Reel, PublishedItem[]> {
+  const reelOf = (i: PublishedItem): Reel => (isProject(i) ? 'inspiration' : beatOf(i) === 'xr-spatial' ? 'xr' : 'creative');
+  return { all: items, xr: items.filter((i) => reelOf(i) === 'xr'), inspiration: items.filter((i) => reelOf(i) === 'inspiration'), creative: items.filter((i) => reelOf(i) === 'creative') };
+}
+
+/** The feed: the week's news that no trend tells and that is not inspiration. */
+export function feedOf(items: PublishedItem[], trendUrls: Set<string>): PublishedItem[] {
+  return items.filter((i) => !isProject(i) && !trendUrls.has(i.url));
+}
+
+/** A list's lead: its first story with a picture, else its first. */
+export function leadOf<T extends PublishedItem>(list: T[]): T | undefined {
+  return list.find((i) => i.imageUrl) ?? list[0];
+}
+
 /** An item with the week it was published in, for the archive and dashboard. */
 export type ArchiveItem = PublishedItem & { week: string };
 

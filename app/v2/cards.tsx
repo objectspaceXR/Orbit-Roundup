@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { sourceOf, summaryOf, tagsOf, titleOf, videoEmbed, type PublishedItem } from '@/lib/roundup';
-import { Actions, BeatChip, Cover, Icon, KEYS, RemoveButton, useStoredSet } from './ui';
+import { BEAT_INFO, sourceOf, summaryOf, tagsOf, titleOf, videoEmbed, type PublishedItem } from '@/lib/roundup';
+import type { Trend } from '@/lib/trends';
+import { Actions, BeatChip, Cover, Icon, KEYS, Kicker, RemoveButton, useStoredSet } from './ui';
 
 type Counts = { counts: Record<string, number>; bump: (id: string, by: number) => void };
 const shadow = '[text-shadow:0_1px_12px_rgba(0,0,0,0.75)]';
@@ -120,5 +121,74 @@ export function Row({ label, children }: { label: string; children: ReactNode })
         </button>
       )}
     </div>
+  );
+}
+
+/** A trend's sources as one list: its stories in the issue first, then the outlets, each with what it shows. */
+/** "www.theverge.com" as "theverge", as XPLR's Trending shows an outlet. */
+const shortHost = (host: string) => host.replace(/^www\./, '').replace(/\.(com|co\.uk|net|org|io)$/, '');
+
+type TrendSource = { item: PublishedItem; story: boolean };
+function trendSources(t: Trend, stories: PublishedItem[]): TrendSource[] {
+  return [
+    ...stories.map((item) => ({ item, story: true })),
+    ...t.links.map((l) => ({ item: { url: l.url, title: l.title, imageUrl: l.imageUrl, feedName: shortHost(l.host) }, story: false })),
+  ];
+}
+
+/** A trend picture: a story opens in the viewer, an outlet opens its page. */
+function TrendPicture({ source: { item, story }, onWatch }: { source: TrendSource; onWatch: (story: PublishedItem) => void }) {
+  return story ? (
+    <button type="button" onClick={() => onWatch(item)} aria-label={`Watch: ${titleOf(item)}`} className="group relative overflow-hidden">
+      <Cover item={item} small />
+    </button>
+  ) : (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${sourceOf(item)}: ${item.title}`} className="group relative overflow-hidden">
+      <Cover item={item} small />
+    </a>
+  );
+}
+
+/**
+ * A trend as a tile, the same as XPLR's Trending: a strip of pictures from its stories and outlets, its beat, what
+ * happened and the whole summary, then one small line of where to read it. The lead takes two columns.
+ */
+export function TrendTile({ trend: t, stories, lead = false, onWatch, children }: { trend: Trend; stories: PublishedItem[]; lead?: boolean; onWatch: (story: PublishedItem) => void; children?: ReactNode }) {
+  const sources = trendSources(t, stories);
+  // Pictures first, stories before outlets
+  const pictures = [...sources.filter((s) => s.item.imageUrl), ...sources.filter((s) => !s.item.imageUrl)].slice(0, 3);
+  return (
+    <article className={`${BEAT_INFO[t.beat].tone} tone-card rounded-3xl overflow-hidden flex flex-col ${lead ? 'sm:col-span-2' : ''}`}>
+      <div className={`relative grid gap-px bg-line shrink-0 ${lead ? 'aspect-[16/7]' : 'aspect-[16/9]'}`} style={{ gridTemplateColumns: `repeat(${pictures.length || 1}, 1fr)` }}>
+        {pictures.map((s) => (
+          <TrendPicture key={s.item.url} source={s} onWatch={onWatch} />
+        ))}
+        {stories.length > 0 && (
+          <button type="button" onClick={() => onWatch(stories[0])} className="absolute left-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur px-3 h-8 text-[12px] font-semibold text-white">
+            <Icon name="play" filled className="w-3.5 h-3.5" /> Watch
+          </button>
+        )}
+      </div>
+      <div className={`flex flex-col flex-1 ${lead ? 'p-6 sm:p-7' : 'p-5'}`}>
+        <Kicker className="!text-[rgb(var(--t))]">{BEAT_INFO[t.beat].label}</Kicker>
+        <h3 className={`mt-2.5 font-poster uppercase tracking-wide leading-[0.95] text-balance text-paper ${lead ? 'text-[36px] sm:text-[46px]' : 'text-[26px]'}`}>{t.title}</h3>
+        {t.why && <p className={`mt-3 text-paper-muted leading-relaxed ${lead ? 'text-[15.5px]' : 'text-[14px]'}`}>{t.why}</p>}
+        {/* Where to read it: one small line, the stories first */}
+        <p className="mt-auto pt-4 flex flex-wrap gap-x-3 gap-y-1 font-hud text-[10.5px] uppercase tracking-[0.1em] text-paper-faint">
+          {sources.map(({ item, story }) =>
+            story ? (
+              <button key={item.url} type="button" onClick={() => onWatch(item)} className="uppercase hover:text-paper" title={titleOf(item)}>
+                {sourceOf(item)} ▸
+              </button>
+            ) : (
+              <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-paper" title={item.title}>
+                {sourceOf(item)} ↗
+              </a>
+            ),
+          )}
+        </p>
+        {children}
+      </div>
+    </article>
   );
 }
