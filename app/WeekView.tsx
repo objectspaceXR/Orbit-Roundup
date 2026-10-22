@@ -206,11 +206,11 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
         {weeks.length > 1 && (
           <section className="mt-16" aria-labelledby="past">
             <div className="px-4 sm:px-6">
-              <SectionHeader index="04" id="past" title="Back in time" meta={`${weeks.length} issues`} actions={<Link href="/v2/archive/" className={buttonClass('secondary', 'sm')}><Icon name="search" /> Search the archive</Link>} />
+              <SectionHeader index="04" id="past" title="Back in time" meta={`${weeks.length} issues`} actions={<Link href="/archive/" className={buttonClass('secondary', 'sm')}><Icon name="search" /> Search the archive</Link>} />
             </div>
             <Row label="Past weeks">
               {[...weeks].reverse().map((w) => (
-                <Link key={w.week} href={`/v2/${w.week}/`} aria-current={w.week === week ? 'page' : undefined} className={`group snap-start shrink-0 relative isolate overflow-hidden rounded-2xl border w-[220px] aspect-[4/5] ${w.week === week ? 'border-signal' : 'border-line hover:border-line-strong'}`}>
+                <Link key={w.week} href={`/${w.week}/`} aria-current={w.week === week ? 'page' : undefined} className={`group snap-start shrink-0 relative isolate overflow-hidden rounded-2xl border w-[220px] aspect-[4/5] ${w.week === week ? 'border-signal' : 'border-line hover:border-line-strong'}`}>
                   {w.cover ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={externalImageSrcForImg(w.cover)} alt="" loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />

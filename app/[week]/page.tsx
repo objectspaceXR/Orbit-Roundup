@@ -1,42 +1,28 @@
-import { readdirSync, readFileSync } from "fs";
-import { join } from "path";
-import WeekPage from "./WeekPage";
-
-interface PublishedItem {
-  url: string; title: string; summary?: string; category?: string;
-  source?: string; tags?: string[]; imageUrl?: string; author?: string;
-  subreddit?: string; feedName?: string; digestTitle?: string; digestSummary?: string;
-}
-interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { listWeeks, readWeek } from '@/lib/weeks';
+import { trendsFor } from '@/lib/trends';
+import { issueDate, weekRange } from '@/lib/roundup';
+import WeekView from '../WeekView';
 
 export async function generateStaticParams() {
-  try {
-    const dir = join(process.cwd(), "data/weeks");
-    return readdirSync(dir).filter(f => f.endsWith(".json")).map(f => ({ week: f.replace(".json", "") }));
-  } catch { return []; }
+  return listWeeks().map((w) => ({ week: w.week }));
 }
 
-function getWeekMeta(): { week: string; count: number }[] {
-  try {
-    const dir = join(process.cwd(), "data/weeks");
-    return readdirSync(dir)
-      .filter(f => f.endsWith(".json"))
-      .map(f => {
-        const w = f.replace(".json", "");
-        const d = JSON.parse(readFileSync(join(dir, f), "utf-8"));
-        return { week: w, count: d.items?.length || d.itemCount || 0 };
-      })
-      .sort((a, b) => a.week.localeCompare(b.week));
-  } catch { return []; }
-}
-
-export default async function Page({ params }: { params: Promise<{ week: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ week: string }> }): Promise<Metadata> {
   const { week } = await params;
-  const data: WeekData = JSON.parse(readFileSync(join(process.cwd(), "data/weeks", `${week}.json`), "utf-8"));
-  const weekMeta = getWeekMeta();
-  const allWeeks = weekMeta.map(w => w.week);
-  const currentIndex = allWeeks.indexOf(week);
-  const prevWeek = currentIndex > 0 ? allWeeks[currentIndex - 1] : null;
-  const nextWeek = currentIndex < allWeeks.length - 1 ? allWeeks[currentIndex + 1] : null;
-  return <WeekPage data={data} prevWeek={prevWeek} nextWeek={nextWeek} weekMeta={weekMeta} />;
+  const d = readWeek(week);
+  const title = `Orbit Roundup · ${weekRange(week)}`;
+  const description = d?.items.length
+    ? `${d.items.length} stories in XR, AI, 3D and creative tech, picked by Tom Martin-Davies. Out ${issueDate(week)}.`
+    : 'Weekly creative tech curation by Tom Martin-Davies.';
+  return { title, description, openGraph: { title, description }, twitter: { title, description } };
+}
+
+export default async function WeekPage({ params }: { params: Promise<{ week: string }> }) {
+  const { week } = await params;
+  const data = readWeek(week);
+  if (!data) notFound();
+  const weeks = listWeeks();
+  return <WeekView data={data} weeks={weeks} trends={trendsFor(week)} />;
 }

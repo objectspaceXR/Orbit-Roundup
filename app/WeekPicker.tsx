@@ -79,7 +79,7 @@ export default function WeekPicker({ week, weeks, onClose }: { week: string; wee
               }
               const on = k === week;
               return (
-                <Link key={k} href={`/v2/${k}/`} onClick={onClose} aria-current={on ? 'page' : undefined} title={`Week ${n} · ${date} · ${w.count} stories`} className={`${cell} transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-signal ${on ? 'bg-signal text-ink' : 'bg-ink-card border border-line text-paper hover:border-line-strong hover:bg-ink-hover'}`}>
+                <Link key={k} href={`/${k}/`} onClick={onClose} aria-current={on ? 'page' : undefined} title={`Week ${n} · ${date} · ${w.count} stories`} className={`${cell} transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-signal ${on ? 'bg-signal text-ink' : 'bg-ink-card border border-line text-paper hover:border-line-strong hover:bg-ink-hover'}`}>
                   <span className="font-poster text-[20px] tracking-wide">W{n}</span>
                   <span className={`mt-1 font-hud text-[9.5px] ${on ? 'text-ink/70' : 'text-paper-faint'}`}>{k === latest ? 'latest' : date}</span>
                 </Link>

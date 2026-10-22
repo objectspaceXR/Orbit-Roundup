@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Orbitron, Exo_2 } from "next/font/google";
+import { Anton, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", weight: ["400", "500", "600", "700", "800", "900"] });
-const exo2 = Exo_2({ subsets: ["latin"], variable: "--font-exo2", weight: ["400", "500", "600", "700"] });
+// The XPLR v2 type system: Geist for words, Geist Mono for labels, Anton for posters.
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const anton = Anton({ variable: "--font-anton", subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://orbit.objectspace.co.uk"),
@@ -40,7 +42,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${orbitron.variable} ${exo2.variable} font-sans antialiased`}>
+      <body className={`xplr-v2 ${geist.variable} ${geistMono.variable} ${anton.variable} font-ui bg-ink text-paper min-h-screen antialiased`}>
         {children}
       </body>
     </html>

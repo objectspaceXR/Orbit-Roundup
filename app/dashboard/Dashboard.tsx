@@ -129,7 +129,7 @@ export default function Dashboard({ items: all }: { items: ArchiveItem[] }) {
         )}
 
         <p className="px-4 sm:px-6 mt-16 text-[13px] text-paper-faint">
-          Saves, topics and removals stay on this device for now. <Link href="/v2/archive/" className="underline underline-offset-4 hover:text-paper">Search everything</Link>
+          Saves, topics and removals stay on this device for now. <Link href="/archive/" className="underline underline-offset-4 hover:text-paper">Search everything</Link>
         </p>
       </main>
       {viewer && <StoryViewer stories={viewer.stories} at={viewer.at} onGo={(at) => setViewer((v) => v && { ...v, at })} onClose={() => setViewer(null)} likes={likes} />}

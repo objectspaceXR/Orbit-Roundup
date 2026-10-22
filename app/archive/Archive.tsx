@@ -132,7 +132,7 @@ export default function Archive({ items, weeks }: { items: ArchiveItem[]; weeks:
 
         {groups.map(([w, list]) => (
           <section key={w} className="mt-12">
-            <SectionHeader title={`Week ${Number(w.split('-W')[1])}`} meta={`${weekRange(w)} · ${list.length}`} actions={<Link href={`/v2/${w}/`} className={buttonClass('ghost', 'sm')}>Open issue <Icon name="arrowRight" /></Link>} />
+            <SectionHeader title={`Week ${Number(w.split('-W')[1])}`} meta={`${weekRange(w)} · ${list.length}`} actions={<Link href={`/${w}/`} className={buttonClass('ghost', 'sm')}>Open issue <Icon name="arrowRight" /></Link>} />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {list.map((i) => (
                 <FeedCard key={i.url} item={i} week={w} likes={likes} onTag={(t) => setQ(`#${t}`)} onOpen={() => setViewer({ stories: results.map((r) => ({ item: r, week: r.week })), at: results.indexOf(i) })} />

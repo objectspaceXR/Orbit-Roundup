@@ -1,5 +1,5 @@
 /**
- * Checks every published story before it shows in v2: the link must answer, and the picture must be a real,
+ * Checks every published story before it shows on the site: the link must answer, and the picture must be a real,
  * large-enough photo or render. Results go to data/media-check.json, which lib/weeks.ts reads at build time:
  * dead links are dropped, unsuitable pictures fall back to the made-up poster.
  *

@@ -374,9 +374,9 @@ export function Actions({ item, week, counts, bump, tone = 'card', className = '
 export function TopBar({ current, week, weeks = [] }: { current: 'week' | 'archive' | 'dashboard'; week?: string; weeks?: WeekMeta[] }) {
   const [picking, setPicking] = useState(false);
   const tabs = [
-    { id: 'week', label: 'This week', href: '/v2/' },
-    { id: 'dashboard', label: 'Dashboard', href: '/v2/dashboard/' },
-    { id: 'archive', label: 'Archive', href: '/v2/archive/' },
+    { id: 'week', label: 'This week', href: '/' },
+    { id: 'dashboard', label: 'Dashboard', href: '/dashboard/' },
+    { id: 'archive', label: 'Archive', href: '/archive/' },
   ] as const;
   const at = weeks.findIndex((w) => w.week === week);
   const prev = at > 0 ? weeks[at - 1].week : undefined;
@@ -384,10 +384,10 @@ export function TopBar({ current, week, weeks = [] }: { current: 'week' | 'archi
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ink/85 backdrop-blur-xl">
       <div className="mx-auto max-w-[1400px] h-14 px-4 sm:px-6 flex items-stretch gap-3">
-        <Link href="/v2/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="w-2.5 h-2.5 rounded-full bg-signal shadow-[0_0_14px_rgba(212,255,58,.7)]" aria-hidden />
           <span className="font-poster uppercase text-xl tracking-wide leading-none">Orbit</span>
-          <span className="hidden xl:inline font-hud text-[10px] uppercase tracking-[0.14em] text-paper-faint mt-0.5">Roundup v2</span>
+          <span className="hidden xl:inline font-hud text-[10px] uppercase tracking-[0.14em] text-paper-faint mt-0.5">Roundup</span>
         </Link>
         <nav className="flex items-stretch ml-1 sm:ml-4 min-w-0 overflow-x-auto no-scrollbar" aria-label="Views">
           {tabs.map((t) => (
@@ -398,17 +398,17 @@ export function TopBar({ current, week, weeks = [] }: { current: 'week' | 'archi
         </nav>
         {week && (
           <div className="relative ml-auto flex items-center gap-1">
-            {prev ? <Link href={`/v2/${prev}/`} className={`hidden lg:inline-flex ${buttonClass('ghost', 'sm')}`} aria-label="Previous week"><Icon name="arrowLeft" /></Link> : <span className="hidden lg:block w-8" />}
+            {prev ? <Link href={`/${prev}/`} className={`hidden lg:inline-flex ${buttonClass('ghost', 'sm')}`} aria-label="Previous week"><Icon name="arrowLeft" /></Link> : <span className="hidden lg:block w-8" />}
             <button type="button" onClick={() => setPicking((v) => !v)} aria-expanded={picking} aria-haspopup="dialog" className={`${buttonClass(picking ? 'primary' : 'secondary', 'sm')} font-hud tabular-nums tracking-[0.08em]`}>
               <span className="hidden sm:inline">{week.replace('-', ' · ')}</span>
               <span className="sm:hidden">W{Number(week.split('-W')[1])}</span>
               <svg viewBox="0 0 24 24" className={`w-3.5 h-3.5 transition-transform ${picking ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="m6 9 6 6 6-6" /></svg>
             </button>
-            {next ? <Link href={`/v2/${next}/`} className={`hidden lg:inline-flex ${buttonClass('ghost', 'sm')}`} aria-label="Next week"><Icon name="arrowRight" /></Link> : <span className="hidden lg:block w-8" />}
+            {next ? <Link href={`/${next}/`} className={`hidden lg:inline-flex ${buttonClass('ghost', 'sm')}`} aria-label="Next week"><Icon name="arrowRight" /></Link> : <span className="hidden lg:block w-8" />}
             {picking && <WeekPicker week={week} weeks={weeks} onClose={() => setPicking(false)} />}
           </div>
         )}
-        <Link href="/v2/archive/" className={`${week ? '' : 'ml-auto'} ${buttonClass('ghost', 'sm')} self-center shrink-0`} aria-label="Search the archive">
+        <Link href="/archive/" className={`${week ? '' : 'ml-auto'} ${buttonClass('ghost', 'sm')} self-center shrink-0`} aria-label="Search the archive">
           <Icon name="search" />
         </Link>
       </div>
