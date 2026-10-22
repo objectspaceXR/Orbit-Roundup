@@ -116,8 +116,78 @@ Functions needed: `/api/auth/*` (sign in, sign out, session cookie), `/api/me` (
 
 ---
 
+## Security
+
+The rules: **nobody can run code on Orbit, nobody can upload anything, and nobody can see or change anyone else's
+data.** Everything a visitor sends is treated as untrusted text.
+
+### Fix first (gaps in the live site today, before any sign-in ships)
+
+1. **The image proxy is open** (`functions/api/image-proxy.js`). It fetches *any* http(s) address and passes back
+   whatever comes back, with its content type, from Orbit's own address. Someone could link to
+   `orbit.objectspace.co.uk/api/image-proxy?url=<their page>` and have their HTML run as if it were Orbit, which with
+   sign-in would reach the session. It can also be used to fetch internal addresses (SSRF) and burn bandwidth.
+   Fix: only pass `image/*` and `video/*`, add `X-Content-Type-Options: nosniff` and a sandboxing
+   `Content-Security-Policy`, cap the size, refuse private, local and metadata addresses (localhost, 10.x, 192.168.x,
+   169.254.x, `::1`) after every redirect, and ideally only proxy hosts that appear in published weeks.
+2. **No security headers.** Add `public/_headers` with a Content-Security-Policy (scripts only from Orbit itself; images
+   from https; no inline event handlers), `X-Content-Type-Options: nosniff`, `Referrer-Policy:
+   strict-origin-when-cross-origin`, `frame-ancestors 'none'` (no one can frame Orbit to trick clicks) and
+   `Permissions-Policy` turning off camera, microphone and location.
+3. **Likes can be inflated.** `/api/likes` takes any request from anywhere (`Access-Control-Allow-Origin: *`) with no
+   limit. Low harm, but rate-limit it, and once sign-in exists, count one like per person.
+
+### No injected code
+
+- Everything a visitor types (topic names, words, notes) and everything fetched for a pasted link (titles, sources) is
+  shown as **plain text** through React, never as HTML. No `dangerouslySetInnerHTML` (none today), no markdown
+  rendering of visitor text.
+- Links are checked before they're stored or shown: only `http:` and `https:`. A `javascript:` or `data:` link is
+  refused, so a bookmark can't run code when clicked. External links open with `rel="noopener noreferrer"`.
+- Pictures for pasted links go through the (fixed) image proxy, never straight into the page from the visitor's input.
+- The Content-Security-Policy above is the safety net: even if something slipped through, the browser won't run it.
+
+### No uploads
+
+- There is **no file upload anywhere**: no pictures, no files, no avatars. A visitor can only send their own JSON
+  document (topics, bookmarks, notes).
+- `/api/me` checks that document strictly before saving: known fields only, each the right type, lengths capped
+  (e.g. 50 topics, 20 words each, 1,000 bookmarks, notes 500 characters, whole document under 256 KB). Anything else is
+  refused, not trimmed and stored.
+- Pasted-link previews fetch **only the page's title and picture address** as text, from http(s) only, with the same
+  private-address block, a 5-second timeout and a size cap. Signed-in visitors only, rate-limited.
+
+### No access to what isn't yours
+
+- **Who you are comes only from the session cookie**, never from anything in the request. `/api/me` reads and writes
+  the signed-in person's document and nothing else; there is no user id in any address, and no endpoint lists people
+  or reads another person's data.
+- KV keys are a hash of the sign-in provider's id, not an email.
+- The session cookie is `HttpOnly` (scripts can't read it), `Secure` (https only), `SameSite=Lax`, signed with a
+  secret kept in Cloudflare's settings (never in the repo), and expires (e.g. 30 days, renewed on use). Sign-out
+  ends it.
+- Writes (`PUT`, `DELETE`) check the request's `Origin` is Orbit, so another site can't make changes on a visitor's
+  behalf (CSRF). `/api/me` never sends `Access-Control-Allow-Origin: *`.
+- **Google sign-in** checks the token properly (issuer, audience, expiry) and uses `state` and PKCE, so a sign-in
+  can't be swapped or replayed. **Email links**, if added, are single-use, expire in 15 minutes and are
+  rate-limited; the email form has Cloudflare Turnstile so it can't be used to spam inboxes.
+- Tom's own controls (the starter topics, `exclude` list) stay in the repo, changed by commits, not by any endpoint.
+
+### Abuse and keeping it tidy
+
+- Cloudflare rate-limiting rules on `/api/*` (sign-in, `/api/me`, link previews, likes).
+- Stored data is kept to what's needed: provider id, email (only to sign in), the document. **Download my data** and
+  **Delete my account** delete everything.
+- Few new dependencies, pinned versions; secrets only in Cloudflare and `.env.local` (git-ignored).
+- Before sign-in goes live: a security review of the new functions (`/code-review` or `/security-review`) and a quick
+  check that one account can't read or overwrite another.
+
+---
+
 ## Order to build
 
+0. **Security fixes for today's site:** lock down the image proxy, add `public/_headers`, rate-limit likes (see
+   Security → Fix first). Worth doing now, whether or not the dashboard goes ahead.
 1. **Browser-only A, B, C** on the document shape above (nothing thrown away later), with matching layers 1 and 2.
    Unhide the tab.
 2. **Sign-in and sync:** Google sign-in, `/api/me`, merge on first sign-in, export and delete.
