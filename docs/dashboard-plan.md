@@ -123,6 +123,10 @@ data.** Everything a visitor sends is treated as untrusted text.
 
 ### Fix first (gaps in the live site today, before any sign-in ships)
 
+**Done 22 Oct 2026:** 1 (image proxy locked down) and 2 (`public/_headers`). Still open: 3 (likes), best done as a
+Cloudflare rate-limiting rule on `/api/likes/*` in the dashboard, then one like per person once sign-in exists.
+
+
 1. **The image proxy is open** (`functions/api/image-proxy.js`). It fetches *any* http(s) address and passes back
    whatever comes back, with its content type, from Orbit's own address. Someone could link to
    `orbit.objectspace.co.uk/api/image-proxy?url=<their page>` and have their HTML run as if it were Orbit, which with

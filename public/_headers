@@ -1,0 +1,17 @@
+# Security headers for every page and file (Cloudflare Pages). The API functions set their own.
+#
+# Content-Security-Policy, in short:
+# - scripts and styles only from Orbit itself (Next.js puts its start-up script inline, hence 'unsafe-inline';
+#   no outside script can load)
+# - pictures and videos from any https site (stories come from everywhere), or Orbit's own proxy; an old http:
+#   picture address is switched to https before it loads
+# - the page only talks to Orbit itself (likes)
+# - only YouTube and Vimeo can play inside the page
+# - no site can put Orbit in a frame, no plugins, forms only send to Orbit
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
