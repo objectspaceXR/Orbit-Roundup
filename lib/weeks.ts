@@ -63,7 +63,7 @@ export function listWeeks(): WeekMeta[] {
 export function readWeek(week: string): WeekData | null {
   try {
     const d = JSON.parse(readFileSync(weekFile(week), 'utf-8'));
-    return { week: d.week || week, items: clean(Array.isArray(d.items) ? d.items : []), publishedAt: d.publishedAt };
+    return { week: d.week || week, items: clean(Array.isArray(d.items) ? d.items : []), publishedAt: d.publishedAt, ...(typeof d.summary === 'string' && d.summary.trim() ? { summary: d.summary.trim() } : {}) };
   } catch {
     return null;
   }

@@ -40,9 +40,9 @@ export function ProjectStory({ item, week, likes, position, onOpen, className = 
       <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none bg-gradient-to-t from-black via-black/85 to-transparent px-5 pt-28 pb-3">
         <div className={`font-hud text-[11px] uppercase tracking-[0.12em] text-white/75 truncate ${shadow}`}>{sourceOf(item)}</div>
         <a href={item.url} target="_blank" rel="noopener noreferrer" className="pointer-events-auto block mt-2 hover:underline decoration-white/40 underline-offset-4">
-          <h3 className={`text-[20px] font-bold leading-tight text-balance line-clamp-3 text-white ${shadow}`}>{titleOf(item)}</h3>
+          <h3 className={`text-[20px] font-bold leading-tight text-balance text-white ${shadow}`}>{titleOf(item)}</h3>
         </a>
-        <p className={`mt-2 text-[13.5px] leading-relaxed line-clamp-2 text-white/80 ${shadow}`}>{summaryOf(item)}</p>
+        <p className={`mt-2 text-[13.5px] leading-relaxed text-white/85 ${shadow}`}>{summaryOf(item)}</p>
         <Actions item={item} week={week} {...likes} tone="overlay" className="pointer-events-auto mt-2 -ml-2" />
       </div>
     </article>
@@ -77,7 +77,7 @@ export function FeedCard({ item, week, likes, onOpen, meta, onTag }: { item: Pub
         <a href={item.url} target="_blank" rel="noopener noreferrer" onClick={() => seen.toggle(item.url, true)} className="mt-3 hover:underline decoration-paper-faint underline-offset-4">
           <h3 className="text-[16.5px] font-bold leading-snug text-balance text-paper">{title}</h3>
         </a>
-        {summary && summary !== title && <p className="mt-2 text-[13.5px] text-paper-muted leading-relaxed line-clamp-3">{summary}</p>}
+        {summary && summary !== title && <p className="mt-2 text-[13.5px] text-paper-muted leading-relaxed">{summary}</p>}
         <div className="mt-auto pt-3 flex items-center gap-1.5">
           <div className="flex flex-wrap gap-1.5 min-w-0">
             {tagsOf(item)
@@ -136,14 +136,10 @@ function trendSources(t: Trend, stories: PublishedItem[]): TrendSource[] {
   ];
 }
 
-/** A trend picture: a story opens in the viewer, an outlet opens its page. */
-function TrendPicture({ source: { item, story }, onWatch }: { source: TrendSource; onWatch: (story: PublishedItem) => void }) {
-  return story ? (
-    <button type="button" onClick={() => onWatch(item)} aria-label={`Watch: ${titleOf(item)}`} className="group relative overflow-hidden">
-      <Cover item={item} small />
-    </button>
-  ) : (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${sourceOf(item)}: ${item.title}`} className="group relative overflow-hidden">
+/** A trend picture: opens the article it comes from. */
+function TrendPicture({ source: { item } }: { source: TrendSource }) {
+  return (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${sourceOf(item)}: ${titleOf(item)}`} className="group relative overflow-hidden">
       <Cover item={item} small />
     </a>
   );
@@ -151,9 +147,10 @@ function TrendPicture({ source: { item, story }, onWatch }: { source: TrendSourc
 
 /**
  * A trend as a tile, the same as XPLR's Trending: a strip of pictures from its stories and outlets, its beat, what
- * happened and the whole summary, then one small line of where to read it. The lead takes two columns.
+ * happened and the whole summary, then one small line of where to read it. The lead takes two columns. It is for
+ * reading, not a story: every picture and source opens its article.
  */
-export function TrendTile({ trend: t, stories, lead = false, onWatch, children }: { trend: Trend; stories: PublishedItem[]; lead?: boolean; onWatch: (story: PublishedItem) => void; children?: ReactNode }) {
+export function TrendTile({ trend: t, stories, lead = false, children }: { trend: Trend; stories: PublishedItem[]; lead?: boolean; children?: ReactNode }) {
   const sources = trendSources(t, stories);
   // Pictures first, stories before outlets
   const pictures = [...sources.filter((s) => s.item.imageUrl), ...sources.filter((s) => !s.item.imageUrl)].slice(0, 3);
@@ -161,13 +158,8 @@ export function TrendTile({ trend: t, stories, lead = false, onWatch, children }
     <article className={`${BEAT_INFO[t.beat].tone} tone-card rounded-3xl overflow-hidden flex flex-col ${lead ? 'sm:col-span-2' : ''}`}>
       <div className={`relative grid gap-px bg-line shrink-0 ${lead ? 'aspect-[16/7]' : 'aspect-[16/9]'}`} style={{ gridTemplateColumns: `repeat(${pictures.length || 1}, 1fr)` }}>
         {pictures.map((s) => (
-          <TrendPicture key={s.item.url} source={s} onWatch={onWatch} />
+          <TrendPicture key={s.item.url} source={s} />
         ))}
-        {stories.length > 0 && (
-          <button type="button" onClick={() => onWatch(stories[0])} className="absolute left-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur px-3 h-8 text-[12px] font-semibold text-white">
-            <Icon name="play" filled className="w-3.5 h-3.5" /> Watch
-          </button>
-        )}
       </div>
       <div className={`flex flex-col flex-1 ${lead ? 'p-6 sm:p-7' : 'p-5'}`}>
         <Kicker className="!text-[rgb(var(--t))]">{BEAT_INFO[t.beat].label}</Kicker>
@@ -175,17 +167,11 @@ export function TrendTile({ trend: t, stories, lead = false, onWatch, children }
         {t.why && <p className={`mt-3 text-paper-muted leading-relaxed ${lead ? 'text-[15.5px]' : 'text-[14px]'}`}>{t.why}</p>}
         {/* Where to read it: one small line, the stories first */}
         <p className="mt-auto pt-4 flex flex-wrap gap-x-3 gap-y-1 font-hud text-[10.5px] uppercase tracking-[0.1em] text-paper-faint">
-          {sources.map(({ item, story }) =>
-            story ? (
-              <button key={item.url} type="button" onClick={() => onWatch(item)} className="uppercase hover:text-paper" title={titleOf(item)}>
-                {sourceOf(item)} ▸
-              </button>
-            ) : (
-              <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-paper" title={item.title}>
-                {sourceOf(item)} ↗
-              </a>
-            ),
-          )}
+          {sources.map(({ item }) => (
+            <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-paper" title={titleOf(item)}>
+              {sourceOf(item)} ↗
+            </a>
+          ))}
         </p>
         {children}
       </div>

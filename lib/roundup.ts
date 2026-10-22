@@ -12,7 +12,8 @@ export interface PublishedItem {
   subreddit?: string; feedName?: string; digestTitle?: string; digestSummary?: string;
   hint?: string; savedAt?: string;
 }
-export interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; }
+/** `summary`: the week in Tom's voice, XPLR's orbit-report for it ("What's been in my orbit this week…", bullets, a closing line). */
+export interface WeekData { week: string; items: PublishedItem[]; publishedAt?: string; summary?: string }
 export interface WeekMeta { week: string; count: number; cover?: string }
 
 /** Beats in reading order. Inspiration and curated picks read as Design. */
@@ -48,9 +49,20 @@ export function reelsOf(items: PublishedItem[]): Record<Reel, PublishedItem[]> {
   return { all: items, xr: items.filter((i) => reelOf(i) === 'xr'), inspiration: items.filter((i) => reelOf(i) === 'inspiration'), creative: items.filter((i) => reelOf(i) === 'creative') };
 }
 
-/** The feed: the week's news that no trend tells and that is not inspiration. */
-export function feedOf(items: PublishedItem[], trendUrls: Set<string>): PublishedItem[] {
-  return items.filter((i) => !isProject(i) && !trendUrls.has(i.url));
+/** The feed: all the week's news, the stories its trends tell included; inspiration has its own row. */
+export function feedOf<T extends PublishedItem>(items: T[]): T[] {
+  return items.filter((i) => !isProject(i));
+}
+
+/**
+ * The week's summary as parts to lay out: the opening line, a bullet per highlight, and what is left (the closing
+ * line). Lines starting "-", "*" or "•" are bullets; other paragraphs are the opening (the first) or the close.
+ */
+export function summaryParts(text: string): { opening: string; bullets: string[]; closing: string } {
+  const paras = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const bullets = paras.filter((l) => /^[-*•]\s+/.test(l)).map((l) => l.replace(/^[-*•]\s+/, ''));
+  const plain = paras.filter((l) => !/^[-*•]\s+/.test(l));
+  return { opening: plain[0] ?? '', bullets, closing: plain.slice(1).join(' ') };
 }
 
 /** A list's lead: its first story with a picture, else its first. */

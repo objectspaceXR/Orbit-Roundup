@@ -2,17 +2,17 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { BEAT_INFO, BEATS, REELS, beatOf, feedOf, isProject, issueDate, leadOf, minutesFor, reelsOf, sourceOf, tagsOf, titleOf, weekRange, type Beat, type WeekData, type WeekMeta } from '@/lib/roundup';
+import { BEAT_INFO, BEATS, REELS, beatOf, feedOf, isProject, issueDate, leadOf, minutesFor, reelsOf, summaryParts, tagsOf, weekRange, type Beat, type WeekData, type WeekMeta } from '@/lib/roundup';
 import type { Trend } from '@/lib/trends';
 import { externalImageSrcForImg } from '@/lib/external-image-src';
 import { FeedCard, ProjectStory, Row, TrendTile } from './cards';
 import StoryViewer, { type Story } from './StoryViewer';
-import { Cover, Icon, KEYS, Kicker, Poster, SectionHeader, Toaster, TopBar, buttonClass, useHidden, useLikeCounts, useStoredSet } from './ui';
+import { Cover, Icon, KEYS, Kicker, PlayStack, Poster, SectionHeader, Toaster, TopBar, buttonClass, useHidden, useLikeCounts, useStoredSet } from './ui';
 
 type Lens = 'all' | Beat | 'following' | 'saved';
 
 /**
- * One week as a public XPLR dashboard: the issue up top with the week as stories to watch and each beat's lead,
+ * One week as a public XPLR dashboard: one banner with the week to play as stories and Tom's summary of it,
  * what is trending, inspiration as a row of stories, then the feed (the news no trend tells) through lenses
  * (beats, the topics you follow, your saves), and the weeks before.
  */
@@ -30,7 +30,7 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
 
 
   const projects = useMemo(() => items.filter(isProject), [items]);
-  const rest = useMemo(() => feedOf(items, new Set(trends.flatMap((t) => t.urls))), [items, trends]);
+  const rest = useMemo(() => feedOf(items), [items]);
   const reels = useMemo(() => reelsOf(items), [items]);
   const cover = leadOf(items) ?? items[0];
   const byUrl = useMemo(() => new Map(items.map((i) => [i.url, i])), [items]);
@@ -45,20 +45,20 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
   }, [rest, lens, tag, follow, saved]);
   const trendTile = (t: Trend, lead = false) => {
     const stories = t.urls.map((u) => byUrl.get(u)!).filter(Boolean);
-    return <TrendTile key={t.title} trend={t} stories={stories} lead={lead} onWatch={(s) => open(stories, s)} />;
+    return <TrendTile key={t.title} trend={t} stories={stories} lead={lead} />;
   };
-  const showBeat = (b: Beat) => {
-    setLens(b);
-    setTag(null);
-    document.getElementById('feed')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const open = (list: typeof items, item: (typeof items)[number]) => setViewer({ stories: list.map((i) => ({ item: i, week })), at: Math.max(0, list.indexOf(item)) });
   const topTags = useMemo(() => {
     const c = new Map<string, number>();
     for (const i of items) for (const t of tagsOf(i)) if (!['ai', '3d', '2d', 'xr', 'art', 'design', 'trends', 'tools'].includes(t)) c.set(t, (c.get(t) || 0) + 1);
     return [...c.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
   }, [items]);
+  // Tom's summary of the week when XPLR published one; for older weeks, what its trends say
+  const summary = useMemo(() => {
+    if (data.summary) return summaryParts(data.summary);
+    if (!trends.length) return null;
+    return { opening: 'What happened this week:', bullets: trends.map((t) => `${t.title}. ${t.why.split(/(?<=\.)\s/)[0]}`), closing: '' };
+  }, [data.summary, trends]);
   const beatNews = Object.fromEntries(BEATS.map((b) => [b, rest.filter((i) => beatOf(i) === b)])) as Record<Beat, typeof items>;
 
   const lenses: { id: Lens; label: string; n: number }[] = [
@@ -72,68 +72,34 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
     <>
       <TopBar current="week" week={week} weeks={weeks} />
       <main className="mx-auto max-w-[1400px] pb-24">
-        {/* ── The issue: the week as stories to watch, and each beat's lead with the way to the rest of it ── */}
-        <section className="px-4 sm:px-6 pt-6 sm:pt-10 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
-          <div className="group relative isolate overflow-hidden rounded-3xl border border-line min-h-[420px] sm:min-h-[480px] flex flex-col justify-end">
+        {/* ── The issue: one wide banner with the week to play as stories and what happened, in Tom's words ── */}
+        <section className="px-4 sm:px-6 pt-6 sm:pt-10">
+          <div className="group relative isolate overflow-hidden rounded-3xl border border-line">
             <Cover item={cover} eager />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/10" />
-            <div className="relative z-10 p-6 sm:p-8">
-              <Kicker className="text-signal">Orbit Roundup · {weekRange(week)}</Kicker>
-              <h1 className="mt-3 font-poster uppercase text-[56px] sm:text-[88px] leading-[0.86] tracking-wide text-paper">
-                Week {Number(week.split('-W')[1])}
-                <span className="block text-paper-faint text-[0.42em] tracking-normal mt-2">in XR, AI, 3D &amp; creative tech</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-[15px] text-paper-muted leading-relaxed">
-                {items.length} stories · {minutesFor(items)} min · out {issueDate(week)}. Picked by Tom Martin-Davies.
-              </p>
-              <div className="mt-6 -mx-1 px-1 flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar" role="group" aria-label="Watch the week">
-                {REELS.map((r) => {
-                  const list = reels[r.id];
-                  if (!list.length) return null;
-                  const fresh = list.filter((i) => !seen.has(i.url));
-                  const face = fresh[0] ?? list[0];
-                  return (
-                    <button key={r.id} type="button" onClick={() => open(list, face)} aria-label={`Watch ${r.label}: ${list.length} stories`} className="group/reel shrink-0 w-[72px] flex flex-col items-center gap-1.5 text-center">
-                      {/* A ring while it has stories you have not watched */}
-                      <span className={`block w-16 h-16 rounded-full p-[3px] transition-transform group-hover/reel:scale-105 ${fresh.length ? 'bg-signal' : 'bg-line-strong'}`}>
-                        <span className="relative block w-full h-full rounded-full overflow-hidden ring-2 ring-ink bg-ink">
-                          <Cover item={face} small plain />
-                        </span>
-                      </span>
-                      <span className="text-[12px] font-semibold leading-tight text-paper">{r.label}</span>
-                      <span className="font-hud text-[10px] leading-none text-paper-faint">{fresh.length && fresh.length < list.length ? `${fresh.length} new` : list.length}</span>
-                    </button>
-                  );
-                })}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/20 lg:bg-gradient-to-r lg:from-ink lg:via-ink/75 lg:to-ink/30" />
+            <div className="relative z-10 grid gap-8 p-5 pt-40 sm:p-8 sm:pt-56 lg:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-end lg:min-h-[560px]">
+              <div>
+                <Kicker className="text-signal">Orbit Roundup · {weekRange(week)}</Kicker>
+                <h1 className="mt-3 font-poster uppercase text-[56px] sm:text-[88px] leading-[0.86] tracking-wide text-paper">
+                  Week {Number(week.split('-W')[1])}
+                  <span className="block text-paper-faint text-[0.42em] tracking-normal mt-2">in XR, AI, 3D &amp; creative tech</span>
+                </h1>
+                <p className="mt-5 max-w-xl text-[15px] text-paper-muted leading-relaxed">
+                  {items.length} stories · {minutesFor(items)} min · out {issueDate(week)}. Picked by Tom Martin-Davies.
+                </p>
+                <div className="mt-6 max-w-xl grid grid-cols-3 gap-2 sm:gap-3" role="group" aria-label="Play the week as stories">
+                  {REELS.map((r) => {
+                    const list = reels[r.id];
+                    if (!list.length) return null;
+                    const fresh = list.filter((i) => !seen.has(i.url));
+                    // It starts on the first story not watched yet, and the stack shows that one and the two after it
+                    const from = Math.max(0, list.indexOf(fresh[0] ?? list[0]));
+                    return <PlayStack key={r.id} label={r.id === 'all' ? 'all' : r.label} items={[...list.slice(from), ...list.slice(0, from)]} count={list.length} fresh={fresh.length} primary={r.id === 'all'} onClick={() => open(list, list[from])} />;
+                  })}
+                </div>
               </div>
+              {summary && <WeekSummary {...summary} />}
             </div>
-          </div>
-          <div className="grid gap-4 content-start">
-            {BEATS.map((b) => {
-              const list = beatNews[b];
-              const top = leadOf(list);
-              if (!top) return null;
-              return (
-                <article key={b} className={`${BEAT_INFO[b].tone} tone-card rounded-3xl p-4 flex gap-4`}>
-                  <button type="button" onClick={() => open(list, top)} aria-label={`Watch: ${titleOf(top)}`} className="relative w-24 sm:w-28 aspect-square shrink-0 rounded-2xl overflow-hidden">
-                    <Cover item={top} small />
-                  </button>
-                  <div className="min-w-0 flex-1 flex flex-col">
-                    <Kicker className="truncate">
-                      {BEAT_INFO[b].label} · {sourceOf(top)}
-                    </Kicker>
-                    <a href={top.url} target="_blank" rel="noopener noreferrer" onClick={() => seen.toggle(top.url, true)} className="mt-1.5 hover:underline decoration-paper-faint underline-offset-4">
-                      <h2 className="text-[16.5px] font-bold leading-snug text-balance text-paper line-clamp-3">{titleOf(top)}</h2>
-                    </a>
-                    {list.length > 1 && (
-                      <button type="button" onClick={() => showBeat(b)} className="mt-auto pt-2 self-start inline-flex items-center gap-1.5 text-[13px] font-semibold hover:underline underline-offset-4" style={{ color: 'rgb(var(--t))' }}>
-                        All {list.length} {BEAT_INFO[b].short} stories <Icon name="arrowRight" className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
           </div>
         </section>
 
@@ -166,7 +132,7 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
 
         {/* ── The feed ── */}
         <section id="feed" className="px-4 sm:px-6 mt-16 scroll-mt-20" aria-labelledby="feed-title">
-          <SectionHeader index="03" id="feed-title" title="Your feed" meta="The rest of the week's news" />
+          <SectionHeader index="03" id="feed-title" title="Your feed" meta="All the week's news" />
           <div className="flex flex-wrap items-center gap-2 mb-3" role="tablist" aria-label="Feed lens">
             {lenses.map((l) => (
               <button key={l.id} role="tab" aria-selected={lens === l.id} type="button" onClick={() => setLens(l.id)} className={`h-9 px-4 rounded-full text-[13px] font-semibold transition-colors ${lens === l.id ? 'bg-paper text-ink' : 'border border-line text-paper-muted hover:text-paper hover:border-line-strong'}`}>
@@ -231,5 +197,26 @@ export default function WeekView({ data, weeks, trends }: { data: WeekData; week
       {viewer && <StoryViewer stories={viewer.stories} at={viewer.at} onGo={(at) => setViewer((v) => v && { ...v, at })} onClose={() => setViewer(null)} likes={likes} />}
       <Toaster />
     </>
+  );
+}
+
+/** What happened this week, in Tom's words: his opening line, a bullet per highlight and his closing line. */
+function WeekSummary({ opening, bullets, closing }: { opening: string; bullets: string[]; closing: string }) {
+  return (
+    <div className="rounded-2xl border border-line bg-ink/70 backdrop-blur-md p-5 sm:p-6">
+      <Kicker className="text-signal">What&apos;s in the week</Kicker>
+      {opening && <p className="mt-3 text-[16px] sm:text-[17px] font-semibold leading-snug text-paper text-balance">{opening}</p>}
+      {bullets.length > 0 && (
+        <ul className="mt-3 grid gap-2.5">
+          {bullets.map((b) => (
+            <li key={b} className="flex gap-2.5 text-[14px] leading-relaxed text-paper-muted">
+              <span className="mt-[9px] w-1.5 h-1.5 rounded-full bg-signal shrink-0" aria-hidden />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {closing && <p className="mt-4 text-[13.5px] leading-relaxed text-paper-faint">{closing}</p>}
+    </div>
   );
 }

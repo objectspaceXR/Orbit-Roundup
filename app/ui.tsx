@@ -117,6 +117,52 @@ export function Cover({ item, small = false, eager = false, plain = false }: { i
   );
 }
 
+/**
+ * Play a list as stories: its next pictures as a fanned stack of story cards with a play mark, what it plays and how
+ * many are left to watch. The first card is the story it starts on.
+ */
+export function PlayStack({ label, items, count, fresh, primary = false, onClick }: { label: string; items: PublishedItem[]; count: number; fresh: number; primary?: boolean; onClick: () => void }) {
+  const cards = items.slice(0, 3);
+  // The cards behind step out to the right like a deck, and spread a little on hover
+  const deck = ['z-20 translate-x-[10px] rotate-[7deg] scale-[0.92] group-hover/play:translate-x-[14px] group-hover/play:rotate-[10deg]', 'z-10 translate-x-[19px] rotate-[14deg] scale-[0.84] group-hover/play:translate-x-[26px] group-hover/play:rotate-[19deg]'];
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Play ${label}: ${count} stories${fresh && fresh < count ? `, ${fresh} new` : ''}`}
+      // The primary one spans its row; the others sit three to a row, deck above name
+      className={`group/play flex rounded-2xl text-left transition-colors ${primary ? 'col-span-full items-center gap-3 pl-3 pr-4 py-2.5 bg-signal text-ink hover:brightness-110' : 'flex-col items-start gap-2 p-2.5 sm:p-3 bg-ink/60 backdrop-blur border border-line-strong text-paper hover:bg-ink-hover'}`}
+    >
+      <span className="relative w-[62px] h-14 shrink-0" aria-hidden>
+        {cards.slice(1).map((c, n) => (
+          <span key={c.url} className={`absolute left-0 top-0 w-10 h-14 origin-bottom-left rounded-lg overflow-hidden ring-1 ring-ink bg-ink-card shadow-md transition-transform duration-300 ${deck[n]}`}>
+            <Cover item={c} small plain />
+            <span className="absolute inset-0 bg-ink/30" />
+          </span>
+        ))}
+        {cards[0] && (
+          <span className="absolute left-0 top-0 z-30 w-10 h-14 rounded-lg overflow-hidden ring-2 ring-ink bg-ink-card shadow-lg transition-transform duration-300 group-hover/play:scale-105">
+            <Cover item={cards[0]} small plain />
+            <span className="absolute inset-0 bg-ink/30 flex items-center justify-center">
+              <span className={`flex w-6 h-6 items-center justify-center rounded-full ${primary ? 'bg-signal text-ink' : 'bg-paper text-ink'}`}>
+                <Icon name="play" className="w-3 h-3 ml-px" filled />
+              </span>
+            </span>
+          </span>
+        )}
+      </span>
+      <span className="min-w-0 flex flex-col">
+        <span className="text-[13px] sm:text-[14px] font-bold leading-tight">Play {label}</span>
+        <span className={`mt-1 font-hud text-[10.5px] sm:text-[11px] leading-none whitespace-nowrap ${primary ? 'text-ink/70' : 'text-paper-faint'}`}>
+          {count} {count === 1 ? 'story' : 'stories'}
+          {fresh > 0 && fresh < count && <span className={primary ? 'text-ink' : 'text-signal'}> · {fresh} new</span>}
+          {fresh === 0 && ' · ✓'}
+        </span>
+      </span>
+    </button>
+  );
+}
+
 /* ---------- Reader state: likes, saves, seen and followed tags live in this browser ---------- */
 
 const EMPTY: string[] = [];
@@ -370,12 +416,12 @@ export function Actions({ item, week, counts, bump, tone = 'card', className = '
 
 /* ---------- Frame ---------- */
 
-/** The top bar: the Orbit mark, the three views, and on a week the arrows and the week picker. */
+/** The top bar: the Orbit mark, the views, and on a week the arrows and the week picker. */
 export function TopBar({ current, week, weeks = [] }: { current: 'week' | 'archive' | 'dashboard'; week?: string; weeks?: WeekMeta[] }) {
   const [picking, setPicking] = useState(false);
   const tabs = [
     { id: 'week', label: 'This week', href: '/' },
-    { id: 'dashboard', label: 'Dashboard', href: '/dashboard/' },
+    // Dashboard (/dashboard/) is hidden from the bar until it works per visitor; the page is still there by its address
     { id: 'archive', label: 'Archive', href: '/archive/' },
   ] as const;
   const at = weeks.findIndex((w) => w.week === week);
@@ -389,7 +435,7 @@ export function TopBar({ current, week, weeks = [] }: { current: 'week' | 'archi
           <span className="font-poster uppercase text-xl tracking-wide leading-none">Orbit</span>
           <span className="hidden xl:inline font-hud text-[10px] uppercase tracking-[0.14em] text-paper-faint mt-0.5">Roundup</span>
         </Link>
-        <nav className="flex items-stretch ml-1 sm:ml-4 min-w-0 overflow-x-auto no-scrollbar" aria-label="Views">
+        <nav className="hidden sm:flex items-stretch ml-4 min-w-0 overflow-x-auto no-scrollbar" aria-label="Views">
           {tabs.map((t) => (
             <Link key={t.id} href={t.href} className="v2-tab" aria-current={current === t.id ? 'page' : undefined}>
               {t.label}
